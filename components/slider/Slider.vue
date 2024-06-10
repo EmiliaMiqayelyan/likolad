@@ -10,26 +10,26 @@
           <img :src="image.src" alt="Chocolate Image" />
         </div>
         <svg viewBox="0 0 300 300">
-          <circle id="holder" class="st0" cx="151" cy="151" r="150"/>
+          <circle id="holder" class="st0" cx="151" cy="151" r="150" />
         </svg>
       </div>
     </div>
-    <div class="container" style="text-align: center;">
-      <button @click="prevSlide">Prev</button>
-      <button @click="nextSlide">Next</button>
-    </div>
+<!--    <div class="nav-buttons">-->
+<!--      <button class="prev" @click="prevSlide">Prev</button>-->
+<!--      <button class="next" @click="nextSlide">Next</button>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import image1 from '../assets/likolad-img1.svg';
-import image2 from '../assets/likolad-img2.svg';
-import image3 from '../assets/likolad-img3.svg';
-import image4 from '../assets/likolad-img1.svg';
-import image5 from '../assets/likolad-img2.svg';
-import image6 from '../assets/likolad-img3.svg';
+import image1 from 'assets/likolad-img1.svg';
+import image2 from 'assets/likolad-img2.svg';
+import image3 from 'assets/likolad-img3.svg';
+import image4 from 'assets/likolad-img1.svg';
+import image5 from 'assets/likolad-img2.svg';
+import image6 from 'assets/likolad-img3.svg';
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -155,7 +155,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 * {
   margin: 0;
   padding: 0;
@@ -169,14 +169,16 @@ body {
 
 .container {
   position: relative;
-  right: 0;
   overflow: hidden;
+  height: 100vh;
 }
 
 .wrapper {
   position: relative;
   width: 500px;
-  left: 78%;
+  left: 84%;
+  top: 0;
+  transform: translateX(-50%);
 }
 
 .item {
@@ -213,5 +215,30 @@ svg {
   stroke: #DBA957;
   stroke-width: 1;
   stroke-miterlimit: 1;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.nav-buttons button {
+  background-color: #DBA957;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #b88a3e;
 }
 </style>

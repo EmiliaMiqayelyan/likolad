@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Slider />
+    <Header />
+    <HomePage />
   </div>
 </template>
 
@@ -11,4 +12,6 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 <style>
 @import url("primevue/resources/themes/aura-light-green/theme.css");
 @import 'primeflex/primeflex.scss';
+@import "primeicons/primeicons.css";
+@import "global.css";
 </style>
