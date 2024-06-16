@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <!-- Slider container -->
+  <div class="pt-8">
     <div class="container relative">
       <div>
         <img class="slider-logo" src="@/assets/slider-logo.svg" alt=""/>
@@ -11,25 +10,22 @@
             :key="index"
             :class="['item', { active: index === currentIndex }]"
         >
-          <img :src="image.src" alt="Chocolate Image"/>
+          <img :src="image.src" class="cursor-pointer" alt="Chocolate Image"/>
           <hr>
         </div>
 
-        <!-- MotionPath SVG or any other elements -->
         <svg viewBox="0 0 300 300">
           <circle id="holder" class="st0" cx="151" cy="151" r="150"/>
         </svg>
       </div>
     </div>
 
-    <!-- Navigation buttons -->
     <div class="nav-buttons">
-      <img src="@/assets/icons/arrow-top.svg" @click="nextSlide" class="arrow-top" alt=""/>
-      <img src="@/assets/icons/arrow-bottom.svg" @click="prevSlide" class="arrow-bottom" alt=""/>
+      <img src="@/assets/icons/arrow-top.svg" @click="nextSlide" class="arrow-top cursor-pointer" alt=""/>
+      <img src="@/assets/icons/arrow-bottom.svg" @click="prevSlide" class="arrow-bottom cursor-pointer" alt=""/>
     </div>
 
-    <!-- Small images section -->
-    <div class="w-24rem flex flex-wrap justify-content-between row-gap-4 mt-5 absolute small-images">
+    <div class="small-images w-24rem flex flex-wrap justify-content-between row-gap-4 mt-5 absolute cursor-pointer">
       <div v-for="(image, index) in smallImages" :key="'small-' + index">
         <img
             :src="image.src"

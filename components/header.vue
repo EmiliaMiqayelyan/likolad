@@ -1,11 +1,11 @@
 <template>
-  <div class="header py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between">
-    <a href="#"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
+  <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-1">
+    <a href="/"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
 
     <div class="nav-items flex gap-7">
-      <NuxtLink to="/our-chocolates" class="no-underline">Our Chocolates</NuxtLink>
-      <a href="" class="no-underline">History</a>
-      <a href="" class="no-underline">Online store</a>
+      <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
+      <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
+      <NuxtLink to="/store" class="no-underline" exact-active-class="active">Online store</NuxtLink>
     </div>
 
     <div class="flex gap-6 align-items-center">
@@ -17,22 +17,20 @@
       </InputGroup>
 
       <div class="flex gap-4">
-        <img src="@/assets/icons/account.svg" width="24" height="24" alt=""/>
-        <img src="@/assets/icons/cart.svg" width="24" height="24" alt=""/>
+        <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt="" class="cursor-pointer"/></NuxtLink>
+        <img src="@/assets/icons/cart.svg" width="24" height="24" alt="" class="cursor-pointer"/>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-
 </script>
 
 <style>
 .header {
   background-color: var(--black);
-  border-color: #DBA957;
+  border-color: var(--dark-orange);
   padding-left: 14%;
   padding-right: 14%;
 }
@@ -40,6 +38,10 @@
 .nav-items a {
   color: var(--white);
   font-size: 15px;
+}
+
+.nav-items a:focus, .nav-items a.active {
+  color: var(--dark-orange);
 }
 
 .p-inputgroup input:last-child {

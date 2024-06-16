@@ -3,13 +3,18 @@
     <div class="flex justify-content-between">
       <div class="content relative flex flex-column">
         <div class="flex flex-column row-gap-5">
-          <p class="text-5xl font-medium">Welcome to the World of Likolad</p>
+          <div class="flex gap-3">
+            <span class="text-5xl font-medium">Welcome to the</span>
+            <span class="about-text text-5xl font-medium">World of Likolad</span>
+          </div>
           <p class="text-base font-normal" style="width: 48rem">
             Experience Likolad: the ultimate chocolate delight brought to you by our passionate Master Chocolatier.
             Since 2021, our exquisite creations have provided moments of bliss for you to savour.
           </p>
 
-          <button class="space-btn w-15rem border-none border-round-md h-3rem font-bold text-base">My space</button>
+          <button class="space-btn w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">My
+            space
+          </button>
           <p class="mt-6 font-medium">
             The finer details make all the difference in chocolate making. The same
             is true in life։ small gestures of kindness make a big difference.
@@ -17,13 +22,15 @@
         </div>
 
         <div>
-          <button class="chocolate-btn border-1 border-round-lg w-18rem font-medium mt-5 text-base absolute">Create my
+          <button
+              class="chocolate-btn border-1 border-round-lg w-18rem font-medium mt-5 text-base absolute cursor-pointer">
+            Create my
             chocolate
           </button>
         </div>
       </div>
 
-      <LazySlidersSlider class="w-full" />
+      <LazySlidersSlider class="w-full"/>
     </div>
 
     <div class="discover">
@@ -77,8 +84,10 @@
     </div>
 
     <div class="about-us py-8 flex justify-content-center flex-column align-items-center">
-      <h1 class="text-5xl font-medium">What we do</h1>
-
+      <div class="flex gap-3">
+        <span class="text-5xl font-medium">What</span>
+        <span class="about-text text-5xl font-medium">we do</span>
+      </div>
       <div class="mt-6 flex justify-content-between w-full">
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">Title</h2>
@@ -103,10 +112,13 @@
       </div>
     </div>
 
-    <LazySlidersTestimonialSlider />
+    <LazySlidersTestimonialSlider/>
 
     <div class="collections py-8 flex justify-content-center flex-column align-items-center">
-      <h1 class="text-5xl font-medium">Our Chocolate collections</h1>
+      <div class="flex gap-3">
+        <span class="about-text text-5xl font-medium">Our Chocolate</span>
+        <span class="text-5xl font-medium">collections</span>
+      </div>
 
       <div class="flex justify-content-between w-full mt-6">
         <img src="@/assets/collections1.svg" alt=""/>
@@ -132,7 +144,7 @@
 
 .content {
   padding-left: 14%;
-  padding-top: 6%;
+  padding-top: 12%;
 }
 
 .space-btn {
@@ -145,7 +157,7 @@
   background: none;
   color: var(--dark-orange);
   height: 40px;
-  bottom: 3%;
+  bottom: 0;
 }
 
 .about-text {

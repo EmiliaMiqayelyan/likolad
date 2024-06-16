@@ -3,9 +3,9 @@
     <img src="@/assets/footer-logo.svg" alt="" />
 
     <div class="flex gap-6">
-      <img src="@/assets/icons/facebook.svg" alt="" />
-      <img src="@/assets/icons/instagram.svg" alt="" />
-      <img src="@/assets/icons/linkedin.svg" alt="" />
+      <a href="https://www.facebook.com/likolad/" target="_blank"><img src="@/assets/icons/facebook.svg" alt="" /></a>
+      <a href="https://www.instagram.com/likolad" target="_blank"><img src="@/assets/icons/instagram.svg" alt="" /></a>
+      <a href="https://www.linkedin.com/company/likolad/" target="_blank"><img src="@/assets/icons/linkedin.svg" alt="" /></a>
     </div>
 
     <div class="flex gap-6">
@@ -16,7 +16,7 @@
 
       <div class="flex align-items-center gap-2">
         <img src="@/assets/icons/email.svg" alt="" />
-        <span class="info-text text-sm">likoladllc@gmail.com</span>
+        <span class="info-text text-sm">info@likolad.am</span>
       </div>
 
       <div class="flex align-items-center gap-2">
