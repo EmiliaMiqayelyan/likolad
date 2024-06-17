@@ -5,7 +5,6 @@
     <div class="nav-items flex gap-7">
       <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
       <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
-      <NuxtLink to="/store" class="no-underline" exact-active-class="active">Online store</NuxtLink>
     </div>
 
     <div class="flex gap-6 align-items-center">

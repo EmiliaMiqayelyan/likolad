@@ -233,7 +233,7 @@ body {
 
 .small-images {
   left: 14%;
-  top: 15%;
+  top: 555px;
 }
 
 .container {

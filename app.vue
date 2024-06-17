@@ -2,7 +2,7 @@
   <div>
     <div>
       <NuxtLayout>
-        <NuxtPage />
+        <NuxtPage/>
       </NuxtLayout>
     </div>
   </div>
@@ -19,7 +19,7 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 @import "primeicons/primeicons.css";
 @import "global.css";
 
-body{
+body {
   background-color: var(--black);
   color: var(--white);
   font-family: Montserrat, sans-serif;
@@ -32,15 +32,18 @@ body{
 
 .montserrat-regular {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 400; /* Regular weight */
+  font-weight: 400;
   font-style: normal;
 }
 
-/* Add more classes as needed */
 .montserrat-bold {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 700; /* Bold weight */
+  font-weight: 700;
   font-style: normal;
+}
+
+button {
+  cursor: pointer;
 }
 
 </style>

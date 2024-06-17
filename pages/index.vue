@@ -12,22 +12,23 @@
             Since 2021, our exquisite creations have provided moments of bliss for you to savour.
           </p>
 
-          <button class="space-btn w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">My
-            space
-          </button>
+          <NuxtLink to="/account">
+            <button class="space-btn w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
+              My space
+            </button>
+          </NuxtLink>
           <p class="mt-6 font-medium">
             The finer details make all the difference in chocolate making. The same
             is true in life։ small gestures of kindness make a big difference.
           </p>
         </div>
 
-        <div>
+        <NuxtLink to="/my-chocolates">
           <button
               class="chocolate-btn border-1 border-round-lg w-18rem font-medium mt-5 text-base absolute cursor-pointer">
-            Create my
-            chocolate
+            Create my chocolate
           </button>
-        </div>
+        </NuxtLink>
       </div>
 
       <LazySlidersSlider class="w-full"/>
