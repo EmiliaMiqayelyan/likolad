@@ -2,7 +2,7 @@
   <div class="my-chocolates">
     <div class="flex flex-column justify-content-center w-full align-items-center">
       <p class="text-xl">My chocolate</p>
-      <p class="text-center text-sm mb-6" style="width: 33rem">Lorem Ipsum is simply dummy text of the printing and
+      <p class="text-center text-sm mb-6 mt-4" style="width: 33rem">Lorem Ipsum is simply dummy text of the printing and
         typesetting industry.</p>
     </div>
 
@@ -12,8 +12,8 @@
         <p class="create-choc-text">create your chocolate</p>
       </div>
 
-      <div class="flex flex-column row-gap-3">
-        <div>
+      <div class="flex flex-column row-gap-4">
+        <div class="flex flex-column">
           <p class="choc-ingredients">1. Chocolate type</p>
 
           <div class="flex gap-4">
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="flex flex-column">
           <p class="choc-ingredients">2. Chocolate filling</p>
 
           <div class="flex gap-4">
@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="flex flex-column">
           <p class="choc-ingredients">3. Gram size</p>
 
           <div class="flex gap-4">
@@ -66,7 +66,7 @@
             <button class="filling-btn border-1 border-round-lg px-4 py-2 text-sm">600g</button>
           </div>
 
-          <div>
+          <div class="flex flex-column">
             <p class="text-xs">Other</p>
 
             <div class="flex gap-4">
@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="flex flex-column">
           <p class="choc-ingredients">4. Choose packaging</p>
 
           <div>
@@ -110,18 +110,30 @@
           </div>
         </div>
 
-        <div class="add-message">
+        <div class="add-message flex flex-column row-gap-3">
           <p>Add a Massage</p>
 
-          <div class="add-message-text border-1 border-round-lg p-3">
-            <p class="m-0 text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-              scrambled it to make a type specimen book. It has survived not only five centuries,
-            </p>
+          <div class="message-text-section flex flex-column row-gap-2">
+            <div class="add-message-text border-1 border-round-lg p-3">
+              <p class="m-0 text-sm">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book. It has survived not only five centuries,
+              </p>
+            </div>
+            <p class="text-right text-xs">0/150</p>
           </div>
+        </div>
 
-          <p>0/150</p>
+        <div class="w-full flex flex-column justify-content-end align-items-end">
+          <div class="flex flex-column row-gap-3 w-15rem">
+            <p class="text-center">Order’s price: 100$</p>
+            <NuxtLink to="/my-card">
+              <button class="add-to-card border-none border-round-lg py-3 text-base font-medium w-full">
+                Add to card
+              </button>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>
@@ -167,8 +179,31 @@ const items = ref([
   background-color: var(--dark-orange);
 }
 
-.add-message-text{
-  width: 39rem;
+.add-message-text {
   border-color: var(--dark-orange);
+}
+
+.message-text-section {
+  width: 39rem;
+}
+
+.p-tabmenu .p-tabmenu-nav {
+  display: flex;
+  width: 17%;
+  gap: 17px;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem {
+  width: 60%;
+  margin-left: 20px;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+  border: 0;
+}
+
+.add-to-card {
+  background-color: var(--orange);
+  color: var(--brown);
 }
 </style>
