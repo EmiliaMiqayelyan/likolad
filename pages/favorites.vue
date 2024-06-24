@@ -1,6 +1,6 @@
 <template>
   <div class="my-card">
-    <p class="mb-3">My card</p>
+    <p class="mb-3">Favorites</p>
 
     <div class="p-6 border-1 border-white border-round-lg">
       <div class="flex flex-column row-gap-4">
@@ -8,7 +8,10 @@
           <img src="@/assets/card-product.svg" alt=""/>
 
           <div class="w-full flex flex-column row-gap-2">
-            <p>Royalad</p>
+            <div class="flex justify-content-between align-items-center">
+              <p>Royalad</p>
+              <img src="@/assets/icons/cart.svg" alt="" />
+            </div>
             <p class="product-desc text-sm">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industry's standard dummy text ever since the 1500s.
@@ -34,7 +37,10 @@
           <img src="@/assets/card-product.svg" alt=""/>
 
           <div class="w-full flex flex-column row-gap-2">
-            <p>Royalad</p>
+            <div class="flex justify-content-between align-items-center">
+              <p>Royalad</p>
+              <img src="@/assets/icons/cart.svg" alt="" />
+            </div>
             <p class="product-desc text-sm">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industry's standard dummy text ever since the 1500s.
@@ -75,7 +81,7 @@
 
           <NuxtLink to="/checkout">
             <button class="add-to-card border-none border-round-lg py-3 text-base font-medium w-full">
-              Checkout
+              Checkout all
             </button>
           </NuxtLink>
         </div>
@@ -114,5 +120,10 @@
 .clear-all-btn {
   background: none;
   color: var(--white);
+}
+
+.add-to-card {
+  background-color: var(--orange);
+  color: var(--brown);
 }
 </style>

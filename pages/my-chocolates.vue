@@ -7,13 +7,13 @@
     </div>
 
     <div class="create-chocolates border-1 border-round-lg p-5">
-      <div class="flex gap-2 text-sm">
+      <div class="flex gap-2 text-sm mb-2">
         <p>Please select the ingredients below to</p>
         <p class="create-choc-text">create your chocolate</p>
       </div>
 
       <div class="flex flex-column row-gap-4">
-        <div class="flex flex-column">
+        <div class="flex flex-column gap-3">
           <p class="choc-ingredients">1. Chocolate type</p>
 
           <div class="flex gap-4">
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div class="flex flex-column">
+        <div class="flex flex-column gap-3">
           <p class="choc-ingredients">2. Chocolate filling</p>
 
           <div class="flex gap-4">
@@ -56,7 +56,7 @@
           </div>
         </div>
 
-        <div class="flex flex-column">
+        <div class="flex flex-column gap-3">
           <p class="choc-ingredients">3. Gram size</p>
 
           <div class="flex gap-4">
@@ -66,7 +66,7 @@
             <button class="filling-btn border-1 border-round-lg px-4 py-2 text-sm">600g</button>
           </div>
 
-          <div class="flex flex-column">
+          <div class="flex flex-column gap-3">
             <p class="text-xs">Other</p>
 
             <div class="flex gap-4">
@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <div class="flex flex-column">
+        <div class="flex flex-column gap-3">
           <p class="choc-ingredients">4. Choose packaging</p>
 
           <div>
@@ -205,5 +205,9 @@ const items = ref([
 .add-to-card {
   background-color: var(--orange);
   color: var(--brown);
+}
+
+.p-tabmenu-nav .p-menuitem-text{
+  margin-bottom: 10px;
 }
 </style>

@@ -4,9 +4,11 @@
       <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
         <p class="text-center w-30rem mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting
           industry.</p>
-        <button class="space-btn w-19rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
-          Create my chocolate
-        </button>
+        <NuxtLink to="/my-chocolates">
+          <button class="space-btn w-19rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
+            Create my chocolate
+          </button>
+        </NuxtLink>
       </div>
 
       <div class="menu w-full flex justify-content-between pt-6">

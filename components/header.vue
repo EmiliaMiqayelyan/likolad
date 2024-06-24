@@ -16,6 +16,7 @@
       </InputGroup>
 
       <div class="flex gap-4">
+        <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt="" class="cursor-pointer"/></NuxtLink>
         <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt="" class="cursor-pointer"/></NuxtLink>
         <img src="@/assets/icons/cart.svg" width="24" height="24" alt="" class="cursor-pointer"/>
       </div>
@@ -26,7 +27,7 @@
 <script>
 </script>
 
-<style>
+<style scoped>
 .header {
   background-color: var(--black);
   border-color: var(--dark-orange);
