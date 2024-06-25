@@ -178,6 +178,13 @@ select {
 }
 
 :deep(.p-dialog .p-dialog-content:last-of-type) {
-  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+:deep(.p-dialog) {
+  width: 29rem !important;
+  height: 18rem;
 }
 </style>

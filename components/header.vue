@@ -16,15 +16,44 @@
       </InputGroup>
 
       <div class="flex gap-4">
-        <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt="" class="cursor-pointer"/></NuxtLink>
-        <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt="" class="cursor-pointer"/></NuxtLink>
-        <img src="@/assets/icons/cart.svg" width="24" height="24" alt="" class="cursor-pointer"/>
+        <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt=""
+                                       class="cursor-pointer"/></NuxtLink>
+        <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt=""
+                                     class="cursor-pointer"/></NuxtLink>
+        <img @click="openPosition('top')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
+             class="cursor-pointer"/>
       </div>
+
+      <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
+              :modal="true" :draggable="false">
+        <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
+        <div class="flex items-center gap-4 mb-4">
+          <label for="username" class="font-semibold w-24">Username</label>
+          <InputText id="username" class="flex-auto" autocomplete="off"/>
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+          <label for="email" class="font-semibold w-24">Email</label>
+          <InputText id="email" class="flex-auto" autocomplete="off"/>
+        </div>
+        <div class="flex justify-end gap-2">
+          <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
+          <Button type="button" label="Save" @click="visible = false"></Button>
+        </div>
+      </Dialog>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import {ref} from "vue";
+
+const position = ref('center');
+const visible = ref(false);
+
+const openPosition = (pos) => {
+  position.value = pos;
+  visible.value = true;
+}
 </script>
 
 <style scoped>
@@ -76,5 +105,9 @@
 .p-inputgroup input:last-child {
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+:deep(.p-component-overlay){
+  background-color: transparent !important;
 }
 </style>
