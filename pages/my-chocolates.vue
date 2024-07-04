@@ -2,21 +2,20 @@
   <div class="my-chocolates">
     <div class="flex flex-column justify-content-center w-full align-items-center">
       <p class="text-xl">My chocolate</p>
-      <p class="text-center text-sm mb-6 mt-4" style="width: 33rem">Lorem Ipsum is simply dummy text of the printing and
+      <p class="chocolates-desc text-center text-sm mb-6 mt-4">Lorem Ipsum is simply dummy text of the printing and
         typesetting industry.</p>
     </div>
 
-    <div class="create-chocolates border-1 border-round-lg p-5">
+    <div class="create-chocolates border-1 border-round-lg sm:p-5 p-3">
       <div class="flex gap-2 text-sm mb-2">
-        <p>Please select the ingredients below to</p>
-        <p class="create-choc-text">create your chocolate</p>
+        <p>Please select the ingredients below to <span class="create-choc-text">create your chocolate</span></p>
       </div>
 
       <div class="flex flex-column row-gap-4">
         <div class="flex flex-column gap-3">
           <p class="choc-ingredients">1. Chocolate type</p>
 
-          <div class="flex gap-4">
+          <div class="flex gap-4 flex-wrap">
             <div class="choc-type-section border-1 border-round-lg w-max p-2">
               <img src="@/assets/choc-type/choc-type1.svg" alt=""/>
               <p class="m-0 text-center">Dark</p>
@@ -47,7 +46,7 @@
         <div class="flex flex-column gap-3">
           <p class="choc-ingredients">2. Chocolate filling</p>
 
-          <div class="flex gap-4">
+          <div class="flex gap-4 flex-wrap">
             <button class="filling-btn border-1 border-round-lg px-5 py-2 text-sm">Filling</button>
             <button class="filling-btn border-1 border-round-lg px-5 py-2 text-sm">Filling</button>
             <button class="filling-btn border-1 border-round-lg px-5 py-2 text-sm">Filling</button>
@@ -59,7 +58,7 @@
         <div class="flex flex-column gap-3">
           <p class="choc-ingredients">3. Gram size</p>
 
-          <div class="flex gap-4">
+          <div class="flex gap-4 flex-wrap">
             <button class="filling-btn border-1 border-round-lg px-4 py-2 text-sm">100g</button>
             <button class="filling-btn border-1 border-round-lg px-4 py-2 text-sm">200g</button>
             <button class="filling-btn border-1 border-round-lg px-4 py-2 text-sm">400g</button>
@@ -81,7 +80,7 @@
           <div>
             <TabMenu v-model:activeIndex="active" :model="items"/>
 
-            <div class="flex gap-4 mt-5">
+            <div class="flex gap-4 mt-5 flex-wrap">
               <div class="choc-type-section border-1 border-round-lg w-max p-2">
                 <img src="@/assets/choc-type/choc-type1.svg" alt=""/>
                 <p class="m-0 text-center">20*20cm</p>
@@ -153,7 +152,11 @@ const items = ref([
 
 <style>
 .my-chocolates {
-  padding: 8% 14% 5%;
+  padding: 8rem 14% 5%;
+}
+
+.chocolates-desc {
+  width: 33rem
 }
 
 .create-chocolates, .choc-type-section, .filling-btn {
@@ -207,7 +210,25 @@ const items = ref([
   color: var(--brown);
 }
 
-.p-tabmenu-nav .p-menuitem-text{
+.p-tabmenu-nav .p-menuitem-text {
   margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 1320px) {
+  .my-chocolates {
+    padding: 7rem 6% 5%;
+  }
+}
+
+@media only screen and (max-width: 840px) {
+  .message-text-section {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 555px) {
+  .chocolates-desc {
+    width: 100%;
+  }
 }
 </style>

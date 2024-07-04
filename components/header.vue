@@ -2,12 +2,12 @@
   <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-1">
     <a href="/"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
 
-    <div class="nav-items flex gap-7">
+    <div class="nav-items  gap-7 xl:flex hidden">
       <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
       <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
     </div>
 
-    <div class="flex gap-6 align-items-center">
+    <div class="xl:flex hidden gap-6 align-items-center">
       <InputGroup>
         <InputGroupAddon>
           <i class="pi pi-search text-lg font-semibold"></i>
@@ -15,7 +15,7 @@
         <InputText placeholder="Search"/>
       </InputGroup>
 
-      <div class="flex gap-4">
+      <div class="gap-4 xl:flex hidden">
         <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt=""
                                        class="cursor-pointer"/></NuxtLink>
         <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt=""
@@ -41,6 +41,16 @@
         </div>
       </Dialog>
     </div>
+
+    <div class="block xl:hidden">
+      <i class="pi pi-align-right text-xl menu-hamburger" @click="visibleRight = true"></i>
+
+      <Sidebar v-model:visible="visibleRight" header="Right Sidebar" position="right">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat.</p>
+      </Sidebar>
+    </div>
   </div>
 </template>
 
@@ -49,6 +59,7 @@ import {ref} from "vue";
 
 const position = ref('center');
 const visible = ref(false);
+const visibleRight = ref(false);
 
 const openPosition = (pos) => {
   position.value = pos;
@@ -69,7 +80,7 @@ const openPosition = (pos) => {
   font-size: 15px;
 }
 
-.nav-items a:focus, .nav-items a.active {
+.nav-items a:focus, .nav-items a.active, .menu-hamburger {
   color: var(--dark-orange);
 }
 
@@ -107,7 +118,14 @@ const openPosition = (pos) => {
   border-bottom-right-radius: 10px;
 }
 
-:deep(.p-component-overlay){
+:deep(.p-component-overlay) {
   background-color: transparent !important;
+}
+
+@media only screen and (max-width: 1320px) {
+  .header {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
 }
 </style>

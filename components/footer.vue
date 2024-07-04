@@ -8,7 +8,7 @@
       <a href="https://www.linkedin.com/company/likolad/" target="_blank"><img src="@/assets/icons/linkedin.svg" alt="" /></a>
     </div>
 
-    <div class="flex gap-6">
+    <div class="flex gap-6 flex-wrap justify-content-center row-gap-1">
       <div class="flex align-items-center gap-2">
         <img src="@/assets/icons/phone.svg" alt="" />
         <span class="info-text text-sm">077 977 445</span>
@@ -39,5 +39,11 @@
 
 .info-text{
   color: var(--dark-orange);
+}
+
+@media only screen and (max-width: 1320px) {
+  .footer {
+    padding: 3% 10%;
+  }
 }
 </style>

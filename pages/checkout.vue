@@ -14,10 +14,10 @@
         <p class="text-base">To complete the order we will ask you to fill your contacts & delivery address</p>
       </div>
 
-      <div class="mt-4 flex justify-content-between">
-        <div>
+      <div class="mt-4 flex justify-content-between flex-wrap row-gap-4">
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Phone number</p>
-          <InputGroup class="w-13rem">
+          <InputGroup class="sm:w-13rem w-full">
             <InputGroupAddon>
               +374
             </InputGroupAddon>
@@ -25,9 +25,9 @@
           </InputGroup>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Phone number 2</p>
-          <InputGroup class="w-13rem">
+          <InputGroup class="sm:w-13rem w-full">
             <InputGroupAddon>
               +374
             </InputGroupAddon>
@@ -35,44 +35,44 @@
           </InputGroup>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Choose your region</p>
           <Select v-model="selectedCity" :options="cities" optionLabel="name"
-                  class="w-13rem border-white"/>
+                  class="sm:w-13rem w-full border-white"/>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Type your address</p>
-          <InputText class="w-13rem" type="text" v-model="value" value="Hrachya Nersisyan street"/>
+          <InputText class="sm:w-13rem w-full" type="text" v-model="value" value="Hrachya Nersisyan street"/>
         </div>
       </div>
 
-      <div class="mt-4 flex justify-content-between">
-        <div>
+      <div class="mt-4 flex justify-content-between flex-wrap row-gap-4">
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Entry</p>
-          <InputText class="w-13rem" type="text" v-model="value" value="1"/>
+          <InputText class="sm:w-13rem w-full" type="text" v-model="value" value="1"/>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Apartment number</p>
-          <InputText class="w-13rem" type="text" v-model="value" value="1"/>
+          <InputText class="sm:w-13rem w-full" type="text" v-model="value" value="1"/>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Floor</p>
-          <InputText class="w-13rem" type="text" v-model="value" value="1"/>
+          <InputText class="sm:w-13rem w-full" type="text" v-model="value" value="1"/>
         </div>
 
-        <div>
+        <div class="w-full sm:w-fit">
           <p class="text-xs mb-2">Entry code</p>
-          <InputText class="w-13rem" type="text" v-model="value" value="1"/>
+          <InputText class="sm:w-13rem w-full" type="text" v-model="value" value="1"/>
         </div>
       </div>
 
       <div class="mt-6">
         <p class="text-sm">Please select the time of your delivery</p>
 
-        <div class="delivery mt-4 flex gap-4">
+        <div class="delivery mt-4 flex gap-4 flex-wrap row-gap-5">
           <button class="p-3 border-round-lg border-none text-white border-1">As soon as possible</button>
           <button class="p-3 border-round-lg border-none text-white border-1">Within 1 day</button>
           <button class="p-3 border-round-lg border-none text-white border-1">Within 2 days</button>
@@ -83,10 +83,10 @@
         </div>
       </div>
 
-      <div class="w-full flex flex-column justify-content-end align-items-end">
+      <div class="w-full flex flex-column sm:justify-content-end justify-content-center sm:align-items-end align-items-center mt-6">
         <div class="flex flex-column row-gap-2 w-18rem">
 
-          <div class="flex gap-3">
+          <div class="flex gap-3 flex-wrap">
             <p>Delivery : 100$</p>
             <p>Order’s price: 100$</p>
           </div>
@@ -101,7 +101,7 @@
 
           <div>
             <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }">
-              <img src="@/assets/modal-logo.svg" alt=""/>
+              <img width="auto" height="auto" style="width: max-content" src="@/assets/modal-logo.svg" alt=""/>
               <p>Your order has been successfully placed. Thank you!</p>
               <p>We will contact you if necessary.</p>
             </Dialog>
@@ -113,8 +113,6 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
-
 const selectedCity = ref();
 const cities = ref([
   {name: 'New York', code: 'NY'},
@@ -129,7 +127,7 @@ const visible = ref(false);
 
 <style scoped>
 .checkout {
-  padding: 9% 14% 5%;
+  padding: 11rem 14% 5%;
 }
 
 .checkout-section {
@@ -173,11 +171,7 @@ select {
   background-color: var(--dark-orange);
 }
 
-:deep(.p-dialog .p-dialog-header-icons) {
-  display: none !important;
-}
-
-:deep(.p-dialog .p-dialog-content:last-of-type) {
+:deep(.p-dialog .p-dialog-content) {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -186,5 +180,15 @@ select {
 :deep(.p-dialog) {
   width: 29rem !important;
   height: 18rem;
+}
+
+.p-dialog-mask .p-component-overlay{
+  justify-content: flex-end !important;
+}
+
+@media only screen and (max-width: 1320px) {
+  .checkout {
+    padding: 9rem 6% 5%;
+  }
 }
 </style>

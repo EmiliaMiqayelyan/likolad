@@ -2,10 +2,10 @@
   <div class="pt-8 pb-8">
     <div class="chocolates">
       <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
-        <p class="text-center w-30rem mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting
+        <p class="text-center md:w-30rem w-full mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting
           industry.</p>
         <NuxtLink to="/my-chocolates">
-          <button class="space-btn w-19rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
+          <button class="space-btn sm:w-19rem w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
             Create my chocolate
           </button>
         </NuxtLink>
@@ -37,7 +37,7 @@
 
     <div class="chocolates-section">
       <div class="product border-round-xl">
-        <NuxtLink to="/productId"><img src="@/assets/chocolates.svg" alt=""/></NuxtLink>
+        <NuxtLink to="/productId"><img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/></NuxtLink>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -60,7 +60,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -83,7 +83,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -129,7 +129,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -152,7 +152,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -175,7 +175,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -198,7 +198,7 @@
       </div>
 
       <div class="product border-round-xl">
-        <img src="@/assets/chocolates.svg" alt=""/>
+        <img class="chocolates-images" src="@/assets/chocolates.svg" alt=""/>
 
         <div class="flex gap-1 mt-1 align-items-baseline">
           <i class="pi pi-star-fill rating"></i>
@@ -228,7 +228,6 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
 
 const items = ref([
   {
@@ -276,7 +275,7 @@ const items = ref([
 .chocolates-section {
   display: flex;
   flex-wrap: wrap;
-  gap: 11rem;
+  gap: 4rem;
   padding-top: 3%;
   row-gap: 5rem;
   padding-bottom: 3rem;
@@ -314,5 +313,22 @@ a {
   border-color: var(--dark-orange);
   background: none;
   color: var(--dark-orange);
+}
+
+@media only screen and (max-width: 1320px) {
+  .chocolates-section, .chocolates {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+}
+
+@media only screen and (max-width: 545px) {
+  .chocolates-section {
+    gap: 2rem;
+  }
+
+  .product, .chocolates-images {
+    width: 100%;
+  }
 }
 </style>
