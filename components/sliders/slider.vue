@@ -239,7 +239,7 @@ body {
 .container {
   position: relative;
   overflow: hidden;
-  height: 85vh;
+  height: 810px;
   width: 100%;
 }
 
@@ -300,7 +300,7 @@ svg {
 .arrow-bottom {
   position: absolute;
   top: 21%;
-  right: 36%;
+  right: 45rem;
 }
 
 .slider-logo {
@@ -314,5 +314,11 @@ svg {
   display: block;
   margin-top: 10px;
   border-color: var(--dark-orange);
+}
+
+@media only screen and (max-width: 1600px) {
+  .small-images{
+    left: 6%;
+  }
 }
 </style>

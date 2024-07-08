@@ -20,24 +20,66 @@
                                        class="cursor-pointer"/></NuxtLink>
         <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt=""
                                      class="cursor-pointer"/></NuxtLink>
-        <img @click="openPosition('top')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
+        <img @click="openPosition('right')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
              class="cursor-pointer"/>
       </div>
 
-      <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
-              :modal="true" :draggable="false">
-        <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
-        <div class="flex items-center gap-4 mb-4">
-          <label for="username" class="font-semibold w-24">Username</label>
-          <InputText id="username" class="flex-auto" autocomplete="off"/>
-        </div>
-        <div class="flex items-center gap-4 mb-8">
-          <label for="email" class="font-semibold w-24">Email</label>
-          <InputText id="email" class="flex-auto" autocomplete="off"/>
-        </div>
-        <div class="flex justify-end gap-2">
-          <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-          <Button type="button" label="Save" @click="visible = false"></Button>
+      <Dialog v-model:visible="visible" header="My card" :style="{ width: '17rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }" :position="position"
+              :modal="true" :draggable="false"
+              :pt="{ header: { class: 'flex  justify-content-space-between pb-4 font-normal'}}">
+        <div>
+          <div class="flex gap-3">
+            <img src="@/assets/my-card-modal-img.svg" alt=""/>
+            <div>
+              <p class="text-black font-medium my-1">Royalad</p>
+              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
+              <div class="flex gap-2">
+                <button class="count-btn border-none text-lg">-</button>
+                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
+                <button class="count-btn border-none text-lg">+</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="card-hr border-1" />
+
+          <div class="flex gap-3">
+            <img src="@/assets/my-card-modal-img.svg" alt=""/>
+            <div>
+              <p class="text-black font-medium my-1">Royalad</p>
+              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
+              <div class="flex gap-2">
+                <button class="count-btn border-none text-lg">-</button>
+                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
+                <button class="count-btn border-none text-lg">+</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="card-hr border-1" />
+
+          <div class="flex gap-3">
+            <img src="@/assets/my-card-modal-img.svg" alt=""/>
+            <div>
+              <p class="text-black font-medium my-1">Royalad</p>
+              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
+              <div class="flex gap-2">
+                <button class="count-btn border-none text-lg">-</button>
+                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
+                <button class="count-btn border-none text-lg">+</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="card-hr border-1" />
+
+          <p class="total_price text-center">Total price: 200$</p>
+
+          <NuxtLink to="/checkout">
+            <button class="add-to-card border-none border-round-lg py-3 text-base font-medium w-full">
+              Checkout
+            </button>
+          </NuxtLink>
         </div>
       </Dialog>
     </div>
@@ -55,9 +97,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
-
-const position = ref('center');
+const position = ref('right');
 const visible = ref(false);
 const visibleRight = ref(false);
 
@@ -80,7 +120,7 @@ const openPosition = (pos) => {
   font-size: 15px;
 }
 
-.nav-items a:focus, .nav-items a.active, .menu-hamburger {
+.nav-items a:focus, .nav-items a.active, .menu-hamburger, .total_price {
   color: var(--dark-orange);
 }
 
@@ -120,6 +160,14 @@ const openPosition = (pos) => {
 
 :deep(.p-component-overlay) {
   background-color: transparent !important;
+}
+
+.count-btn{
+  background: none;
+}
+
+.card-hr{
+  border-color: var(--dark-orange);
 }
 
 @media only screen and (max-width: 1320px) {

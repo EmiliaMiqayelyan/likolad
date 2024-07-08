@@ -93,17 +93,17 @@
 
           <p class="total-price mt-0 text-center">Total price: 200$</p>
 
-          <p class="total-price py-2">Payment is accepted only in cash</p>
+          <p class="total-price py-2 m-0">Payment is accepted only in cash</p>
 
           <button @click="visible = true" class="order border-none border-round-lg py-3 text-base font-medium w-full">
             Place order
           </button>
 
           <div>
-            <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }">
+            <Dialog v-model:visible="visible" modal :pt="{ header: { class: 'flex justify-content-end pb-0' }, content: { class: 'flex flex-column align-items-center justify-content-end' }}">
               <img width="auto" height="auto" style="width: max-content" src="@/assets/modal-logo.svg" alt=""/>
-              <p>Your order has been successfully placed. Thank you!</p>
-              <p>We will contact you if necessary.</p>
+              <p class="font-medium">Your order has been successfully placed. <span style="color: var(--dark-orange)">Thank you!</span></p>
+              <p class="font-normal mt-0">We will contact you if necessary.</p>
             </Dialog>
           </div>
         </div>
@@ -169,21 +169,6 @@ select {
 
 .order {
   background-color: var(--dark-orange);
-}
-
-:deep(.p-dialog .p-dialog-content) {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-}
-
-:deep(.p-dialog) {
-  width: 29rem !important;
-  height: 18rem;
-}
-
-.p-dialog-mask .p-component-overlay{
-  justify-content: flex-end !important;
 }
 
 @media only screen and (max-width: 1320px) {

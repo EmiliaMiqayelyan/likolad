@@ -2,38 +2,46 @@
   <div class="pt-8 pb-8">
     <div class="chocolates">
       <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
-        <p class="text-center md:w-30rem w-full mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and typesetting
+        <p class="text-center md:w-30rem w-full mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and
+          typesetting
           industry.</p>
         <NuxtLink to="/my-chocolates">
-          <button class="space-btn sm:w-19rem w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
+          <button
+              class="space-btn sm:w-19rem w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
             Create my chocolate
           </button>
         </NuxtLink>
       </div>
 
-      <div class="menu w-full flex justify-content-between pt-6">
-        <div class="card">
-          <Menubar :model="items">
-            <template #item="{ item, props, hasSubmenu }">
-              <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a class="menu-items flex gap-7" v-ripple :href="href" v-bind="props.action" @click="navigate">
-                  <span class="ml-2">{{ item.label }}</span>
-                </a>
-              </router-link>
+      <div class="w-full flex justify-content-space-between pt-6">
+        <div class="flex gap-6 w-full">
+          <p>All</p>
+          <p>Our brands</p>
+          <p>Chocolate types</p>
+          <p>Collections</p>
+        </div>
+        <img src="@/assets/icons/filter-icon.svg" alt=""/>
+      </div>
 
-              <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+      <hr class="discover-hr mt-2 mb-0"/>
+
+      <div class="card">
+        <Menubar :model="items" class="text-black">
+          <template #item="{ item, props, hasSubmenu }">
+            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+              <a class="menu-items flex gap-7" v-ripple :href="href" v-bind="props.action" @click="navigate">
                 <span class="ml-2">{{ item.label }}</span>
-                <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2"/>
               </a>
-            </template>
-          </Menubar>
-        </div>
-        <div>
-          <img src="@/assets/icons/filter-icon.svg" alt=""/>
-        </div>
+            </router-link>
+
+            <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+              <span class="ml-2">{{ item.label }}</span>
+              <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2"/>
+            </a>
+          </template>
+        </Menubar>
       </div>
     </div>
-    <hr class="discover-hr my-6"/>
 
     <div class="chocolates-section">
       <div class="product border-round-xl">
@@ -288,6 +296,18 @@ const items = ref([
 
 a {
   color: var(--white);
+}
+
+.card {
+  background-color: white;
+  color: black;
+  width: 100%;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link {
+  color: black !important;
 }
 
 .p-menubar {

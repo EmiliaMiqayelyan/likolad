@@ -5,17 +5,17 @@
     <div class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
         <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-7">
+            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
           <h2 class="font-bold">What our buyers say</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[currentTestimonial] }}</p>
         </div>
         <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-7">
+            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
           <h2 class="font-bold">What our buyers say</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 1) % testimonials.length] }}</p>
         </div>
         <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-7">
+            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
           <h2 class="font-bold">What our buyers say</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 2) % testimonials.length] }}</p>
         </div>
@@ -128,5 +128,11 @@ export default {
 
 .buyers-text{
   width: 40rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .buyers-text{
+    width: 100%;
+  }
 }
 </style>
