@@ -14,7 +14,7 @@
           </p>
 
           <NuxtLink to="/account">
-            <button class="space-btn w-15rem border-none border-round-md h-3rem font-bold text-base cursor-pointer">
+            <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
               My space
             </button>
           </NuxtLink>
@@ -24,7 +24,7 @@
           </p>
         </div>
 
-        <div class="small-img w-24rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
+        <div class="small-img w-22rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
           <div v-for="(image, index) in smallImg">
             <img
                 :src="image.src"
@@ -35,7 +35,7 @@
 
         <NuxtLink to="/my-chocolates">
           <button
-              class="chocolate-btn border-1 border-round-lg w-18rem font-medium mt-5 text-base absolute cursor-pointer">
+              class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">
             Create my chocolate
           </button>
         </NuxtLink>
@@ -101,24 +101,27 @@
       </div>
       <div class="mt-6 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Title</h2>
-          <img src="@/assets/about3.svg" alt=""/>
-          <p class="w-14rem text-center line-height-3">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.</p>
+          <h2 class="font-bold">Gorgalad</h2>
+          <img width="224" height="280" class="bg-cover" src="@/assets/about3.jpg" alt=""/>
+          <p class="w-14rem text-center line-height-3">
+            Experience the richness of pure chocolate, delicately adorned with a handcrafted marzipan pattern.
+          </p>
         </div>
 
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Title</h2>
-          <img src="@/assets/about2.svg" alt=""/>
-          <p class="w-14rem text-center line-height-3">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.</p>
+          <h2 class="font-bold">Flowery</h2>
+          <img width="224" height="280" class="bg-cover" src="@/assets/about2.jpg" alt=""/>
+          <p class="w-14rem text-center line-height-3">
+            A delightful blend of pure chocolate, almonds, and pumpkin seeds, completed by the sweet of cranberries.
+          </p>
         </div>
 
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Title</h2>
-          <img src="@/assets/about1.svg" alt=""/>
-          <p class="w-14rem text-center line-height-3">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.</p>
+          <h2 class="font-bold">Chicolad</h2>
+          <img width="224" height="280" class="bg-cover" src="@/assets/about1.jpg" alt=""/>
+          <p class="w-14rem text-center line-height-3">
+            Royal dates, cashew nuts, and rich bitter chocolate combine for a luxurious taste experience.
+          </p>
         </div>
       </div>
     </div>
@@ -130,9 +133,9 @@
           class="sm:text-5xl text-2xl font-medium text-white">collections</span></p>
 
       <div class="flex lg:justify-content-between justify-content-center w-full mt-6 flex-wrap lg:gap-0 gap-4">
-        <img class="sm:w-fit w-full" src="@/assets/collections1.svg" alt=""/>
-        <img class="sm:w-fit w-full" src="@/assets/collections2.svg" alt=""/>
-        <img class="sm:w-fit w-full" src="@/assets/collections3.svg" alt=""/>
+        <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections2.jpg" alt=""/>
+        <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections3.jpg" alt=""/>
+        <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections1.jpg" alt=""/>
       </div>
     </div>
   </div>
@@ -181,6 +184,13 @@ const smallImg = [
 .space-btn {
   background-color: var(--orange);
   color: var(--brown);
+  border: 2px solid var(--orange);
+}
+
+.space-btn:hover {
+  background-color: var(--black);
+  color: var(--dark-orange);
+  transition: 0.5s;
 }
 
 .chocolate-btn {
@@ -189,7 +199,14 @@ const smallImg = [
   color: var(--dark-orange);
   height: 40px;
   bottom: 0;
-  top: 45rem;
+  top: 49rem;
+}
+
+.chocolate-btn:hover {
+  background-color: var(--dark-orange);
+  color: var(--brown);
+  transition: 0.5s;
+  font-weight: 600 !important;
 }
 
 .about-text {
@@ -238,6 +255,10 @@ const smallImg = [
 @media only screen and (max-width: 500px) {
   .we-are {
     width: 100%;
+  }
+
+  .chocolate-btn{
+    top: 53rem;
   }
 }
 </style>

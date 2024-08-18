@@ -128,7 +128,7 @@
           <div class="flex flex-column row-gap-3 w-15rem">
             <p class="text-center">Order’s price: 100$</p>
             <NuxtLink to="/my-card">
-              <button class="add-to-card border-none border-round-lg py-3 text-base font-medium w-full">
+              <button class="add-card mt-1 border-round-lg py-3 text-base font-medium w-full">
                 Add to card
               </button>
             </NuxtLink>
@@ -140,8 +140,6 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
-
 const active = ref(0);
 
 const items = ref([
@@ -159,7 +157,7 @@ const items = ref([
   width: 33rem
 }
 
-.create-chocolates, .choc-type-section, .filling-btn {
+.create-chocolates, .choc-type-section, .filling-btn, .add-message-text {
   border-color: var(--dark-orange);
 }
 
@@ -182,10 +180,6 @@ const items = ref([
   background-color: var(--dark-orange);
 }
 
-.add-message-text {
-  border-color: var(--dark-orange);
-}
-
 .message-text-section {
   width: 39rem;
 }
@@ -205,9 +199,16 @@ const items = ref([
   border: 0;
 }
 
-.add-to-card {
+.add-card {
   background-color: var(--orange);
   color: var(--brown);
+  border: 2px solid var(--orange);
+}
+
+.add-card:hover {
+  background-color: var(--black);
+  color: var(--orange);
+  transition: 0.5s;
 }
 
 .p-tabmenu-nav .p-menuitem-text {

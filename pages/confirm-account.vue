@@ -9,23 +9,8 @@
 
         <p class="text-xs">Enter the code below to confirm your email address</p>
 
-        <div class="flex gap-5 justify-content-center my-4">
-          <div
-              class="confirm-digits border-1 border-round-xl w-3rem h-4rem flex align-items-center justify-content-center">
-            <p class="m-0">0</p>
-          </div>
-          <div
-              class="confirm-digits border-1 border-round-xl w-3rem h-4rem flex align-items-center justify-content-center">
-            <p class="m-0">0</p>
-          </div>
-          <div
-              class="confirm-digits border-1 border-round-xl w-3rem h-4rem flex align-items-center justify-content-center">
-            <p class="m-0">0</p>
-          </div>
-          <div
-              class="confirm-digits border-1 border-round-xl w-3rem h-4rem flex align-items-center justify-content-center">
-            <p class="m-0">0</p>
-          </div>
+        <div class="card flex justify-content-center pb-3">
+          <InputOtp v-model="value" integerOnly />
         </div>
 
         <button class="confirm p-3 border-round-xl border-none text-base font-semibold cursor-pointer w-full">
@@ -38,8 +23,8 @@
   </div>
 </template>
 
-<script>
-
+<script setup>
+const value = ref(null);
 </script>
 
 <style>
@@ -56,8 +41,18 @@
   background-color: var(--dark-orange);
 }
 
-.confirm-digits {
+.p-inputotp {
+  gap: 1rem;
+}
+
+.p-inputotp .p-inputtext {
   border-color: var(--dark-orange);
+  background: none;
+  color: var(--white);
+}
+
+.p-inputtext:enabled:focus {
+  box-shadow: none;
 }
 
 @media only screen and (max-width: 1320px) {

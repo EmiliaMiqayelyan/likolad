@@ -1,9 +1,9 @@
 <template>
   <div>
-    <LazyHeader/>
+    <LazyHeader v-if="useRoute().fullPath !== '/admin-dashboard'"/>
     <TopButton />
     <slot/>
-    <LazyFooter/>
+    <LazyFooter v-if="useRoute().fullPath !== '/admin-dashboard'"/>
   </div>
 </template>
 

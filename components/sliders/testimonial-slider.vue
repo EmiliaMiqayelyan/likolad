@@ -38,9 +38,9 @@ export default {
   data() {
     return {
       testimonials: [
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        "I was blown away by the rich, velvety taste of Likolad chocolates. Whether it’s a treat for myself or a gift for someone special, Likolad always impresses. Their attention to detail and commitment to quality is evident in every piece.",
+        "Likolad chocolates are simply divine! From the first taste, you can tell these chocolates are crafted with passion and care. I love how Likolad brings a touch of luxury to my day. It’s my go-to for a truly exceptional chocolate experience.",
+        "Every bite of Likolad chocolates feels like a little piece of heaven. The quality and care that go into making each chocolate is evident. Likolad has quickly become my favorite indulgence, and I highly recommend it to anyone who appreciates fine chocolate!"
       ],
       currentTestimonial: 0,
       interval: null

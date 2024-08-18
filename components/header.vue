@@ -1,8 +1,8 @@
 <template>
-  <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-1">
+  <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-2">
     <a href="/"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
 
-    <div class="nav-items  gap-7 xl:flex hidden">
+    <div class="nav-items gap-7 xl:flex hidden">
       <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
       <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
     </div>
@@ -15,7 +15,7 @@
         <InputText placeholder="Search"/>
       </InputGroup>
 
-      <div class="gap-4 xl:flex hidden">
+      <div class="header-icons gap-4 xl:flex hidden">
         <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt=""
                                        class="cursor-pointer"/></NuxtLink>
         <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt=""
@@ -24,7 +24,9 @@
              class="cursor-pointer"/>
       </div>
 
-      <Dialog v-model:visible="visible" header="My card" :style="{ width: '17rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }" :position="position"
+      <Dialog v-model:visible="visible" header="My card"
+              :style="{ width: '17rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }"
+              :position="position"
               :modal="true" :draggable="false"
               :pt="{ header: { class: 'flex  justify-content-space-between pb-4 font-normal'}}">
         <div>
@@ -41,7 +43,7 @@
             </div>
           </div>
 
-          <hr class="card-hr border-1" />
+          <hr class="card-hr border-1"/>
 
           <div class="flex gap-3">
             <img src="@/assets/my-card-modal-img.svg" alt=""/>
@@ -56,7 +58,7 @@
             </div>
           </div>
 
-          <hr class="card-hr border-1" />
+          <hr class="card-hr border-1"/>
 
           <div class="flex gap-3">
             <img src="@/assets/my-card-modal-img.svg" alt=""/>
@@ -71,7 +73,7 @@
             </div>
           </div>
 
-          <hr class="card-hr border-1" />
+          <hr class="card-hr border-1"/>
 
           <p class="total_price text-center">Total price: 200$</p>
 
@@ -87,10 +89,14 @@
     <div class="block xl:hidden">
       <i class="pi pi-align-right text-xl menu-hamburger" @click="visibleRight = true"></i>
 
-      <Sidebar v-model:visible="visibleRight" header="Right Sidebar" position="right">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.</p>
+      <Sidebar v-model:visible="visibleRight" position="right" :pt="{ content: { style: 'color: white; background-color:  #080403; border-left: 2px solid #DBA957' },
+      header: { style: 'color: white; background-color: #080403; border-left: 2px solid #DBA957; display: flex; justify-content: end' }, }">
+        <div class="nav-items gap-3 flex flex-column mt-3 ml-3">
+          <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
+          <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
+          <NuxtLink to="/favorites" class="no-underline" exact-active-class="active">Favorites</NuxtLink>
+          <NuxtLink to="/account" class="no-underline" exact-active-class="active">Account</NuxtLink>
+        </div>
       </Sidebar>
     </div>
   </div>
@@ -158,16 +164,16 @@ const openPosition = (pos) => {
   border-bottom-right-radius: 10px;
 }
 
-:deep(.p-component-overlay) {
-  background-color: transparent !important;
-}
-
-.count-btn{
+.count-btn {
   background: none;
 }
 
-.card-hr{
+.card-hr {
   border-color: var(--dark-orange);
+}
+
+.header-icons img:hover {
+  filter: brightness(0) saturate(87%) invert(85%) sepia(12%) saturate(2342%) hue-rotate(328deg) brightness(100%) contrast(100%);
 }
 
 @media only screen and (max-width: 1320px) {

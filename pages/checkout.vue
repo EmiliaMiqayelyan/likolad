@@ -78,7 +78,7 @@
           <button class="p-3 border-round-lg border-none text-white border-1">Within 2 days</button>
           <div>
             <p class="other-date">Other</p>
-            <button class="p-3 border-round-lg border-none text-white border-1">07/07/2024</button>
+            <button class="other-delivery p-3 border-round-lg border-none text-white border-1">07/07/2024</button>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
 
           <p class="total-price py-2 m-0">Payment is accepted only in cash</p>
 
-          <button @click="visible = true" class="order border-none border-round-lg py-3 text-base font-medium w-full">
+          <button @click="visible = true" class="order border-round-lg py-3 text-base font-medium w-full">
             Place order
           </button>
 
@@ -161,6 +161,11 @@ select {
   border-color: var(--orange);
 }
 
+.delivery > button:focus, .other-delivery:focus {
+ background-color: var(--orange);
+  color: var(--black) !important;
+}
+
 .other-date {
   font-size: 10px;
   margin-top: -18px;
@@ -169,6 +174,21 @@ select {
 
 .order {
   background-color: var(--dark-orange);
+  border: 2px solid var(--dark-orange);
+}
+
+.order:hover {
+  background-color: var(--black);
+  color: var(--dark-orange);
+  transition: 0.5s;
+}
+
+:deep(.p-inputtext:enabled:hover){
+  border-color: var(--dark-orange);
+}
+
+:deep(.p-inputtext:enabled:focus){
+  box-shadow: unset;
 }
 
 @media only screen and (max-width: 1320px) {

@@ -7,20 +7,17 @@
       </div>
     </NuxtLink>
 
-    <div class="product-info w-full py-5 px-4 border-1 mt-5 border-round-xl flex lg:flex-row flex-column lg:gap-7 gap-3">
+    <div
+        class="product-info w-full py-5 px-4 border-1 mt-5 border-round-xl flex lg:flex-row flex-column lg:gap-7 gap-3">
       <div>
         <img class="productid-img" src="@/assets/product1.svg" alt=""/>
       </div>
 
       <div class="flex flex-column row-gap-2 w-full">
         <p class="text-xl">Royalad</p>
-        <div class="flex gap-1 mt-1 align-items-baseline">
-          <i class="pi pi-star-fill rating"></i>
-          <i class="pi pi-star-fill rating"></i>
-          <i class="pi pi-star-fill rating"></i>
-          <i class="pi pi-star-fill rating"></i>
-          <i class="pi pi-star-fill rating"></i>
-          <span class="rating-text font-medium ml-1">5.0</span>
+        <div class="flex align-items-center gap-1">
+          <Rating v-model="rating" :cancel="false"/>
+          <span class="rating-text">5.0</span>
         </div>
         <p class="productid-desc text-sm">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -36,13 +33,15 @@
         </div>
         <div class="mt-5 flex justify-content-between flex-wrap">
           <div class="flex gap-3">
-            <button class="w-2rem h-2rem border-circle border-none text-lg">-</button>
+            <button class="count-minus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">-</button>
             <button class="count w-2rem h-2rem border-round-lg border-1">1</button>
-            <button class="w-2rem h-2rem border-circle border-none text-lg">+</button>
+            <button class="count-plus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">+</button>
           </div>
 
           <div>
-            <button class="add-card flex align-items-center border-round-xl gap-3 sm:px-8 px-7   font-semibold border-none py-3">Add to card <img src="@/assets/icons/cart-icon.svg" alt="" /></button>
+            <button
+                class="add-product-card flex align-items-center border-round-xl gap-3 sm:px-7 px-6 font-semibold py-2">
+              Add to card <img src="@/assets/icons/cart-icon.svg" alt=""/></button>
           </div>
         </div>
       </div>
@@ -52,19 +51,28 @@
       <p class="text-xl">You may also like</p>
 
       <div class="mt-4">
-        <SlidersProductSlider />
+        <SlidersProductSlider/>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-
+<script setup>
+const rating = ref(5);
 </script>
 
-<style>
+<style scoped>
 .productId {
   padding: 11rem 14% 3%;
+}
+
+:deep(.p-rating) {
+  gap: 5px;
+}
+
+:deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon) {
+  color: var(--dark-orange);
+  border-color: var(--dark-orange);
 }
 
 .our-chocolates, .left-arrow {
@@ -80,23 +88,30 @@
   color: var(--dark-orange);
 }
 
-.productid-desc{
+.productid-desc {
   width: 70%;
 }
 
-.chocolate-type > button, .count{
+.chocolate-type > button, .count {
   background: none;
   color: var(--dark-orange);
   border-color: var(--dark-orange);
 }
 
-.chocolate-type > button:focus{
+.chocolate-type > button:focus {
   background-color: var(--dark-orange);
   color: var(--white);
 }
 
-.add-card{
+.add-product-card {
   margin-top: -25px;
+  border: 2px solid var(--white);
+  transition: 0.5s;
+}
+
+.add-product-card:hover {
+  background-color: var(--black);
+  color: var(--dark-orange);
 }
 
 @media only screen and (max-width: 1320px) {
@@ -110,7 +125,7 @@
 }
 
 @media only screen and (max-width: 545px) {
-  .add-card {
+  .add-product-card {
     margin-top: 1rem;
   }
 

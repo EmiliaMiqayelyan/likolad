@@ -12,11 +12,7 @@
 
           <div class="flex flex-column row-gap-2">
             <div class="flex gap-1 align-items-baseline">
-              <i class="pi pi-star-fill rating"></i>
-              <i class="pi pi-star-fill rating"></i>
-              <i class="pi pi-star-fill rating"></i>
-              <i class="pi pi-star-fill rating"></i>
-              <i class="pi pi-star-fill rating"></i>
+              <Rating v-model="rating" :cancel="false"/>
               <span class="rating-text font-medium ml-1">5.0</span>
             </div>
 
@@ -41,6 +37,7 @@ import { ref, onMounted } from "vue";
 import { ProductService } from '@/service/ProductService';
 
 const products = ref([]);
+const rating = ref(5);
 const responsiveOptions = ref([
   {
     breakpoint: '1400px',

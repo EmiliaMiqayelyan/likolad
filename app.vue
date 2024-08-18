@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div>
+    <div v-if="loading" class="w-full text-center">
+      <ProgressSpinner class="custom-spinner"/>
+    </div>
+    <div v-else>
       <NuxtLayout>
         <NuxtPage/>
       </NuxtLayout>
@@ -10,6 +13,7 @@
 
 <script setup lang="ts">
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primevue/resources/themes/saga-blue/theme.css'
 
 useSeoMeta({
   title: 'Likolad',
@@ -19,19 +23,41 @@ useSeoMeta({
   ogImage: 'https://example.com/image.png',
   twitterCard: 'summary_large_image',
 })
+
+const loading = ref(true);
+const route = useRoute();
+
+onMounted(() => {
+  nextTick(() => {
+    loading.value = false;
+  });
+
+  updateBodyBackground(route.path);
+
+  watch(() => route.path, (newPath) => {
+    updateBodyBackground(newPath);
+  });
+});
+
+function updateBodyBackground(path: string) {
+  if (path === '/admin-dashboard') {
+    document.body.style.backgroundColor = 'white';
+  } else {
+    document.body.style.backgroundColor = '#080403';
+  }
+}
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url("primevue/resources/themes/aura-light-green/theme.css");
 @import 'primeflex/primeflex.scss';
 @import "primeicons/primeicons.css";
 @import "global.css";
 
 body {
-  background-color: var(--black);
   color: var(--white);
   font-family: Montserrat, sans-serif;
+  margin: 0;
 }
 
 @font-face {
@@ -55,4 +81,13 @@ button {
   cursor: pointer;
 }
 
+.p-progress-spinner-svg {
+  width: 4rem !important;
+  height: 4rem !important;
+  transform: none !important;
+}
+
+.custom-spinner {
+  stroke: #ff0000 !important;
+}
 </style>

@@ -10,14 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@primevue/themes": "^4.0.0",
     "gsap": "^3.12.5",
     "nuxt": "^3.11.2",
+    "vue": "^3.2.0",
+    "vue-router": "^4.1.6",
     "primeflex": "^3.3.1",
-    "primeicons": "^7.0.0",
-    "primevue": "^3.52.0",
-    "vue": "^3.4.27",
-    "vue-router": "^4.3.2"
+    "primeicons": "^6.0.1",
+    "primevue": "^3.32.0"
   },
   "devDependencies": {
     "nuxt-primevue": "^3.0.0",

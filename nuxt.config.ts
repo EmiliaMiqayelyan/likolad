@@ -1,14 +1,14 @@
-import Aura from '@primevue/themes/aura';
-
-
 export default defineNuxtConfig({
-    modules: [
-        'nuxt-primevue'
-    ],
-    primevue: {
-        options: {
-            unstyled: false
-        }
-    },
-    css: ['primevue/resources/themes/aura-light-green/theme.css']
+  modules: [
+      'nuxt-primevue'
+  ],
+
+  primevue: {
+      cssLayerOrder: 'reset, primevue'
+  },
+
+  css: [
+      'primeicons/primeicons.css',
+      'primeflex/primeflex.css',
+  ],
 })

@@ -17,9 +17,9 @@
 
             <div class="flex justify-content-between align-items-center">
               <div class="flex gap-3 mt-2">
-                <button class="w-2rem h-2rem border-circle border-none text-lg">-</button>
+                <button class="count-minus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">-</button>
                 <button class="count w-2rem h-2rem border-round-lg border-1">1</button>
-                <button class="w-2rem h-2rem border-circle border-none text-lg">+</button>
+                <button class="count-plus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">+</button>
               </div>
 
               <div>
@@ -72,7 +72,7 @@
           <p class="total-price mt-0 text-center">Total price: 200$</p>
 
           <NuxtLink to="/checkout">
-            <button class="add-to-my-card border-none border-round-lg py-3 text-base font-medium w-17rem">
+            <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
               Checkout
             </button>
           </NuxtLink>
@@ -117,6 +117,13 @@
 .add-to-my-card {
   background-color: var(--orange);
   color: var(--brown);
+  border: 2px solid var(--orange);
+}
+
+.add-to-my-card:hover {
+  background-color: var(--black);
+  color: var(--orange);
+  transition: 0.5s;
 }
 
 @media only screen and (max-width: 1320px) {
