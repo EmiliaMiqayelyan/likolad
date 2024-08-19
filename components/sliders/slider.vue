@@ -2,16 +2,17 @@
   <div class="pt-8">
     <div class="container relative">
       <div>
-        <img class="slider-logo" src="@/assets/slider-logo.svg" alt=""/>
+        <h1 class="slider-name">
+          {{ chocolatesName[currentIndex].name }}
+        </h1>
       </div>
       <div class="wrapper">
-        <div
-            v-for="(image, index) in images"
-            :key="index"
-            :class="['item', { active: index === currentIndex }]"
-        >
-          <img :src="image.src" class="cursor-pointer" alt="Chocolate Image"/>
-          <hr>
+        <div v-for="(image, index) in images"
+             :key="index"
+             :class="['item', { active: index === currentIndex }]">
+          <div>
+            <img :src="image.src" class="cursor-pointer" alt="Chocolate Image"/>
+          </div>
         </div>
 
         <svg viewBox="0 0 300 300">
@@ -40,8 +41,8 @@
 </template>
 
 <script>
-import { gsap } from "gsap";
-import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import {gsap} from "gsap";
+import {MotionPathPlugin} from "gsap/MotionPathPlugin";
 import image1 from "@/assets/likolad-img1.svg";
 import image2 from "@/assets/likolad-img2.svg";
 import image3 from "@/assets/likolad-img3.svg";
@@ -67,30 +68,41 @@ export default {
     return {
       currentIndex: 0,
       images: [
-        { src: image1 },
-        { src: image2 },
-        { src: image3 },
-        { src: image4 },
-        { src: image5 },
         { src: image6 },
+        { src: image4 },
+        { src: image2 },
         { src: image7 },
-        { src: image8 }
+        { src: image8 },
+        { src: image1 },
+        { src: image5 },
+        { src: image3 }
       ],
 
       smallImages: [
-        { src: smallImg1 },
-        { src: smallImg2 },
-        { src: smallImg3 },
-        { src: smallImg4 },
-        { src: smallImg5 },
-        { src: smallImg6 },
-        { src: smallImg7 },
-        { src: smallImg8 }
+        {src: smallImg1},
+        {src: smallImg5},
+        {src: smallImg3},
+        {src: smallImg6},
+        {src: smallImg4},
+        {src: smallImg2},
+        {src: smallImg7},
+        {src: smallImg8}
+      ],
+
+      chocolatesName: [
+        {name: "Morfet"},
+        {name: "Loralad"},
+        {name: "Peaches"},
+        {name: "Flowery"},
+        {name: "True feelings"},
+        {name: "Triolads"},
+        {name: "Chicolad"},
+        {name: "Strawberry"}
       ],
 
       tl: null,
       items: [],
-      tracker: { item: 0 }
+      tracker: {item: 0}
     };
   },
 
@@ -122,7 +134,7 @@ export default {
         scale: 0.9
       });
 
-      const tl = gsap.timeline({ paused: true, reversed: true });
+      const tl = gsap.timeline({paused: true, reversed: true});
 
       tl.to('.wrapper', {
         rotation: 360,
@@ -188,6 +200,7 @@ export default {
 
     setActiveSlide(index) {
       this.currentIndex = index;
+
       const tl = this.tl;
       const items = this.items;
       const itemStep = 1 / items.length;
@@ -200,20 +213,38 @@ export default {
       const amt = items.length - Math.abs(diff);
 
       this.moveWheel((diff < 0 ? amt : -amt) * itemStep, tl, wrapProgress, snap, items, tracker);
+
+      this.updateChocolateName();
     },
 
     prevSlide() {
-      const itemStep = 1 / this.items.length;
+      const numItems = this.items.length;
+      const itemStep = 1 / numItems;
       const wrapProgress = gsap.utils.wrap(0, 1);
       const snap = gsap.utils.snap(itemStep);
-      this.moveWheel(1 / this.items.length, this.tl, wrapProgress, snap, this.items, this.tracker);
+
+      this.moveWheel(1 / numItems, this.tl, wrapProgress, snap, this.items, this.tracker);
+
+      this.currentIndex = (this.currentIndex - 1 + numItems) % numItems;
+
+      this.updateChocolateName();
     },
 
     nextSlide() {
-      const itemStep = 1 / this.items.length;
+      const numItems = this.items.length;
+      const itemStep = 1 / numItems;
       const wrapProgress = gsap.utils.wrap(0, 1);
       const snap = gsap.utils.snap(itemStep);
-      this.moveWheel(-1 / this.items.length, this.tl, wrapProgress, snap, this.items, this.tracker);
+
+      this.moveWheel(-1 / numItems, this.tl, wrapProgress, snap, this.items, this.tracker);
+
+      this.currentIndex = (this.currentIndex + 1) % numItems;
+
+      this.updateChocolateName();
+    },
+
+    updateChocolateName() {
+      document.querySelector('.slider-name').innerText = this.chocolatesName[this.currentIndex].name;
     }
   }
 };
@@ -303,11 +334,12 @@ svg {
   right: 45rem;
 }
 
-.slider-logo {
+.slider-name {
   position: absolute;
-  bottom: 8%;
-  right: 8%;
+  bottom: 15%;
+  right: 10%;
   z-index: 1;
+  color: var(--dark-orange);
 }
 
 .small-images img.active + hr {
@@ -317,7 +349,7 @@ svg {
 }
 
 @media only screen and (max-width: 1600px) {
-  .small-images{
+  .small-images {
     left: 6%;
   }
 }

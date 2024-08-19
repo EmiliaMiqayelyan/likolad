@@ -13,7 +13,7 @@
             Since 2021, our exquisite creations have provided moments of bliss for you to savour.
           </p>
 
-          <NuxtLink to="/account">
+          <NuxtLink to="/account" class="w-max">
             <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
               My space
             </button>
