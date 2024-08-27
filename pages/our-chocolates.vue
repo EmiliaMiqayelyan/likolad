@@ -2,9 +2,10 @@
   <div class="pt-8 pb-8">
     <div class="chocolates">
       <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
-        <p class="text-center md:w-30rem w-full mt-4 font-normal">Lorem Ipsum is simply dummy text of the printing and
-          typesetting
-          industry.</p>
+        <p class="text-center md:w-30rem w-full mt-4 font-normal">
+          Indulge in Our Exclusive Selection of Handcrafted Chocolates, Curated to Satisfy Every Taste the Senses.
+        </p>
+
         <NuxtLink to="/my-chocolates">
           <button
               class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
@@ -56,12 +57,17 @@
 
         <div class="flex justify-content-between align-items-center pb-2">
           <div class="flex align-items-center gap-1">
-            <Rating v-model="chocolate.rating" :cancel="false"/>
+            <Rating v-model="chocolate.rating" :cancel="false">
+              <template #item="{ index }">
+                <i class="pi pi-star-fill" :class="{'pi-star-fill': index < chocolate.rating}"></i>
+              </template>
+            </Rating>
+
             <span class="rating-text">{{ chocolate.ratingText }}</span>
           </div>
 
             <template>
-              <img :src="chocolate.favoriteIcon" alt="" />
+              <i :class="chocolate.favoriteIcon" />
             </template>
         </div>
 
@@ -210,7 +216,7 @@ const chocolatesList = ref([
     ratingText: "5.0",
     favoriteIcon: favoritesIcon,
     productName: "Triolads",
-    productPrice: "5600 AMD",
+    productPrice: "6500 AMD",
     productCartText: "More",
     productCartIcon: cartIcon
   },
@@ -221,7 +227,7 @@ const chocolatesList = ref([
     ratingText: "4.5",
     favoriteIcon: favoritesIcon,
     productName: "Flowery",
-    productPrice: "4850 AMD",
+    productPrice: "5800 AMD",
     productCartText: "More",
     productCartIcon: cartIcon
   },
@@ -232,7 +238,7 @@ const chocolatesList = ref([
     ratingText: "4.7",
     favoriteIcon: favoritesIcon,
     productName: "Morfet",
-    productPrice: "3500 AMD",
+    productPrice: "5400 AMD",
     productCartText: "More",
     productCartIcon: cartIcon
   },
@@ -307,8 +313,9 @@ a {
 .card {
   background-color: white;
   color: black;
-  width: 71.4%;
+  width: 72%;
   position: absolute;
+  z-index: 1;
   border-bottom-left-radius: 0.6rem;
   border-bottom-right-radius: 0.6rem;
   height: 350px;

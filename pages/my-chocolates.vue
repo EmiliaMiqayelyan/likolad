@@ -2,8 +2,9 @@
   <div class="my-chocolates">
     <div class="flex flex-column justify-content-center w-full align-items-center">
       <p class="text-xl">My chocolate</p>
-      <p class="chocolates-desc text-center text-sm mb-6 mt-4">Lorem Ipsum is simply dummy text of the printing and
-        typesetting industry.</p>
+      <p class="chocolates-desc text-center text-sm mb-6 mt-4">
+        Create Your Own Chocolate Masterpiece
+      </p>
     </div>
 
     <div class="create-chocolates border-1 border-round-lg sm:p-5 p-3">
@@ -113,13 +114,7 @@
           <p>Add a Massage</p>
 
           <div class="message-text-section flex flex-column row-gap-2">
-            <div class="add-message-text border-1 border-round-lg p-3">
-              <p class="m-0 text-sm">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries,
-              </p>
-            </div>
+            <textarea placeholder="..." class="add-message-text border-1 border-round-lg p-3 text-sm" />
             <p class="text-right text-xs">0/150</p>
           </div>
         </div>
@@ -159,6 +154,8 @@ const items = ref([
 
 .create-chocolates, .choc-type-section, .filling-btn, .add-message-text {
   border-color: var(--dark-orange);
+  background: none;
+  color: var(--white);
 }
 
 .create-choc-text, .choc-ingredients {

@@ -69,10 +69,10 @@ export default {
       currentIndex: 0,
       images: [
         { src: image6 },
-        { src: image4 },
+        { src: image8 },
         { src: image2 },
         { src: image7 },
-        { src: image8 },
+        { src: image4 },
         { src: image1 },
         { src: image5 },
         { src: image3 }
@@ -83,10 +83,10 @@ export default {
         {src: smallImg5},
         {src: smallImg3},
         {src: smallImg6},
-        {src: smallImg4},
+        {src: smallImg8},
         {src: smallImg2},
         {src: smallImg7},
-        {src: smallImg8}
+        {src: smallImg4}
       ],
 
       chocolatesName: [
@@ -94,10 +94,10 @@ export default {
         {name: "Loralad"},
         {name: "Peaches"},
         {name: "Flowery"},
-        {name: "True feelings"},
+        {name: "Rose chocolates"},
         {name: "Triolads"},
         {name: "Chicolad"},
-        {name: "Strawberry"}
+        {name: "True feelings"}
       ],
 
       tl: null,
