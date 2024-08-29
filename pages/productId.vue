@@ -38,11 +38,11 @@
             <button class="count-plus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">+</button>
           </div>
 
-          <div>
+          <NuxtLink to="/my-card" class="my-card-link">
             <button
                 class="add-product-card flex align-items-center border-round-xl gap-3 sm:px-7 px-6 font-semibold py-2">
               Add to card <img src="@/assets/icons/cart-icon.svg" alt=""/></button>
-          </div>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -84,7 +84,11 @@ const rating = ref(5);
   border-color: var(--dark-orange);
 }
 
-.rating, .rating-price, .rating-text {
+.my-card-link {
+  text-decoration: none !important;
+}
+
+.rating-price, .rating-text {
   color: var(--dark-orange);
 }
 

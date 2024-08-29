@@ -4,8 +4,9 @@
       <div class="content relative flex flex-column">
         <div class="flex flex-column row-gap-5">
           <div class="content-heading">
-            <p class="sm:text-5xl text-3xl font-medium line-height-2 m-0">Welcome to the <span
-                class="about-text sm:text-5xl text-3xl font-medium">World of Likolad</span>
+            <p class="sm:text-5xl text-3xl font-medium line-height-2 m-0">
+              Welcome to the
+              <span class="about-text sm:text-5xl text-3xl font-medium">World of Likolad</span>
             </p>
           </div>
           <p class="w-full text-base font-normal">
@@ -13,11 +14,10 @@
             Since 2021, our exquisite creations have provided moments of bliss for you to savour.
           </p>
 
-          <NuxtLink to="/account" class="w-max">
-            <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-              My space
-            </button>
-          </NuxtLink>
+          <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
+            My space
+          </button>
+
           <p class="mt-3 font-medium">
             The finer details make all the difference in chocolate making. The same
             is true in life։ small gestures of kindness make a big difference.
@@ -33,12 +33,10 @@
           </div>
         </div>
 
-        <NuxtLink to="/my-chocolates">
-          <button
-              class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">
-            Create my chocolate
-          </button>
-        </NuxtLink>
+        <button
+            class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">
+          Create my chocolate
+        </button>
       </div>
 
       <LazySlidersSlider class="chocolate-slider w-full"/>
@@ -222,7 +220,7 @@ const smallImg = [
   border-color: #EEC574;
 }
 
-.small-img{
+.small-img {
   display: none !important;
 }
 
@@ -237,7 +235,7 @@ const smallImg = [
     display: none;
   }
 
-  .small-img{
+  .small-img {
     display: flex !important;
   }
 }
@@ -257,7 +255,7 @@ const smallImg = [
     width: 100%;
   }
 
-  .chocolate-btn{
+  .chocolate-btn {
     top: 53rem;
   }
 }

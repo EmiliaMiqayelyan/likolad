@@ -1,7 +1,7 @@
 <template>
   <div class="pt-8">
     <div class="container relative">
-      <div>
+      <div class="slider-name-content">
         <h1 class="slider-name">
           {{ chocolatesName[currentIndex].name }}
         </h1>
@@ -159,6 +159,16 @@ export default {
         }
       }, 0);
 
+      tl.to('.wrapper', {
+        rotation: 360,
+        transformOrigin: 'center',
+        duration: 1,
+        ease: 'none',
+        onComplete: () => {
+          document.querySelector('.item.active').style.border = '3px solid red';
+        }
+      });
+
       items.forEach((el, i) => {
         el.addEventListener("click", () => {
           const current = tracker.item;
@@ -274,6 +284,52 @@ body {
   width: 100%;
 }
 
+.slider-name-content {
+  text-align: center;
+  position: absolute;
+  top: 85%;
+  width: 49%;
+  left: 50%;
+  line-height: 40px;
+}
+
+.slider-name-content h1 {
+  text-transform: uppercase;
+  display: block;
+}
+
+.slider-name {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  animation-name: text;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  position: absolute;
+  bottom: 15%;
+  right: 10%;
+  z-index: 1;
+  color: var(--dark-orange);
+}
+
+@keyframes text {
+  0% {
+    color: black;
+    margin-bottom: -20px;
+  }
+  30% {
+    letter-spacing: 25px;
+    margin-bottom: -20px;
+  }
+  85% {
+    letter-spacing: 8px;
+    margin-bottom: -20px;
+  }
+  100% {
+    margin-bottom: 20px;
+  }
+}
+
 .wrapper {
   position: relative;
   width: 28rem;
@@ -292,12 +348,17 @@ body {
   border-radius: 100%;
   z-index: 1;
   overflow: hidden;
+  transition: border 0.3s ease;
 }
 
 .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.item.active {
+  border: 3px solid var(--dark-orange) !important;
 }
 
 svg {
@@ -332,14 +393,6 @@ svg {
   position: absolute;
   top: 21%;
   right: 45rem;
-}
-
-.slider-name {
-  position: absolute;
-  bottom: 15%;
-  right: 10%;
-  z-index: 1;
-  color: var(--dark-orange);
 }
 
 .small-images img.active + hr {

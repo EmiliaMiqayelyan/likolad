@@ -16,12 +16,15 @@
       </InputGroup>
 
       <div class="header-icons gap-4 xl:flex hidden">
-        <NuxtLink to="/favorites"><img src="@/assets/icons/favorites.svg" width="24" height="24" alt=""
-                                       class="cursor-pointer"/></NuxtLink>
-        <NuxtLink to="/account"><img src="@/assets/icons/account.svg" width="24" height="24" alt=""
-                                     class="cursor-pointer"/></NuxtLink>
+        <img src="@/assets/icons/favorites.svg" width="24" height="24" alt="" class="cursor-pointer"/>
+        <img src="@/assets/icons/account.svg" width="24" height="24" alt="" class="cursor-pointer"/>
+<!--        <div>-->
+<!--          <button @click="setLocale('en')">en</button>-->
+<!--          <button @click="setLocale('am')">am</button>-->
+<!--        </div>-->
         <img @click="openPosition('right')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
              class="cursor-pointer"/>
+        <language-dropdown />
       </div>
 
       <Dialog v-model:visible="visible" header="My card"
@@ -106,6 +109,7 @@
 const position = ref('right');
 const visible = ref(false);
 const visibleRight = ref(false);
+const { locale, setLocale } = useI18n()
 
 const openPosition = (pos) => {
   position.value = pos;

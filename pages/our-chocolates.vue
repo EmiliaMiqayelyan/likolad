@@ -6,12 +6,10 @@
           Indulge in Our Exclusive Selection of Handcrafted Chocolates, Curated to Satisfy Every Taste the Senses.
         </p>
 
-        <NuxtLink to="/my-chocolates">
-          <button
-              class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-            Create my chocolate
-          </button>
-        </NuxtLink>
+        <button
+            class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
+          Create my chocolate
+        </button>
       </div>
 
       <div class="w-full flex justify-content-space-between pt-6">
@@ -66,9 +64,9 @@
             <span class="rating-text">{{ chocolate.ratingText }}</span>
           </div>
 
-            <template>
-              <i :class="chocolate.favoriteIcon" />
-            </template>
+          <template>
+            <i :class="chocolate.favoriteIcon"/>
+          </template>
         </div>
 
         <div class="price flex justify-content-between align-items-center">
@@ -84,7 +82,9 @@
     </div>
 
     <div class="flex justify-content-center align-items-center">
-      <button v-if="chocolatesList.length > 12" class="load-more border-1 py-3 px-6 border-round-xl text-base cursor-pointer">Load more</button>
+      <button v-if="chocolatesList.length > 12"
+              class="load-more border-1 py-3 px-6 border-round-xl text-base cursor-pointer">Load more
+      </button>
     </div>
   </div>
 </template>
