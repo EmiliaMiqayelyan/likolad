@@ -1,17 +1,17 @@
 export default defineNuxtConfig({
-  modules: ['nuxt-primevue', '@nuxtjs/i18n'],
+    modules: ['nuxt-primevue', '@nuxtjs/i18n'],
 
-  primevue: {
-      cssLayerOrder: 'reset, primevue'
-  },
+    primevue: {
+        cssLayerOrder: 'reset, primevue'
+    },
 
-  i18n: {
-          locales: ['en', 'am'],
-         defaultLocale: 'en'
-  },
+    i18n: {
+        locales: ['en', 'am'],
+        defaultLocale: 'en'
+    },
 
-  css: [
-      'primeicons/primeicons.css',
-      'primeflex/primeflex.css',
-  ],
+    css: [
+        'primeicons/primeicons.css',
+        'primeflex/primeflex.css',
+    ],
 })

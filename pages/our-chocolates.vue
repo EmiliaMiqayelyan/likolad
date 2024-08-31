@@ -3,44 +3,20 @@
     <div class="chocolates">
       <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
         <p class="text-center md:w-30rem w-full mt-4 font-normal">
-          Indulge in Our Exclusive Selection of Handcrafted Chocolates, Curated to Satisfy Every Taste the Senses.
+          {{ $t('ourChocolates.ourChocolatesText') }}
         </p>
 
         <button
             class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-          Create my chocolate
+          {{ $t('ourChocolates.createChocolate') }}
         </button>
       </div>
 
-      <div class="w-full flex justify-content-space-between pt-6">
-        <div class="chocolates-menu-items flex sm:gap-6 gap-3 w-full">
-          <p class="cursor-pointer">All</p>
-          <p class="cursor-pointer" @click="toggleMenutab('brands')">Our brands</p>
-          <p class="cursor-pointer">Chocolate types</p>
-          <p class="cursor-pointer">Collections</p>
-        </div>
-        <img src="@/assets/icons/filter-icon.svg" alt=""/>
+      <div class="card">
+        <MegaMenu :model="items"/>
+        <img src="@/assets/icons/filter-icon.svg" alt="" class="mr-4"/>
       </div>
-
-      <hr class="discover-hr mt-2 mb-0"/>
-
-      <div class="card" v-show="menutab">
-        <Menubar :model="items" class="text-black">
-          <template #item="{ item, props, hasSubmenu }">
-            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-              <a class="menu-items flex gap-7" v-ripple :href="href" v-bind="props.action" @click="navigate">
-                <span class="ml-2">{{ item.label }}</span>
-              </a>
-            </router-link>
-
-            <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-              <span class="ml-2">{{ item.label }}</span>
-              <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2"/>
-            </a>
-          </template>
-        </Menubar>
-        <hr class="card-menu-items"/>
-      </div>
+      <hr class="card-menu-items"/>
     </div>
 
     <div class="chocolates-section flex flex-wrap">
@@ -112,89 +88,99 @@ const toggleMenutab = (section) => {
 
 const items = ref([
   {
-    label: 'Royalads',
+    label: 'Furniture',
+    icon: 'pi pi-box',
     items: [
-      {
-        label: 'Darkolads',
-      },
-      {
-        label: 'Milkylads',
-      },
-      {
-        label: 'Rubylads',
-      },
-      {
-        label: 'Caramelads',
-      },
-      {
-        label: 'Lilylads',
-      },
+      [
+        {
+          label: 'Living Room',
+          items: [{label: 'Accessories'}, {label: 'Armchair'}, {label: 'Coffee Table'}, {label: 'Couch'}, {label: 'TV Stand'}]
+        }
+      ],
+      [
+        {
+          label: 'Kitchen',
+          items: [{label: 'Bar stool'}, {label: 'Chair'}, {label: 'Table'}]
+        },
+        {
+          label: 'Bathroom',
+          items: [{label: 'Accessories'}]
+        }
+      ],
+      [
+        {
+          label: 'Bedroom',
+          items: [{label: 'Bed'}, {label: 'Chaise lounge'}, {label: 'Cupboard'}, {label: 'Dresser'}, {label: 'Wardrobe'}]
+        }
+      ],
+      [
+        {
+          label: 'Office',
+          items: [{label: 'Bookcase'}, {label: 'Cabinet'}, {label: 'Chair'}, {label: 'Desk'}, {label: 'Executive Chair'}]
+        }
+      ]
     ]
   },
   {
-    label: 'Ballads',
+    label: 'Electronics',
+    icon: 'pi pi-mobile',
     items: [
-      {
-        label: 'Vue.js',
-      },
+      [
+        {
+          label: 'Computer',
+          items: [{label: 'Monitor'}, {label: 'Mouse'}, {label: 'Notebook'}, {label: 'Keyboard'}, {label: 'Printer'}, {label: 'Storage'}]
+        }
+      ],
+      [
+        {
+          label: 'Home Theather',
+          items: [{label: 'Projector'}, {label: 'Speakers'}, {label: 'TVs'}]
+        }
+      ],
+      [
+        {
+          label: 'Gaming',
+          items: [{label: 'Accessories'}, {label: 'Console'}, {label: 'PC'}, {label: 'Video Games'}]
+        }
+      ],
+      [
+        {
+          label: 'Appliances',
+          items: [{label: 'Coffee Machine'}, {label: 'Fridge'}, {label: 'Oven'}, {label: 'Vaccum Cleaner'}, {label: 'Washing Machine'}]
+        }
+      ]
     ]
   },
   {
-    label: 'Loralads',
+    label: 'Sports',
+    icon: 'pi pi-clock',
     items: [
-      {
-        label: 'Vue.js',
-      },
+      [
+        {
+          label: 'Football',
+          items: [{label: 'Kits'}, {label: 'Shoes'}, {label: 'Shorts'}, {label: 'Training'}]
+        }
+      ],
+      [
+        {
+          label: 'Running',
+          items: [{label: 'Accessories'}, {label: 'Shoes'}, {label: 'T-Shirts'}, {label: 'Shorts'}]
+        }
+      ],
+      [
+        {
+          label: 'Swimming',
+          items: [{label: 'Kickboard'}, {label: 'Nose Clip'}, {label: 'Swimsuits'}, {label: 'Paddles'}]
+        }
+      ],
+      [
+        {
+          label: 'Tennis',
+          items: [{label: 'Balls'}, {label: 'Rackets'}, {label: 'Shoes'}, {label: 'Training'}]
+        }
+      ]
     ]
-  },
-  {
-    label: 'Brainlads',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
-  {
-    label: 'Pumpkin Seeds',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
-  {
-    label: 'Trimolads',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
-  {
-    label: 'Nutsolads',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
-  {
-    label: 'Limolads',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
-  {
-    label: 'Chikolads',
-    items: [
-      {
-        label: 'Vue.js',
-      },
-    ]
-  },
+  }
 ]);
 
 const chocolatesList = ref([
@@ -293,6 +279,49 @@ const chocolatesList = ref([
   transition: 0.5s;
 }
 
+.card {
+  display: flex;
+  justify-content: space-between;
+}
+
+:deep(.p-megamenu) {
+  background: none !important;
+  border: none !important;
+}
+
+:deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text) {
+  color: white !important;
+}
+
+:deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon) {
+  color: white !important;
+}
+
+:deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon) {
+  color: white !important;
+}
+
+:deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover) {
+  background: none !important;
+}
+
+:deep(.p-megamenu .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover) {
+  background: #e9ecef;
+}
+
+:deep(.p-megamenu .p-menuitem.p-highlight > .p-menuitem-content) {
+  background: none !important;
+}
+
+:deep(.p-megamenu-root-list > .p-menuitem-active > .p-megamenu-panel) {
+  margin-top: 18px;
+}
+
+:deep(.p-megamenu .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content) {
+  color: black !important;
+  background: none !important;
+}
+
 :deep(.p-rating) {
   gap: 5px;
 }
@@ -308,21 +337,6 @@ a {
 
 .chocolates-menu-items > p:active {
   color: var(--dark-orange);
-}
-
-.card {
-  background-color: white;
-  color: black;
-  width: 72%;
-  position: absolute;
-  z-index: 1;
-  border-bottom-left-radius: 0.6rem;
-  border-bottom-right-radius: 0.6rem;
-  height: 350px;
-}
-
-:deep(.p-menuitem-link) {
-  color: black !important;
 }
 
 :deep(.p-menubar .p-submenu-list) {
@@ -343,11 +357,6 @@ a {
 
 :deep(.pi-fw) {
   color: var(--dark-orange);
-}
-
-.p-menubar {
-  background: none;
-  border: none;
 }
 
 .product {
@@ -396,15 +405,31 @@ a {
     padding-left: 6%;
     padding-right: 6%;
   }
-
-  .card {
-    width: 86.6%;
-  }
 }
 
 @media only screen and (max-width: 960px) {
   :deep(.p-menubar .p-submenu-list) {
     margin-top: 0;
+  }
+
+  :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text) {
+    color: black !important;
+  }
+
+  :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon) {
+    color: black !important;
+  }
+
+  :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon) {
+    color: black !important;
+  }
+
+  :deep(.p-megamenu-root-list > .p-menuitem-active > .p-megamenu-panel) {
+    margin-top: 0;
+  }
+
+  :deep(.p-megamenu.p-megamenu-mobile .p-megamenu-button) {
+    color: white !important;
   }
 }
 
@@ -415,10 +440,6 @@ a {
 
   .product, .chocolates-images {
     width: 100%;
-  }
-
-  .card {
-    width: 85.2%;
   }
 }
 </style>

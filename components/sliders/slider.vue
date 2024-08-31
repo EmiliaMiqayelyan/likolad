@@ -65,17 +65,18 @@ gsap.registerPlugin(MotionPathPlugin);
 
 export default {
   data() {
+    const { t } = useI18n();
     return {
       currentIndex: 0,
       images: [
-        { src: image6 },
-        { src: image8 },
-        { src: image2 },
-        { src: image7 },
-        { src: image4 },
-        { src: image1 },
-        { src: image5 },
-        { src: image3 }
+        {src: image6},
+        {src: image8},
+        {src: image2},
+        {src: image7},
+        {src: image4},
+        {src: image1},
+        {src: image5},
+        {src: image3}
       ],
 
       smallImages: [
@@ -90,14 +91,14 @@ export default {
       ],
 
       chocolatesName: [
-        {name: "Morfet"},
-        {name: "Loralad"},
-        {name: "Peaches"},
-        {name: "Flowery"},
-        {name: "Rose chocolates"},
-        {name: "Triolads"},
-        {name: "Chicolad"},
-        {name: "True feelings"}
+        {name: t("sliderChocolates.morfet")},
+        {name: t("sliderChocolates.loralad")},
+        {name: t("sliderChocolates.peaches")},
+        {name: t("sliderChocolates.flowery")},
+        {name: t("sliderChocolates.rose")},
+        {name: t("sliderChocolates.triolads")},
+        {name: t("sliderChocolates.chicolad")},
+        {name: t("sliderChocolates.trueFeelings")}
       ],
 
       tl: null,
@@ -158,16 +159,6 @@ export default {
           item: (value) => wrapTracker(numItems - Math.round(value))
         }
       }, 0);
-
-      tl.to('.wrapper', {
-        rotation: 360,
-        transformOrigin: 'center',
-        duration: 1,
-        ease: 'none',
-        onComplete: () => {
-          document.querySelector('.item.active').style.border = '3px solid red';
-        }
-      });
 
       items.forEach((el, i) => {
         el.addEventListener("click", () => {

@@ -5,27 +5,25 @@
         <div class="flex flex-column row-gap-5">
           <div class="content-heading">
             <p class="sm:text-5xl text-3xl font-medium line-height-2 m-0">
-              Welcome to the
-              <span class="about-text sm:text-5xl text-3xl font-medium">World of Likolad</span>
+              {{ $t('welcome.welcome1') }}
+              <span class="about-text sm:text-5xl text-3xl font-medium">{{ $t('welcome.welcome2') }}</span>
             </p>
           </div>
           <p class="w-full text-base font-normal">
-            Experience Likolad: the ultimate chocolate delight brought to you by our passionate Master Chocolatier.
-            Since 2021, our exquisite creations have provided moments of bliss for you to savour.
+            {{ $t('welcome.welcomeText') }}
           </p>
 
           <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-            My space
+            {{ $t('welcome.mySpace') }}
           </button>
 
           <p class="mt-3 font-medium">
-            The finer details make all the difference in chocolate making. The same
-            is true in life։ small gestures of kindness make a big difference.
+            {{ $t('welcome.finalDetails') }}
           </p>
         </div>
 
         <div class="small-img w-22rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
-          <div v-for="(image, index) in smallImg">
+          <div v-for="image in smallImg">
             <img
                 :src="image.src"
                 alt=""
@@ -35,7 +33,7 @@
 
         <button
             class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">
-          Create my chocolate
+          {{ $t('welcome.createChocolate') }}
         </button>
       </div>
 
@@ -45,23 +43,20 @@
     <div class="discover">
       <div class="discover-sweets flex justify-content-center align-items-center flex-column">
         <div>
-          <span class="about-text sm:text-4xl text-2xl font-medium">We </span>
-          <span class="sm:text-4xl text-2xl font-medium">are</span>
+          <span class="about-text sm:text-4xl text-2xl font-medium">{{ $t('weAre.weAre1') }} </span>
+          <span class="sm:text-4xl text-2xl font-medium">{{ $t('weAre.weAre2') }}</span>
         </div>
 
         <div class="w-full mt-6">
           <div class="flex justify-content-between lg:flex-row flex-column-reverse row-gap-3">
             <div>
               <div>
-                <span class="text-2xl">The advantage of </span>
-                <span class="about-text text-2xl">Likolad</span>
+                <span class="text-2xl">{{ $t('weAre.weAreHeading1') }} </span>
+                <span class="about-text text-2xl">{{ $t('weAre.weAreLikolad') }}</span>
               </div>
 
               <p class="we-are text-sm lg:mt-6 mt-3">
-                A combination of the highest ingredients, unparalleled care
-                and mastery that is reflected in the making
-                of each chocolate, resulting in a smooth and shiny product. That's what makes us stand out, unique and
-                in the center of attention.
+                {{ $t('weAre.weAreText1') }}
               </p>
             </div>
             <div>
@@ -77,14 +72,12 @@
             </div>
             <div class="flex flex-column align-items-end">
               <div>
-                <span class="about-text text-2xl">Royalads </span>
-                <span class="text-2xl">chocolatier product</span>
+                <span class="about-text text-2xl">{{ $t('weAre.weAreRoyalads') }} </span>
+                <span class="text-2xl">{{ $t('weAre.weAreHeading2') }}</span>
               </div>
 
               <p class="we-are text-sm mt-6 text-right">
-                Likolad's first product, which was obtained as a result of
-                many experiments, evaluating the taste, beauty and aesthetics. It is made from high quality Belgian
-                chocolate raw materials, selected ingredients and most importantly with great care.
+                {{ $t('weAre.weAreText2') }}
               </p>
             </div>
           </div>
@@ -94,31 +87,31 @@
 
     <div class="about-us py-8 flex justify-content-center flex-column align-items-center">
       <div class="flex gap-3">
-        <span class="sm:text-5xl text-2xl font-medium">What</span>
-        <span class="about-text sm:text-5xl text-2xl font-medium">we do</span>
+        <span class="sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo1') }}</span>
+        <span class="about-text sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo2') }}</span>
       </div>
       <div class="mt-6 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Gorgalad</h2>
+          <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading1') }}</h2>
           <img width="224" height="280" class="bg-cover" src="@/assets/about3.jpg" alt=""/>
           <p class="w-14rem text-center line-height-3">
-            Experience the richness of pure chocolate, delicately adorned with a handcrafted marzipan pattern.
+            {{ $t('whatWeDo.whatWeDoText1') }}
           </p>
         </div>
 
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Flowery</h2>
+          <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading2') }}</h2>
           <img width="224" height="280" class="bg-cover" src="@/assets/about2.jpg" alt=""/>
           <p class="w-14rem text-center line-height-3">
-            A delightful blend of pure chocolate, almonds, and pumpkin seeds, completed by the sweet of cranberries.
+            {{ $t('whatWeDo.whatWeDoText2') }}
           </p>
         </div>
 
         <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
-          <h2 class="font-bold">Chicolad</h2>
+          <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading3') }}</h2>
           <img width="224" height="280" class="bg-cover" src="@/assets/about1.jpg" alt=""/>
           <p class="w-14rem text-center line-height-3">
-            Royal dates, cashew nuts, and rich bitter chocolate combine for a luxurious taste experience.
+            {{ $t('whatWeDo.whatWeDoText3') }}
           </p>
         </div>
       </div>
@@ -127,8 +120,10 @@
     <LazySlidersTestimonialSlider/>
 
     <div class="collections py-8 flex justify-content-center flex-column align-items-center">
-      <p class="about-text sm:text-5xl text-2xl font-medium line-height-1 text-center">Our Chocolate <span
-          class="sm:text-5xl text-2xl font-medium text-white">collections</span></p>
+      <p class="about-text sm:text-5xl text-2xl font-medium line-height-1 text-center">
+        {{ $t('collections.ourCollectionHeading1') }}
+        <span class="sm:text-5xl text-2xl font-medium text-white">{{ $t('collections.ourCollectionHeading2') }} </span>
+      </p>
 
       <div class="flex lg:justify-content-between justify-content-center w-full mt-6 flex-wrap lg:gap-0 gap-4">
         <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections2.jpg" alt=""/>

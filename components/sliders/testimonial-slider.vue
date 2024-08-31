@@ -1,22 +1,22 @@
 <template>
   <div class="testimonials py-8 flex justify-content-center flex-column align-items-center">
-    <h1 class="text-5xl font-medium">Testimonials</h1>
+    <h1 class="text-5xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
 
     <div class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
         <div
             class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
-          <h2 class="font-bold">What our buyers say</h2>
+          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[currentTestimonial] }}</p>
         </div>
         <div
             class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
-          <h2 class="font-bold">What our buyers say</h2>
+          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 1) % testimonials.length] }}</p>
         </div>
         <div
             class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
-          <h2 class="font-bold">What our buyers say</h2>
+          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
           <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 2) % testimonials.length] }}</p>
         </div>
       </div>

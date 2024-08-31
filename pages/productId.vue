@@ -3,7 +3,9 @@
     <NuxtLink to="/our-chocolates" class="no-underline">
       <div class="flex align-items-center gap-2">
         <i class="pi pi-angle-double-left left-arrow text-2xl"></i>
-        <span class="our-chocolates">Our chocolates</span>
+        <span class="our-chocolates">
+          {{ $t('productId.ourChocolatesHeading') }}
+        </span>
       </div>
     </NuxtLink>
 
@@ -24,7 +26,7 @@
           industry's standard dummy text ever since the 1500s.
         </p>
         <span class="rating-price font-bold text-sm my-1">2000 AMD</span>
-        <p class="text-xs my-1">Choose the chocolate type</p>
+        <p class="text-xs my-1">{{ $t('productId.chocolateType') }}</p>
         <div class="flex gap-4 chocolate-type flex-wrap">
           <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Dark</button>
           <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Milk</button>
@@ -41,14 +43,16 @@
           <NuxtLink to="/my-card" class="my-card-link">
             <button
                 class="add-product-card flex align-items-center border-round-xl gap-3 sm:px-7 px-6 font-semibold py-2">
-              Add to card <img src="@/assets/icons/cart-icon.svg" alt=""/></button>
+              {{ $t('productId.addCard') }}
+              <img src="@/assets/icons/cart-icon.svg" alt=""/>
+            </button>
           </NuxtLink>
         </div>
       </div>
     </div>
 
     <div class="mt-8">
-      <p class="text-xl">You may also like</p>
+      <p class="text-xl">{{ $t('productId.alsoLike') }}</p>
 
       <div class="mt-4">
         <SlidersProductSlider/>

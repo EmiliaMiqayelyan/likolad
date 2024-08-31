@@ -1,6 +1,6 @@
 <template>
   <div class="my-card">
-    <p class="mb-3">My card</p>
+    <p class="mb-3">{{ $t('myCard.myCard') }}</p>
 
     <div class="p-3 md:p-6 border-1 border-white border-round-lg">
       <div class="flex flex-column row-gap-4">
@@ -56,24 +56,25 @@
         </div>
       </div>
 
-      <div class="flex justify-content-between mt-3 md:align-items-end align-items-center md:flex-row flex-column-reverse row-gap-3">
+      <div
+          class="flex justify-content-between mt-3 md:align-items-end align-items-center md:flex-row flex-column-reverse row-gap-3">
         <button
             class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
-          Clear all
+          {{ $t('myCard.clearAll') }}
           <img src="@/assets/icons/delete.svg" alt=""/>
         </button>
 
         <div class="flex flex-column row-gap-2">
           <div class="flex gap-3 flex-row">
-            <p>Delivery : 100$</p>
-            <p>Order’s price: 100$</p>
+            <p>{{ $t('myCard.delivery') }} 100$</p>
+            <p>{{ $t('myCard.orderPrice') }} 100$</p>
           </div>
 
-          <p class="total-price mt-0 text-center">Total price: 200$</p>
+          <p class="total-price mt-0 text-center">{{ $t('myCard.totalPrice') }} 200$</p>
 
           <NuxtLink to="/checkout">
             <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
-              Checkout
+              {{ $t('myCard.checkout') }}
             </button>
           </NuxtLink>
         </div>

@@ -6,12 +6,11 @@
             class="flex justify-content-between md:align-items-center align-items-start md:flex-row flex-column-reverse row-gap-3">
           <div>
             <div>
-              <span class="text-2xl">Title</span>
+              <span class="text-2xl">{{ $t('history.historyTitle') }}</span>
             </div>
 
             <p class="history_text text-sm md:mt-6 mt-3">
-              A victorious spirit. A chocolate revolution. The perfect combination. This is the story of how Likolad
-              came to be.
+              {{ $t('history.historyText1') }}
             </p>
           </div>
           <div>
@@ -28,9 +27,7 @@
           </div>
           <div class="flex flex-column align-items-end">
             <p class="history_text text-sm md:mt-6 mt-3 text-right">
-              It all started with the creating of Liko's unique chocolates in Armenia. The business grew constantly
-              thanks to Liko's entrepreneurial spirit and passion for chocolate. Liko soon became a renowned among
-              chocolate manufacturers.
+              {{ $t('history.historyText2') }}
             </p>
           </div>
         </div>
@@ -41,10 +38,7 @@
             class="flex justify-content-between md:align-items-center align-items-start md:flex-row flex-column-reverse row-gap-3">
           <div>
             <p class="history_text text-sm md:mt-6 mt-3">
-              A combination of the highest ingredients, unparalleled care
-              and mastery that is reflected in the making
-              of each chocolate, resulting in a smooth and shiny product. That's what makes us stand out, unique and
-              in the center of attention.
+              {{ $t('history.historyText3') }}
             </p>
           </div>
           <div>
@@ -61,9 +55,7 @@
           </div>
           <div class="flex flex-column align-items-end">
             <p class="history_text text-sm md:mt-6 mt-3 text-right">
-              Likolad's first product, which was obtained as a result of
-              many experiments, evaluating the taste, beauty and aesthetics. It is made from high quality Belgian
-              chocolate raw materials, selected ingredients and most importantly with great care.
+              {{ $t('history.historyText4') }}
             </p>
           </div>
         </div>

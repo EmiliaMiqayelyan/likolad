@@ -22,7 +22,7 @@
             </div>
 
             <div class="price flex justify-content-between align-items-center mt-2">
-              <span class="learn-more font-bold text-sm">More</span>
+              <span class="learn-more font-bold text-sm">{{ $t('productId.more') }}</span>
               <img src="@/assets/icons/cart-icon.svg" alt=""/>
             </div>
           </div>
@@ -33,7 +33,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
 import { ProductService } from '@/service/ProductService';
 
 const products = ref([]);
