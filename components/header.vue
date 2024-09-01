@@ -16,8 +16,6 @@
       </InputGroup>
 
       <div class="header-icons gap-4 xl:flex hidden">
-        <img src="@/assets/icons/favorites.svg" width="24" height="24" alt="" class="cursor-pointer"/>
-        <img src="@/assets/icons/account.svg" width="24" height="24" alt="" class="cursor-pointer"/>
         <img @click="openPosition('right')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
              class="cursor-pointer"/>
         <language-dropdown/>

@@ -12,7 +12,7 @@
         </button>
       </div>
 
-      <div class="card">
+      <div class="card mt-5">
         <MegaMenu :model="items"/>
         <img src="@/assets/icons/filter-icon.svg" alt="" class="mr-4"/>
       </div>
@@ -20,76 +20,53 @@
     </div>
 
     <div class="chocolates-section flex flex-wrap">
-      <div
-          v-for="chocolate in chocolatesList"
-          :key="chocolate.id"
-          class="product border-round-xl"
+      <div class="product border-round-xl"
       >
         <NuxtLink to="/productId">
-          <img class="chocolates-images" :src="chocolate.src" :alt="chocolate.productName"/>
+          <img class="chocolates-images" src="@/assets/chocolates1.svg" alt=""/>
         </NuxtLink>
 
         <div class="flex justify-content-between align-items-center pb-2">
           <div class="flex align-items-center gap-1">
-            <Rating v-model="chocolate.rating" :cancel="false">
-              <template #item="{ index }">
-                <i class="pi pi-star-fill" :class="{'pi-star-fill': index < chocolate.rating}"></i>
-              </template>
-            </Rating>
+            <Rating v-model="value" :cancel="false"/>
 
-            <span class="rating-text">{{ chocolate.ratingText }}</span>
+            <span class="rating-text">4.0</span>
           </div>
-
-          <template>
-            <i :class="chocolate.favoriteIcon"/>
-          </template>
         </div>
 
         <div class="price flex justify-content-between align-items-center">
-          <span class="font-medium text-sm">{{ chocolate.productName }}</span>
-          <span class="font-bold text-sm">{{ chocolate.productPrice }}</span>
+          <span class="font-medium text-sm">asasa</span>
+          <span class="font-bold text-sm">2323232</span>
         </div>
 
         <div class="price flex justify-content-between align-items-center mt-2">
-          <span class="price-cart font-bold text-sm">{{ chocolate.productCartText }}</span>
-          <img :src="chocolate.productCartIcon" alt="Cart Icon"/>
+          <span class="price-cart font-bold text-sm">asasasasasas</span>
+          <img src="@/assets/icons/cart-icon.svg" alt="Cart Icon"/>
         </div>
       </div>
-    </div>
-
-    <div class="flex justify-content-center align-items-center">
-      <button v-if="chocolatesList.length > 12"
-              class="load-more border-1 py-3 px-6 border-round-xl text-base cursor-pointer">Load more
-      </button>
     </div>
   </div>
 </template>
 
 <script setup>
+import axios from "axios";
 
-import chocolatesImage1 from '@/assets/chocolates1.svg';
-import chocolatesImage2 from '@/assets/chocolates2.svg';
-import chocolatesImage3 from '@/assets/chocolates3.svg';
-import chocolatesImage4 from '@/assets/chocolates4.svg';
-import chocolatesImage5 from '@/assets/chocolates5.svg';
-import chocolatesImage6 from '@/assets/chocolates6.svg';
-import favoritesIcon from '@/assets/icons/favorites-fill.svg';
-import cartIcon from '@/assets/icons/cart-icon.svg';
+const value = ref(4);
 
-const menutab = ref(false)
+const categories = ref([]);
 
-const toggleMenutab = (section) => {
-  if (section === 'brands') {
-    menutab.value = !menutab.value;
-  } else {
-    menutab.value = false;
+const fetchCategories = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/v1/category');
+    categories.value = response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
   }
 };
 
 const items = ref([
   {
-    label: 'Furniture',
-    icon: 'pi pi-box',
+    label: 'All',
     items: [
       [
         {
@@ -107,23 +84,10 @@ const items = ref([
           items: [{label: 'Accessories'}]
         }
       ],
-      [
-        {
-          label: 'Bedroom',
-          items: [{label: 'Bed'}, {label: 'Chaise lounge'}, {label: 'Cupboard'}, {label: 'Dresser'}, {label: 'Wardrobe'}]
-        }
-      ],
-      [
-        {
-          label: 'Office',
-          items: [{label: 'Bookcase'}, {label: 'Cabinet'}, {label: 'Chair'}, {label: 'Desk'}, {label: 'Executive Chair'}]
-        }
-      ]
     ]
   },
   {
-    label: 'Electronics',
-    icon: 'pi pi-mobile',
+    label: 'Brands',
     items: [
       [
         {
@@ -137,23 +101,21 @@ const items = ref([
           items: [{label: 'Projector'}, {label: 'Speakers'}, {label: 'TVs'}]
         }
       ],
-      [
-        {
-          label: 'Gaming',
-          items: [{label: 'Accessories'}, {label: 'Console'}, {label: 'PC'}, {label: 'Video Games'}]
-        }
-      ],
-      [
-        {
-          label: 'Appliances',
-          items: [{label: 'Coffee Machine'}, {label: 'Fridge'}, {label: 'Oven'}, {label: 'Vaccum Cleaner'}, {label: 'Washing Machine'}]
-        }
-      ]
     ]
   },
   {
-    label: 'Sports',
-    icon: 'pi pi-clock',
+    label: 'Categories',
+    items: computed(() => [
+      [
+        {
+          label: 'Categories',
+          items: categories.value.map(category => ({ label: category.title_en }))
+        }
+      ]
+    ])
+  },
+  {
+    label: 'Collections',
     items: [
       [
         {
@@ -161,96 +123,13 @@ const items = ref([
           items: [{label: 'Kits'}, {label: 'Shoes'}, {label: 'Shorts'}, {label: 'Training'}]
         }
       ],
-      [
-        {
-          label: 'Running',
-          items: [{label: 'Accessories'}, {label: 'Shoes'}, {label: 'T-Shirts'}, {label: 'Shorts'}]
-        }
-      ],
-      [
-        {
-          label: 'Swimming',
-          items: [{label: 'Kickboard'}, {label: 'Nose Clip'}, {label: 'Swimsuits'}, {label: 'Paddles'}]
-        }
-      ],
-      [
-        {
-          label: 'Tennis',
-          items: [{label: 'Balls'}, {label: 'Rackets'}, {label: 'Shoes'}, {label: 'Training'}]
-        }
-      ]
     ]
-  }
+  },
 ]);
 
-const chocolatesList = ref([
-  {
-    id: 1,
-    src: chocolatesImage1,
-    rating: 5,
-    ratingText: "5.0",
-    favoriteIcon: favoritesIcon,
-    productName: "Loralad",
-    productPrice: "7600 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-  {
-    id: 2,
-    src: chocolatesImage2,
-    rating: 5.0,
-    ratingText: "5.0",
-    favoriteIcon: favoritesIcon,
-    productName: "Triolads",
-    productPrice: "6500 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-  {
-    id: 3,
-    src: chocolatesImage3,
-    rating: 4.5,
-    ratingText: "4.5",
-    favoriteIcon: favoritesIcon,
-    productName: "Flowery",
-    productPrice: "5800 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-  {
-    id: 4,
-    src: chocolatesImage4,
-    rating: 4.7,
-    ratingText: "4.7",
-    favoriteIcon: favoritesIcon,
-    productName: "Morfet",
-    productPrice: "5400 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-  {
-    id: 5,
-    src: chocolatesImage5,
-    rating: 4.3,
-    ratingText: "4.3",
-    favoriteIcon: favoritesIcon,
-    productName: "Strawberry",
-    productPrice: "5750 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-  {
-    id: 6,
-    src: chocolatesImage6,
-    rating: 4.5,
-    ratingText: "4.9",
-    favoriteIcon: favoritesIcon,
-    productName: "Peaches",
-    productPrice: "6500 AMD",
-    productCartText: "More",
-    productCartIcon: cartIcon
-  },
-]);
+onMounted(() => {
+  fetchCategories();
+});
 </script>
 
 <style scoped>
@@ -322,6 +201,10 @@ const chocolatesList = ref([
   background: none !important;
 }
 
+:deep(.p-megamenu) {
+  width: 100% !important;
+}
+
 :deep(.p-rating) {
   gap: 5px;
 }
@@ -371,19 +254,6 @@ a {
 
 .price {
   color: var(--black);
-}
-
-.load-more {
-  border-color: var(--dark-orange);
-  background: none;
-  color: var(--dark-orange);
-}
-
-.load-more:hover {
-  background-color: var(--dark-orange);
-  color: var(--brown);
-  font-weight: 600 !important;
-  transition: 0.5s;
 }
 
 .card-menu-items {

@@ -5,19 +5,17 @@
     <div class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
         <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
+            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4"
+            v-for="(testimonial, index) in testimonials"
+            :key="index"
+        >
           <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
-          <p class="buyers-text text-center font-medium">{{ testimonials[currentTestimonial] }}</p>
-        </div>
-        <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
-          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
-          <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 1) % testimonials.length] }}</p>
-        </div>
-        <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4">
-          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
-          <p class="buyers-text text-center font-medium">{{ testimonials[(currentTestimonial + 2) % testimonials.length] }}</p>
+          <p class="buyers-text text-center font-medium">
+            {{ currentLanguage === 'en' ? testimonial.content_en : testimonial.content_am }}
+          </p>
+          <p class="buyers-name text-right font-medium">
+            {{ currentLanguage === 'en' ? testimonial.author_en : testimonial.author_am }}
+          </p>
         </div>
       </div>
     </div>
@@ -34,16 +32,14 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      testimonials: [
-        "I was blown away by the rich, velvety taste of Likolad chocolates. Whether it’s a treat for myself or a gift for someone special, Likolad always impresses. Their attention to detail and commitment to quality is evident in every piece.",
-        "Likolad chocolates are simply divine! From the first taste, you can tell these chocolates are crafted with passion and care. I love how Likolad brings a touch of luxury to my day. It’s my go-to for a truly exceptional chocolate experience.",
-        "Every bite of Likolad chocolates feels like a little piece of heaven. The quality and care that go into making each chocolate is evident. Likolad has quickly become my favorite indulgence, and I highly recommend it to anyone who appreciates fine chocolate!"
-      ],
+      testimonials: [],
       currentTestimonial: 0,
-      interval: null
+      interval: null,
     };
   },
 
@@ -53,11 +49,22 @@ export default {
         transform: `translateX(-${this.currentTestimonial * (100 / 3)}%)`,
         width: `${this.testimonials.length * 100}%`
       };
+    },
+
+    currentLanguage() {
+      const {locale} = useI18n();
+      return locale.value;
     }
   },
 
-  mounted() {
-    this.startSlider();
+  async mounted() {
+    try {
+      const response = await axios.get('http://localhost:3001/api/v1/testimonial');
+      this.testimonials = response.data;
+      this.startSlider();
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    }
   },
 
   beforeDestroy() {
@@ -126,12 +133,16 @@ export default {
   background-color: var(--dark-orange);
 }
 
-.buyers-text{
+.buyers-text, .buyers-name {
   width: 40rem;
 }
 
+.buyers-name {
+  color: var(--dark-orange);
+}
+
 @media only screen and (max-width: 900px) {
-  .buyers-text{
+  .buyers-text {
     width: 100%;
   }
 }
