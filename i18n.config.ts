@@ -87,8 +87,10 @@ export default defineI18nConfig(() => ({
                 clearAll: "Clear All",
                 delivery: "Delivery:",
                 orderPrice: "Orders price:",
+                productOrderPrice: "Order price:",
                 totalPrice: "Total price:",
-                checkout: "Checkout"
+                checkout: "Checkout",
+                emptyCard: "Your cart is empty"
             },
 
             checkout: {
@@ -204,8 +206,10 @@ export default defineI18nConfig(() => ({
                 clearAll: "Մաքրել բոլորը",
                 delivery: "Առաքում:",
                 orderPrice: "Պատվերների արժեքը:",
+                productOrderPrice: "Պատվերի արժեքը:",
                 totalPrice: "Ընդհանուր գինը:",
-                checkout: "Վճարել"
+                checkout: "Վճարել",
+                emptyCard: "Ձեր զամբյուղը դատարկ է"
             },
 
             checkout: {

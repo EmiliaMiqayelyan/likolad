@@ -3,88 +3,86 @@
     <p class="mb-3">{{ $t('myCard.myCard') }}</p>
 
     <div class="p-3 md:p-6 border-1 border-white border-round-lg">
-      <div class="flex flex-column row-gap-4">
-        <div class="card-product p-3 border-1 border-round-lg flex sm:flex-row flex-column gap-5">
-          <img src="@/assets/card-product.svg" alt=""/>
-
-          <div class="w-full flex flex-column row-gap-2">
-            <p>Royalad</p>
-            <p class="card-product-desc text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s.
-            </p>
-            <span class="rating-price font-bold text-sm my-1">2000 AMD</span>
-
-            <div class="flex justify-content-between align-items-center">
-              <div class="flex gap-3 mt-2">
-                <button class="count-minus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">-</button>
-                <button class="count w-2rem h-2rem border-round-lg border-1">1</button>
-                <button class="count-plus-btn w-2rem h-2rem border-circle border-1 border-white text-lg">+</button>
-              </div>
-
-              <div>
-                <img src="@/assets/icons/delete.svg" alt=""/>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="card-product p-3 border-1 border-round-lg flex sm:flex-row flex-column gap-5">
-          <img src="@/assets/card-product.svg" alt=""/>
-
-          <div class="w-full flex flex-column row-gap-2">
-            <p>Royalad</p>
-            <p class="card-product-desc text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s.
-            </p>
-            <span class="rating-price font-bold text-sm my-1">2000 AMD</span>
-
-            <div class="flex justify-content-between align-items-center">
-              <div class="flex gap-3 mt-2">
-                <button class="w-2rem h-2rem border-circle border-none text-lg">-</button>
-                <button class="count w-2rem h-2rem border-round-lg border-1">1</button>
-                <button class="w-2rem h-2rem border-circle border-none text-lg">+</button>
-              </div>
-
-              <div>
-                <img src="@/assets/icons/delete.svg" alt=""/>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div v-if="cartItems.length === 0">
+        <p class="text-center">{{ $t('myCard.emptyCard') }}</p>
       </div>
 
-      <div
-          class="flex justify-content-between mt-3 md:align-items-end align-items-center md:flex-row flex-column-reverse row-gap-3">
-        <button
-            class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
-          {{ $t('myCard.clearAll') }}
-          <img src="@/assets/icons/delete.svg" alt=""/>
-        </button>
+      <div v-else>
+        <div class="flex flex-column row-gap-4">
+          <div v-for="product in cartItems" :key="product.id" class="card-product p-3 border-1 border-round-lg">
+            <div class="flex sm:flex-row flex-column gap-5">
+              <img src="@/assets/card-product.svg" alt=""/>
 
-        <div class="flex flex-column row-gap-2">
-          <div class="flex gap-3 flex-row">
-            <p>{{ $t('myCard.delivery') }} 100$</p>
-            <p>{{ $t('myCard.orderPrice') }} 100$</p>
+              <div class="w-full flex flex-column row-gap-2">
+                <p>
+                  {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
+                </p>
+                <p class="card-product-desc text-sm">
+                  {{ currentLanguage === 'en' ? product.description_en : product.description_am }}
+                </p>
+                <span class="rating-price font-bold text-sm my-1">{{ product.price }} AMD</span>
+
+                <div class="flex justify-content-between align-items-center">
+                  <div class="flex gap-3 mt-2">
+                    <button @click="updateQuantity(product.id, product.quantity - 1)" class="w-2rem h-2rem border-circle border-none text-lg" :disabled="product.quantity <= 1">-</button>
+                    <button class="count w-2rem h-2rem border-round-lg border-1">{{ product.quantity }}</button>
+                    <button @click="updateQuantity(product.id, product.quantity + 1)" class="w-2rem h-2rem border-circle border-none text-lg">+</button>
+                  </div>
+
+                  <div>
+                    <img @click="removeFromCart(product.id)" class="cursor-pointer" src="@/assets/icons/delete.svg"
+                         alt=""/>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <p class="total-price mt-0 text-center">{{ $t('myCard.totalPrice') }} 200$</p>
+        <div
+            class="flex justify-content-between mt-3 md:align-items-end align-items-center md:flex-row flex-column-reverse row-gap-3">
+          <button @click="clearCart"
+              class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
+            {{ $t('myCard.clearAll') }}
+            <img src="@/assets/icons/delete.svg" alt=""/>
+          </button>
 
-          <NuxtLink to="/checkout">
-            <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
-              {{ $t('myCard.checkout') }}
-            </button>
-          </NuxtLink>
+          <div class="flex flex-column row-gap-2 align-items-center">
+            <div class="flex gap-3 flex-row">
+              <p>{{ $t('myCard.delivery') }} {{deliveryFee}} AMD</p>
+              <p>{{ $t('myCard.orderPrice') }} {{ productPrice }} AMD</p>
+            </div>
+
+            <p class="total-price mt-0 text-center">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
+
+            <NuxtLink to="/checkout">
+              <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
+                {{ $t('myCard.checkout') }}
+              </button>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import {useCartStore} from '~/store/cart';
 
+const cartStore = useCartStore();
+
+const cartItems = computed(() => cartStore.cartItems);
+const productPrice = computed(() => cartStore.productPrice);
+const cartTotal = computed(() => cartStore.cartTotal);
+const deliveryFee = computed(() => cartStore.deliveryFee);
+
+const { updateQuantity, removeFromCart, clearCart } = cartStore;
+
+const currentLanguage = computed(() => {
+  const {locale} = useI18n();
+  return locale.value;
+})
 </script>
 
 <style>

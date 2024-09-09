@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pt-5">
-      <h2>Testimonials Form</h2>
+      <h2>Testimonial</h2>
       <div class="flex justify-content-center">
         <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitTestimonial">
           <div class="card flex justify-content-center flex-column row-gap-4">

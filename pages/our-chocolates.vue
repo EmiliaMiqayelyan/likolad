@@ -21,27 +21,26 @@
 
     <div class="chocolates-section flex flex-wrap">
       <div class="product border-round-xl"
-      >
-        <NuxtLink to="/productId">
-          <img class="chocolates-images" src="@/assets/chocolates1.svg" alt=""/>
+           v-for="(product, index) in products" :key="index">
+        <NuxtLink :to="`/product/${product.id}`">
+          <img
+              class="chocolates-images"
+              src="@/assets/loralad.jpg"
+              alt=""/>
         </NuxtLink>
 
-        <div class="flex justify-content-between align-items-center pb-2">
-          <div class="flex align-items-center gap-1">
-            <Rating v-model="value" :cancel="false"/>
-
-            <span class="rating-text">4.0</span>
-          </div>
-        </div>
-
         <div class="price flex justify-content-between align-items-center">
-          <span class="font-medium text-sm">asasa</span>
-          <span class="font-bold text-sm">2323232</span>
+        <span class="w-5rem font-medium text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
+          {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
+        </span>
+          <span class="font-bold text-sm">{{ product.price }} AMD</span>
         </div>
 
         <div class="price flex justify-content-between align-items-center mt-2">
-          <span class="price-cart font-bold text-sm">asasasasasas</span>
-          <img src="@/assets/icons/cart-icon.svg" alt="Cart Icon"/>
+          <span class="w-9rem price-cart font-bold text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
+            {{ currentLanguage === 'en' ? product.description_en : product.description_am }}
+          </span>
+            <img class="cursor-pointer" @click="addToCart(product)" src="@/assets/icons/cart-icon.svg" alt="Cart Icon"/>
         </div>
       </div>
     </div>
@@ -50,10 +49,12 @@
 
 <script setup>
 import axios from "axios";
-
-const value = ref(4);
+import {useCartStore} from '~/store/cart';
 
 const categories = ref([]);
+const products = ref([]);
+const cartStore = useCartStore();
+const router = useRouter();
 
 const fetchCategories = async () => {
   try {
@@ -64,71 +65,96 @@ const fetchCategories = async () => {
   }
 };
 
+const fetchProducts = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/v1/product');
+    products.value = response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+const baseUrl = 'http://localhost:3001/';
+const normalizePath = (path) => {
+  return `${baseUrl}${path.replace(/\\/g, '/')}`;
+}
+
 const items = ref([
-  {
-    label: 'All',
-    items: [
-      [
-        {
-          label: 'Living Room',
-          items: [{label: 'Accessories'}, {label: 'Armchair'}, {label: 'Coffee Table'}, {label: 'Couch'}, {label: 'TV Stand'}]
-        }
-      ],
-      [
-        {
-          label: 'Kitchen',
-          items: [{label: 'Bar stool'}, {label: 'Chair'}, {label: 'Table'}]
-        },
-        {
-          label: 'Bathroom',
-          items: [{label: 'Accessories'}]
-        }
-      ],
-    ]
-  },
-  {
-    label: 'Brands',
-    items: [
-      [
-        {
-          label: 'Computer',
-          items: [{label: 'Monitor'}, {label: 'Mouse'}, {label: 'Notebook'}, {label: 'Keyboard'}, {label: 'Printer'}, {label: 'Storage'}]
-        }
-      ],
-      [
-        {
-          label: 'Home Theather',
-          items: [{label: 'Projector'}, {label: 'Speakers'}, {label: 'TVs'}]
-        }
-      ],
-    ]
-  },
+  // {
+  //   label: 'All',
+  //   items: [
+  //     [
+  //       {
+  //         label: 'Living Room',
+  //         items: [{label: 'Accessories'}, {label: 'Armchair'}, {label: 'Coffee Table'}, {label: 'Couch'}, {label: 'TV Stand'}]
+  //       }
+  //     ],
+  //     [
+  //       {
+  //         label: 'Kitchen',
+  //         items: [{label: 'Bar stool'}, {label: 'Chair'}, {label: 'Table'}]
+  //       },
+  //       {
+  //         label: 'Bathroom',
+  //         items: [{label: 'Accessories'}]
+  //       }
+  //     ],
+  //   ]
+  // },
+  // {
+  //   label: 'Brands',
+  //   items: [
+  //     [
+  //       {
+  //         label: 'Computer',
+  //         items: [{label: 'Monitor'}, {label: 'Mouse'}, {label: 'Notebook'}, {label: 'Keyboard'}, {label: 'Printer'}, {label: 'Storage'}]
+  //       }
+  //     ],
+  //     [
+  //       {
+  //         label: 'Home Theather',
+  //         items: [{label: 'Projector'}, {label: 'Speakers'}, {label: 'TVs'}]
+  //       }
+  //     ],
+  //   ]
+  // },
   {
     label: 'Categories',
     items: computed(() => [
       [
         {
           label: 'Categories',
-          items: categories.value.map(category => ({ label: category.title_en }))
+          items: categories.value.map(category => ({label: category.title_en}))
         }
       ]
     ])
   },
-  {
-    label: 'Collections',
-    items: [
-      [
-        {
-          label: 'Football',
-          items: [{label: 'Kits'}, {label: 'Shoes'}, {label: 'Shorts'}, {label: 'Training'}]
-        }
-      ],
-    ]
-  },
+  // {
+  //   label: 'Collections',
+  //   items: [
+  //     [
+  //       {
+  //         label: 'Football',
+  //         items: [{label: 'Kits'}, {label: 'Shoes'}, {label: 'Shorts'}, {label: 'Training'}]
+  //       }
+  //     ],
+  //   ]
+  // },
 ]);
+
+const addToCart = (product) => {
+  cartStore.addToCart(product);
+  router.push('/my-card');
+};
+
+const currentLanguage = computed(() => {
+  const {locale} = useI18n();
+  return locale.value;
+})
 
 onMounted(() => {
   fetchCategories();
+  fetchProducts();
 });
 </script>
 
@@ -250,6 +276,12 @@ a {
 
 .rating-text, .price-cart {
   color: var(--dark-orange);
+}
+
+.chocolates-images {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
 }
 
 .price {

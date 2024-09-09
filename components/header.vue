@@ -3,7 +3,10 @@
     <a href="/"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
 
     <div class="nav-items gap-7 xl:flex hidden">
-      <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{ $t('header.ourChocolates') }}</NuxtLink>
+      <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{
+          $t('header.ourChocolates')
+        }}
+      </NuxtLink>
       <NuxtLink to="/history" class="no-underline" exact-active-class="active">{{ $t('header.history') }}</NuxtLink>
     </div>
 
@@ -12,7 +15,7 @@
         <InputGroupAddon>
           <i class="pi pi-search text-lg font-semibold"></i>
         </InputGroupAddon>
-        <InputText :placeholder="$t('header.search')" />
+        <InputText :placeholder="$t('header.search')"/>
       </InputGroup>
 
       <div class="header-icons gap-4 xl:flex hidden">
@@ -21,62 +24,34 @@
         <language-dropdown/>
       </div>
 
-      <Dialog v-model:visible="visible" header="My card"
-              :style="{ width: '17rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }"
+      <Dialog v-model:visible="visible" :header="$t('myCard.myCard')"
+              :style="{ width: '18rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }"
               :position="position"
               :modal="true" :draggable="false"
               :pt="{ header: { class: 'flex  justify-content-space-between pb-4 font-normal'}}">
         <div>
-          <div class="flex gap-3">
+          <div v-for="product in cartItems" :key="product.id" class="flex gap-3">
             <img src="@/assets/my-card-modal-img.svg" alt=""/>
-            <div>
-              <p class="text-black font-medium my-1">Royalad</p>
-              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
+
+            <div class="w-8rem">
+              <p class="text-black font-medium my-1">
+                {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
+              </p>
+              <p style="color: var(--dark-orange)" class="font-medium my-1">{{ product.price }} AMD</p>
               <div class="flex gap-2">
-                <button class="count-btn border-none text-lg">-</button>
-                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
-                <button class="count-btn border-none text-lg">+</button>
+                <button @click="updateQuantity(product.id, product.quantity - 1)" class="count-btn border-none text-lg">-</button>
+                <button class="count w-2rem h-2rem border-round-xl border-1">{{ product.quantity }}</button>
+                <button @click="updateQuantity(product.id, product.quantity + 1)" class="count-btn border-none text-lg">+</button>
               </div>
             </div>
+            <hr class="card-hr border-1"/>
           </div>
 
-          <hr class="card-hr border-1"/>
-
-          <div class="flex gap-3">
-            <img src="@/assets/my-card-modal-img.svg" alt=""/>
-            <div>
-              <p class="text-black font-medium my-1">Royalad</p>
-              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
-              <div class="flex gap-2">
-                <button class="count-btn border-none text-lg">-</button>
-                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
-                <button class="count-btn border-none text-lg">+</button>
-              </div>
-            </div>
-          </div>
-
-          <hr class="card-hr border-1"/>
-
-          <div class="flex gap-3">
-            <img src="@/assets/my-card-modal-img.svg" alt=""/>
-            <div>
-              <p class="text-black font-medium my-1">Royalad</p>
-              <p style="color: var(--dark-orange)" class="font-medium my-1">2000 AMD</p>
-              <div class="flex gap-2">
-                <button class="count-btn border-none text-lg">-</button>
-                <button class="count w-2rem h-2rem border-round-xl border-1">1</button>
-                <button class="count-btn border-none text-lg">+</button>
-              </div>
-            </div>
-          </div>
-
-          <hr class="card-hr border-1"/>
-
-          <p class="total_price text-center">Total price: 200$</p>
+          <p class="total_price text-center">{{ $t('myCard.productOrderPrice') }} {{ productPrice }} AMD</p>
 
           <NuxtLink to="/checkout">
             <button class="add-to-card border-none border-round-lg py-3 text-base font-medium w-full">
-              Checkout
+              {{ $t('myCard.checkout') }}
             </button>
           </NuxtLink>
         </div>
@@ -100,14 +75,28 @@
 </template>
 
 <script setup>
+import {useCartStore} from '~/store/cart';
+
 const position = ref('right');
 const visible = ref(false);
+
 const visibleRight = ref(false);
+const cartStore = useCartStore();
 
 const openPosition = (pos) => {
   position.value = pos;
   visible.value = true;
 }
+
+const cartItems = computed(() => cartStore.cartItems);
+const productPrice = computed(() => cartStore.productPrice);
+
+const { updateQuantity } = cartStore;
+
+const currentLanguage = computed(() => {
+  const {locale} = useI18n();
+  return locale.value;
+})
 </script>
 
 <style scoped>
@@ -171,6 +160,10 @@ const openPosition = (pos) => {
 
 .header-icons img:hover {
   filter: brightness(0) saturate(87%) invert(85%) sepia(12%) saturate(2342%) hue-rotate(328deg) brightness(100%) contrast(100%);
+}
+
+.add-to-card {
+  background-color: var(--dark-orange);
 }
 
 @media only screen and (max-width: 1320px) {

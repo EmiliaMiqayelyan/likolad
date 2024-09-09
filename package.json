@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@nuxtjs/i18n": "^8.5.1",
+    "@pinia/nuxt": "^0.5.4",
     "axios": "^1.7.6",
     "gsap": "^3.12.5",
     "nuxt": "^3.11.2",
+    "pinia": "^2.2.2",
+    "pinia-plugin-persistedstate": "^4.0.0",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.32.0",
@@ -21,6 +24,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "nuxt-primevue": "^3.0.0",
     "sass": "^1.77.2",
     "vue-concise-slider": "^4.2.5"

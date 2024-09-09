@@ -31,6 +31,12 @@
           2
         </p>
       </Fieldset>
+
+      <Fieldset legend="Orders">
+        <p class="m-0">
+          9
+        </p>
+      </Fieldset>
     </div>
   </div>
 </template>

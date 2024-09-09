@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="pt-5">
-      <h2>Categories Form</h2>
+      <h2>Category</h2>
 
       <div class="flex justify-content-center">
         <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitCategories">
@@ -95,7 +95,7 @@ const submitCategories = async () => {
       category.value.push(response.data);
     }
 
-    categories.value = {title_am: '', title_en: '', description_am: '', description_en: '',};
+    categories.value = {title_am: '', title_en: '', description_am: '', description_en: ''};
     editingCategoryId.value = null;
     localStorage.setItem('category', JSON.stringify(category.value));
   } catch (error) {

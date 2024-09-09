@@ -1,5 +1,9 @@
 export default defineNuxtConfig({
-    modules: ['nuxt-primevue', '@nuxtjs/i18n'],
+    modules: [
+        'nuxt-primevue',
+        '@nuxtjs/i18n',
+        ['@pinia/nuxt', {disableVuex: false}]
+    ],
 
     primevue: {
         cssLayerOrder: 'reset, primevue'
@@ -14,4 +18,8 @@ export default defineNuxtConfig({
         'primeicons/primeicons.css',
         'primeflex/primeflex.css',
     ],
+
+    pinia: {
+        storesDirs: ['./stores/**', './custom-folder/stores/**'],
+    }
 })
