@@ -6,26 +6,39 @@
           {{ $t('ourChocolates.ourChocolatesText') }}
         </p>
 
-        <button
-            class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-          {{ $t('ourChocolates.createChocolate') }}
-        </button>
+<!--        <button-->
+<!--            class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">-->
+<!--          {{ $t('ourChocolates.createChocolate') }}-->
+<!--        </button>-->
       </div>
 
       <div class="card mt-5">
-        <MegaMenu :model="items"/>
-        <img src="@/assets/icons/filter-icon.svg" alt="" class="mr-4"/>
+        <MegaMenu :model="items" />
+
+       <div class="flex gap-3">
+         <IconField iconPosition="left">
+           <InputIcon class="pi pi-search"></InputIcon>
+           <InputText v-model="searchTerm" @input="fetchFilteredProducts" placeholder="Search" />
+         </IconField>
+
+        <div class="flex gap-3 align-items-center">
+          <i class="pi pi-search cursor-pointer"></i>
+          <img width="25" src="@/assets/icons/filter-icon.svg" alt="Filter" class="mr-4 cursor-pointer" @click="toggleSortOrder" />
+        </div>
+       </div>
       </div>
+
       <hr class="card-menu-items"/>
     </div>
 
     <div class="chocolates-section flex flex-wrap">
       <div class="product border-round-xl"
-           v-for="(product, index) in products" :key="index">
+           v-for="(product, index) in filteredProducts" :key="index">
         <NuxtLink :to="`/product/${product.id}`">
           <img
+              v-if="product.media[0]"
               class="chocolates-images"
-              src="@/assets/loralad.jpg"
+              :src="normalizePath(product.media[0].path)"
               alt=""/>
         </NuxtLink>
 
@@ -52,9 +65,14 @@ import axios from "axios";
 import {useCartStore} from '~/store/cart';
 
 const categories = ref([]);
-const products = ref([]);
 const cartStore = useCartStore();
 const router = useRouter();
+const filteredProducts = ref([]);
+
+const searchTerm = ref('');
+const categoryId = ref(null);
+const sortBy = ref('price');
+const sortOrder = ref('ASC');
 
 const fetchCategories = async () => {
   try {
@@ -65,13 +83,35 @@ const fetchCategories = async () => {
   }
 };
 
-const fetchProducts = async () => {
+const fetchFilteredProducts = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/product');
-    products.value = response.data;
+    let url = `http://localhost:3001/api/v1/product?`;
+
+    if (searchTerm.value) {
+      url += `searchTerm=${searchTerm.value}&`;
+    }
+
+    if (categoryId.value) {
+      url += `categoryId=${categoryId.value}&`;
+    }
+
+    url += `sortBy=${sortBy.value}&sortOrder=${sortOrder.value}`;
+
+    const response = await axios.get(url);
+    filteredProducts.value = response.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error('Error fetching filtered products:', error);
   }
+};
+
+const filterByCategory = (id) => {
+  categoryId.value = id;
+  fetchFilteredProducts();
+};
+
+const toggleSortOrder = () => {
+  sortOrder.value = sortOrder.value === 'ASC' ? 'DESC' : 'ASC';
+  fetchFilteredProducts();
 };
 
 const baseUrl = 'http://localhost:3001/';
@@ -80,66 +120,20 @@ const normalizePath = (path) => {
 }
 
 const items = ref([
-  // {
-  //   label: 'All',
-  //   items: [
-  //     [
-  //       {
-  //         label: 'Living Room',
-  //         items: [{label: 'Accessories'}, {label: 'Armchair'}, {label: 'Coffee Table'}, {label: 'Couch'}, {label: 'TV Stand'}]
-  //       }
-  //     ],
-  //     [
-  //       {
-  //         label: 'Kitchen',
-  //         items: [{label: 'Bar stool'}, {label: 'Chair'}, {label: 'Table'}]
-  //       },
-  //       {
-  //         label: 'Bathroom',
-  //         items: [{label: 'Accessories'}]
-  //       }
-  //     ],
-  //   ]
-  // },
-  // {
-  //   label: 'Brands',
-  //   items: [
-  //     [
-  //       {
-  //         label: 'Computer',
-  //         items: [{label: 'Monitor'}, {label: 'Mouse'}, {label: 'Notebook'}, {label: 'Keyboard'}, {label: 'Printer'}, {label: 'Storage'}]
-  //       }
-  //     ],
-  //     [
-  //       {
-  //         label: 'Home Theather',
-  //         items: [{label: 'Projector'}, {label: 'Speakers'}, {label: 'TVs'}]
-  //       }
-  //     ],
-  //   ]
-  // },
   {
     label: 'Categories',
     items: computed(() => [
       [
         {
           label: 'Categories',
-          items: categories.value.map(category => ({label: category.title_en}))
+          items: categories.value.map(category => ({
+            label: category.title_en,
+            command: () => filterByCategory(category.id)
+          }))
         }
       ]
     ])
-  },
-  // {
-  //   label: 'Collections',
-  //   items: [
-  //     [
-  //       {
-  //         label: 'Football',
-  //         items: [{label: 'Kits'}, {label: 'Shoes'}, {label: 'Shorts'}, {label: 'Training'}]
-  //       }
-  //     ],
-  //   ]
-  // },
+  }
 ]);
 
 const addToCart = (product) => {
@@ -154,7 +148,7 @@ const currentLanguage = computed(() => {
 
 onMounted(() => {
   fetchCategories();
-  fetchProducts();
+  fetchFilteredProducts();
 });
 </script>
 
@@ -182,6 +176,19 @@ onMounted(() => {
   background-color: #080403;
   color: var(--dark-orange);
   transition: 0.5s;
+}
+
+:deep(.p-icon-field-left > .p-inputtext) {
+  background: none;
+}
+
+:deep(.p-icon-field) {
+  display: flex;
+  align-items: center;
+}
+
+:deep(.p-icon-field::placeholder) {
+  color: white !important;
 }
 
 .card {

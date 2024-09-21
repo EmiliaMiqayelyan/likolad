@@ -10,9 +10,13 @@
     </NuxtLink>
 
     <div
-         class="product-info w-full py-5 px-4 border-1 mt-5 border-round-xl flex lg:flex-row flex-column lg:gap-7 gap-3">
-      <div>
-        <img class="productid-img" src="@/assets/product1.svg" alt=""/>
+        class="product-info w-full py-5 px-4 border-1 mt-5 border-round-xl flex lg:flex-row flex-column lg:gap-7 gap-3">
+      <div v-if="product.media.length && product.media[0].path" class="productid-img-container">
+        <img width="276" height="276"
+            class="productid-img border-round-lg"
+            :src="normalizePath(product.media[0].path)"
+            alt="Product image"
+        />
       </div>
 
       <div class="flex flex-column justify-content-evenly w-full">
@@ -24,27 +28,31 @@
           {{ currentLanguage === 'en' ? product.description_en : product.description_am }}
         </p>
         <span class="rating-price font-bold text-sm my-1">{{ product.price }} AMD</span>
-<!--        <p class="text-xs my-1">{{ $t('productId.chocolateType') }}</p>-->
+        <!--        <p class="text-xs my-1">{{ $t('productId.chocolateType') }}</p>-->
 
-<!--        <div class="flex gap-4 chocolate-type flex-wrap">-->
-<!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Dark</button>-->
-<!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Milk</button>-->
-<!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Ruby</button>-->
-<!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">White</button>-->
-<!--        </div>-->
+        <!--        <div class="flex gap-4 chocolate-type flex-wrap">-->
+        <!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Dark</button>-->
+        <!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Milk</button>-->
+        <!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">Ruby</button>-->
+        <!--          <button class="border-1 border-round-xl py-3 px-5 cursor-pointer">White</button>-->
+        <!--        </div>-->
 
         <div class="flex justify-content-between align-items-center flex-wrap">
           <div class="flex gap-3 mt-2">
             <button
                 @click="changeQuantity(-1)"
                 class="w-2rem h-2rem border-circle border-none text-lg"
-                :disabled="quantity <= 1">-</button>
+                :disabled="quantity <= 1">
+              -
+            </button>
 
             <button class="count w-2rem h-2rem border-round-lg border-1">{{ quantity }}</button>
 
             <button
                 @click="changeQuantity(1)"
-                class="w-2rem h-2rem border-circle border-none text-lg">+</button>
+                class="w-2rem h-2rem border-circle border-none text-lg">
+              +
+            </button>
           </div>
 
           <NuxtLink to="/my-card" class="my-card-link">
@@ -57,13 +65,19 @@
         </div>
       </div>
     </div>
+
+    <div class="product-slider">
+      <h3>{{ $t('productId.alsoLike') }}</h3>
+      <product-slider />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
-import { useCartStore } from '~/store/cart';
+import {useRoute} from 'vue-router';
+import {useCartStore} from '~/store/cart';
 import axios from 'axios';
+import ProductSlider from "~/components/sliders/product-slider.vue";
 
 const route = useRoute();
 const productId = route.params.id;
@@ -79,15 +93,16 @@ const currentLanguage = computed(() => {
   return locale.value;
 })
 
+const baseUrl = 'http://localhost:3001/';
+const normalizePath = (path) => {
+  return `${baseUrl}${path.replace(/\\/g, '/')}`;
+}
+
 const fetchProduct = async () => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/v1/product/${productId}`);
-    product.value = response.data;
+   const response =  await axios.get(`http://localhost:3001/api/v1/product/${productId}`);
 
-    const cartProduct = cartItems.value.find(item => item.id === product.value.id);
-    if (cartProduct) {
-      quantity.value = cartProduct.quantity;
-    }
+   return response.data
   } catch (err) {
     console.error('Error fetching product:', err.response ? err.response.data : err.message);
   }
@@ -101,15 +116,17 @@ const changeQuantity = (amount) => {
 };
 
 const addToCart = () => {
-  const cartProduct = { ...product.value, quantity: quantity.value };
+  const cartProduct = {...product.value, quantity: quantity.value};
   cartStore.addToCart(cartProduct);
 };
 
-onMounted(() => {
-  if (productId) {
-    fetchProduct();
-  }
-});
+const {data} = await useAsyncData(() => fetchProduct())
+product.value = data.value;
+
+const cartProduct = cartItems.value.find(item => item.id === product.value.id);
+if (cartProduct) {
+  quantity.value = cartProduct.quantity;
+}
 </script>
 
 <style scoped>
@@ -136,6 +153,10 @@ onMounted(() => {
 
 .productid-desc {
   width: 70%;
+}
+
+.product-slider {
+  margin-top: 7rem;
 }
 
 .chocolate-type > button, .count {

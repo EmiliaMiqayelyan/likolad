@@ -4,17 +4,26 @@
       <h2>Category</h2>
 
       <div class="flex justify-content-center">
-        <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitCategories">
+        <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitCategory">
           <div class="card flex justify-content-center flex-column row-gap-4">
             <div class="flex gap-3">
-              <InputText type="text" v-model="categories.title_am" placeholder="Title (AM)"/>
-              <InputText type="text" v-model="categories.title_en" placeholder="Title (EN)"/>
+              <InputText type="text" v-model="category.title_am" placeholder="Title (AM)"/>
+              <InputText type="text" v-model="category.title_en" placeholder="Title (EN)"/>
+            </div>
+
+            <div class="w-full">
+              <select v-model="category.parentId" class="w-full categories-text">
+                <option value="">Select Parent Category</option>
+                <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+                  {{ cat.title_en }} - ID ({{ cat.id }})
+                </option>
+              </select>
             </div>
 
             <div class="flex gap-3">
-            <textarea type="text" class="categories-text" v-model="categories.description_am"
+            <textarea type="text" class="categories-text" v-model="category.description_am"
                       placeholder="Description (AM)"/>
-              <textarea type="text" class="categories-text" v-model="categories.description_en"
+              <textarea type="text" class="categories-text" v-model="category.description_en"
                         placeholder="Description (EN)"/>
             </div>
 
@@ -27,7 +36,7 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="category" editMode="row" dataKey="id"
+      <DataTable :value="categories" editMode="row" dataKey="id"
                  :pt="{
                 table: { style: 'min-width: 50rem' },
                 column: {
@@ -43,6 +52,11 @@
           </template>
         </Column>
         <Column field="title_en" header="Title (EN)" style="width: 15%">
+          <template #editor="{ data, field }">
+            <InputText v-model="data[field]"/>
+          </template>
+        </Column>
+        <Column field="parentId" header="Parent (ID)" style="width: 15%">
           <template #editor="{ data, field }">
             <InputText v-model="data[field]"/>
           </template>
@@ -72,57 +86,90 @@
 <script setup>
 import axios from "axios";
 
-const categories = ref({
+const category = ref({
+  id: '',
   title_am: '',
   title_en: '',
   description_am: '',
   description_en: '',
+  parentId: ''
 })
 
-const category = ref([]);
-const editingCategoryId = ref(null);
+const categories = ref([]);
 
-const submitCategories = async () => {
+const fetchCategories = async () => {
   try {
-    if (editingCategoryId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/category/${editingCategoryId.value}`, categories.value);
-      const index = category.value.findIndex(c => c.id === editingCategoryId.value);
-      if (index !== -1) {
-        category.value[index] = response.data;
+    const response = await axios.get('http://localhost:3001/api/v1/category');
+    categories.value = response.data;
+  } catch (error) {
+    console.error('Error fetching category:', error);
+  }
+};
+
+const submitCategory = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
+    };
+
+    if (category.value.id) {
+      await axios.put(`http://localhost:3001/api/v1/category/${category.value.id}`, category.value, config);
     } else {
-      const response = await axios.post('http://localhost:3001/api/v1/category', categories.value);
-      category.value.push(response.data);
+      await axios.post('http://localhost:3001/api/v1/category', category.value, config);
     }
 
-    categories.value = {title_am: '', title_en: '', description_am: '', description_en: ''};
-    editingCategoryId.value = null;
-    localStorage.setItem('category', JSON.stringify(category.value));
+    category.value = {
+      id: '',
+      title_am: '',
+      title_en: '',
+      description_am: '',
+      description_en: '',
+      parentId: ''
+    };
+
+    await fetchCategories();
+
   } catch (error) {
     console.error('Error submitting category:', error);
   }
 };
 
 const editCategory = (selectedCategory) => {
-  categories.value = {...selectedCategory};
-  editingCategoryId.value = selectedCategory.id;
+  category.value = {
+    id: selectedCategory.id,
+    title_en: selectedCategory.title_en,
+    title_am: selectedCategory.title_am,
+    description_en: selectedCategory.description_en,
+    description_am: selectedCategory.description_am,
+    parentId: selectedCategory.parentId
+  }
 };
 
 const deleteTestimonial = async (id) => {
   try {
-    await axios.delete(`http://localhost:3001/api/v1/category/${id}`);
-    category.value = category.value.filter((categories) => categories.id !== id);
-    localStorage.setItem('category', JSON.stringify(category.value));
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    await axios.delete(`http://localhost:3001/api/v1/category/${id}`, config);
+    await fetchCategories()
   } catch (error) {
     console.error('Error deleting category:', error);
   }
 };
 
 onMounted(() => {
-  const savedCategory = localStorage.getItem('category');
-  if (savedCategory) {
-    category.value = JSON.parse(savedCategory);
-  }
+  fetchCategories();
 });
 </script>
 

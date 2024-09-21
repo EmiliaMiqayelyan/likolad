@@ -2,28 +2,29 @@
   <div class="pt-5">
     <h2>Product</h2>
     <div class="flex justify-content-center">
-      <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitProducts">
+      <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitProduct">
         <div class="card flex justify-content-center flex-column row-gap-4">
           <div class="flex gap-3">
-            <InputText type="text" v-model="products.productJsonData.title_am" placeholder="Title (AM)"/>
-            <InputText type="text" v-model="products.productJsonData.title_en" placeholder="Title (EN)"/>
+            <InputText type="text" v-model="activeProduct.productJsonData.title_am" placeholder="Title (AM)"/>
+            <InputText type="text" v-model="activeProduct.productJsonData.title_en" placeholder="Title (EN)"/>
           </div>
 
           <div class="flex gap-3">
-            <textarea class="products-text" v-model="products.productJsonData.description_am"
+            <textarea class="products-text" v-model="activeProduct.productJsonData.description_am"
                       placeholder="Description (AM)"></textarea>
-            <textarea class="products-text" v-model="products.productJsonData.description_en"
+            <textarea class="products-text" v-model="activeProduct.productJsonData.description_en"
                       placeholder="Description (EN)"/>
           </div>
 
           <div class="flex gap-3">
-            <InputText type="number" v-model="products.productJsonData.price" placeholder="Price"/>
-            <select v-model="selectedCategoryId" class="select-category w-full">
-              <option disabled value="">Select a Category</option>
-              <option v-for="category in categories" :key="category.id" :value="category.id">
-                {{ category.title_en }}
-              </option>
-            </select>
+            <InputText type="number" v-model="activeProduct.productJsonData.price" placeholder="Price"/>
+            <TreeSelect
+                v-model="activeProduct.productJsonData.categoryIds"
+                :options="categories"
+                placeholder="Select a Category"
+                selectionMode="multiple"
+                class="w-full"
+            />
           </div>
 
           <div class="flex gap-3">
@@ -38,7 +39,7 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="product" editMode="row" dataKey="id"
+      <DataTable :value="products" editMode="row" dataKey="id"
                  :pt="{
                 table: { style: 'min-width: 60rem' },
                 column: {
@@ -58,11 +59,11 @@
             <InputText v-model="data[field]"/>
           </template>
         </Column>
-        <Column field="description_am" header="Description (AM)" style="width: 20%">
-          <template #editor="{ data, field }">
-            <InputText v-model="data[field]"/>
-          </template>
-        </Column>
+        <!--        <Column field="title_en" header="Category" style="width: 15%">-->
+        <!--          <template #editor="{ data, field }">-->
+        <!--            <InputText v-model="data[field]"/>-->
+        <!--          </template>-->
+        <!--        </Column>-->
         <Column field="description_en" header="Description (EN)" style="width: 20%">
           <template #editor="{ data, field }">
             <InputText v-model="data[field]"/>
@@ -88,9 +89,10 @@
 <script setup>
 import axios from 'axios';
 
-const products = ref({
+const activeProduct = ref({
   files: [],
   productJsonData: {
+    id: '',
     title_am: '',
     title_en: '',
     description_am: '',
@@ -101,41 +103,73 @@ const products = ref({
 });
 
 const categories = ref([]);
-const selectedCategoryId = ref('');
-const product = ref([])
-
-const editingProductId = ref(null);
+const products = ref([])
 
 const fetchCategories = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/v1/category');
-    categories.value = response.data;
+    console.log(response.data)
+
+    const categoryMap = {};
+    response.data.forEach(category => {
+      categoryMap[category.id] = {
+        label: category.title_en,
+        key: category.id,
+        children: []
+      };
+    });
+
+    response.data.forEach(category => {
+      if (category.parentId) {
+        categoryMap[category.parentId].children.push(categoryMap[category.id]);
+      }
+    });
+
+    categories.value = Object.values(categoryMap).filter(category => !category.parentId);
   } catch (error) {
     console.error('Error fetching categories:', error);
   }
 };
 
-const submitProducts = async () => {
+const fetchProducts = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/v1/product');
+    products.value = response.data;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+  }
+};
+
+const submitProduct = async () => {
   try {
     const formdata = new FormData();
-    formdata.append("files", products.value.files[0]);
-    formdata.append("productJsonData", JSON.stringify(products.value.productJsonData));
+    formdata.append("files", activeProduct.value.files[0]);
 
-    if (editingProductId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/product/${editingProductId.value}`, products.value);
-      const index = product.value.findIndex(p => p.id === editingProductId.value);
-      if (index !== -1) {
-        product.value[index] = response.data;
+    formdata.append("productJsonData", JSON.stringify(activeProduct.value.productJsonData));
+
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
       }
+    };
+
+    let response;
+
+    if (activeProduct.value.productJsonData.id) {
+      response = await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formdata, config);
+      console.log('Product updated successfully:', response.data);
     } else {
-      products.value.productJsonData.categoryIds = []
-      const response = await axios.post('http://localhost:3001/api/v1/product', formdata);
-      product.value.push(response.data);
+      response = await axios.post('http://localhost:3001/api/v1/product', formdata, config);
+      console.log('Product submitted successfully:', response.data);
     }
 
-    products.value = {
+    activeProduct.value = {
       files: [],
       productJsonData: {
+        id: '',
         title_am: '',
         title_en: '',
         description_am: '',
@@ -144,29 +178,44 @@ const submitProducts = async () => {
         categoryIds: []
       }
     };
+    document.querySelector('input[type="file"]').value = "";
 
-    selectedCategoryId.value = '';
-    editingProductId.value = null;
-    localStorage.setItem('product', JSON.stringify(product.value));
+    await fetchProducts();
   } catch (error) {
-    console.error('Error submitting product:', error);
+    console.error('Error submitting product:', error.response ? error.response.data : error.message);
   }
 };
 
 const onChangeFileUpload = (e) => {
-  products.value.files = e.target.files
+  activeProduct.value.files = e.target.files
 }
 
 const editProduct = (selectedProduct) => {
-  products.value = {...selectedProduct};
-  editingProductId.value = selectedProduct.id;
+  activeProduct.value.productJsonData = {
+    id: selectedProduct.id,
+    title_am: selectedProduct.title_am,
+    title_en: selectedProduct.title_en,
+    description_am: selectedProduct.description_am,
+    description_en: selectedProduct.description_en,
+    price: selectedProduct.price,
+    categoryIds: selectedProduct.categoryIds
+  };
 };
 
 const deleteProduct = async (id) => {
   try {
-    await axios.delete(`http://localhost:3001/api/v1/product/${id}`);
-    product.value = product.value.filter((products) => products.id !== id);
-    localStorage.setItem('product', JSON.stringify(product.value));
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
+    await axios.delete(`http://localhost:3001/api/v1/product/${id}`, config);
+
+    await fetchProducts()
   } catch (error) {
     console.error('Error deleting product:', error);
   }
@@ -174,6 +223,7 @@ const deleteProduct = async (id) => {
 
 onMounted(() => {
   fetchCategories();
+  fetchProducts();
 });
 </script>
 

@@ -1,23 +1,21 @@
 <template>
   <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-2">
-    <a href="/"><img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/></a>
 
-    <div class="nav-items gap-7 xl:flex hidden">
-      <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{
-          $t('header.ourChocolates')
-        }}
-      </NuxtLink>
-      <NuxtLink to="/history" class="no-underline" exact-active-class="active">{{ $t('header.history') }}</NuxtLink>
+    <div class="nav-items gap-8 xl:flex hidden align-items-center">
+      <a href="/">
+        <img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/>
+      </a>
+
+      <div class="flex align-items-center gap-5">
+        <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{
+            $t('header.ourChocolates')
+          }}
+        </NuxtLink>
+        <NuxtLink to="/history" class="no-underline" exact-active-class="active">{{ $t('header.history') }}</NuxtLink>
+      </div>
     </div>
 
     <div class="xl:flex hidden gap-6 align-items-center">
-      <InputGroup>
-        <InputGroupAddon>
-          <i class="pi pi-search text-lg font-semibold"></i>
-        </InputGroupAddon>
-        <InputText :placeholder="$t('header.search')"/>
-      </InputGroup>
-
       <div class="header-icons gap-4 xl:flex hidden">
         <img @click="openPosition('right')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
              class="cursor-pointer"/>
@@ -39,9 +37,13 @@
               </p>
               <p style="color: var(--dark-orange)" class="font-medium my-1">{{ product.price }} AMD</p>
               <div class="flex gap-2">
-                <button @click="updateQuantity(product.id, product.quantity - 1)" class="count-btn border-none text-lg">-</button>
+                <button @click="updateQuantity(product.id, product.quantity - 1)" class="count-btn border-none text-lg">
+                  -
+                </button>
                 <button class="count w-2rem h-2rem border-round-xl border-1">{{ product.quantity }}</button>
-                <button @click="updateQuantity(product.id, product.quantity + 1)" class="count-btn border-none text-lg">+</button>
+                <button @click="updateQuantity(product.id, product.quantity + 1)" class="count-btn border-none text-lg">
+                  +
+                </button>
               </div>
             </div>
             <hr class="card-hr border-1"/>
@@ -91,7 +93,7 @@ const openPosition = (pos) => {
 const cartItems = computed(() => cartStore.cartItems);
 const productPrice = computed(() => cartStore.productPrice);
 
-const { updateQuantity } = cartStore;
+const {updateQuantity} = cartStore;
 
 const currentLanguage = computed(() => {
   const {locale} = useI18n();
@@ -114,40 +116,6 @@ const currentLanguage = computed(() => {
 
 .nav-items a:focus, .nav-items a.active, .menu-hamburger, .total_price {
   color: var(--dark-orange);
-}
-
-.p-inputgroup input:last-child {
-  padding: 8px !important;
-}
-
-.p-inputgroup {
-  width: 400px !important;
-}
-
-.p-inputgroup-addon {
-  color: var(--brown);
-  border: 2px solid var(--brown);
-  border-right: 0;
-}
-
-.p-inputgroup input:last-child {
-  border: 2px solid var(--brown);
-  border-left: 0;
-}
-
-::placeholder {
-  color: var(--brown) !important;
-  font-weight: 500;
-}
-
-.p-inputgroup-addon:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.p-inputgroup input:last-child {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 .count-btn {

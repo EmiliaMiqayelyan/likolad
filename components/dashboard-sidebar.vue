@@ -1,7 +1,7 @@
 <template>
   <div class="card flex justify-center flex-column">
     <div class="admin-header">
-      <img @click="visible = true" class="cursor-pointer" width="70" src="@/assets/likolad-logo.svg" alt=""/>
+      <i @click="visible = true" class="pi pi-align-justify cursor-pointer text-2xl text-color"></i>
     </div>
 
     <Sidebar v-model:visible="visible"
@@ -14,6 +14,7 @@
       </template>
       <div class="admin-sidebar-items flex flex-column row-gap-3 mt-6 pl-4 text-xl">
         <p class="cursor-pointer" @click="showSection('dashboard')">Dashboard</p>
+        <p class="cursor-pointer" @click="showSection('orders')">Orders</p>
         <p class="cursor-pointer" @click="showSection('users')">Users</p>
         <p class="cursor-pointer" @click="showSection('products')">Products</p>
         <p class="cursor-pointer" @click="showSection('categories')">Categories</p>
@@ -24,26 +25,29 @@
     </Sidebar>
 
     <div class="content-area text-center">
+      <div v-if="activeSection === 'orders'">
+        <admin-orders/>
+      </div>
       <div v-if="activeSection === 'users'">
-        <admin-users />
+        <admin-users/>
       </div>
       <div v-if="activeSection === 'products'">
-        <admin-products />
+        <admin-products/>
       </div>
       <div v-if="activeSection === 'categories'">
-        <admin-categories />
+        <admin-categories/>
       </div>
       <div v-if="activeSection === 'testimonials'">
-        <admin-testimonials />
+        <admin-testimonials/>
       </div>
       <div v-if="activeSection === 'contacts'">
-        <admin-contacts />
+        <admin-contacts/>
       </div>
       <div v-if="activeSection === 'logout'">
-        <admin-logout />
+        <admin-logout/>
       </div>
       <div v-else-if="activeSection === 'dashboard'">
-        <admin-dashboard />
+        <admin-dashboard/>
       </div>
     </div>
   </div>

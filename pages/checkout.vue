@@ -24,8 +24,9 @@
               <InputGroupAddon>
                 +374
               </InputGroupAddon>
-              <InputText v-model="order.phone1" class="pl-2"/>
+              <InputMask v-model="order.phone1" class="pl-2" variant="filled" mask="99-999999" placeholder="99-999999"/>
             </InputGroup>
+            <p v-if="errors.phone1" class="error-message">{{ errors.phone1 }}</p>
           </div>
 
           <div class="w-full sm:w-fit">
@@ -34,18 +35,21 @@
               <InputGroupAddon>
                 +374
               </InputGroupAddon>
-              <InputText v-model="order.phone2" class="pl-2"/>
+              <InputMask v-model="order.phone2" class="pl-2" variant="filled" mask="99-999999" placeholder="99-999999"/>
             </InputGroup>
+            <p v-if="errors.phone2" class="error-message">{{ errors.phone2 }}</p>
           </div>
 
           <div class="w-full sm:w-fit">
             <p class="text-xs mb-2">{{ $t('checkout.region') }}</p>
             <InputText class="sm:w-13rem w-full" type="text" v-model="order.region" placeholder="Yerevan"/>
+            <p v-if="errors.region" class="error-message">{{ errors.region }}</p>
           </div>
 
           <div class="w-full sm:w-fit">
             <p class="text-xs mb-2">{{ $t('checkout.address') }}</p>
             <InputText class="sm:w-13rem w-full" type="text" v-model="order.address"/>
+            <p v-if="errors.address" class="error-message">{{ errors.address }}</p>
           </div>
         </div>
 
@@ -53,16 +57,19 @@
           <div class="w-full sm:w-fit">
             <p class="text-xs mb-2">{{ $t('checkout.entry') }}</p>
             <InputText class="sm:w-13rem w-full" type="text" v-model="order.entry"/>
+            <p v-if="errors.entry" class="error-message">{{ errors.entry }}</p>
           </div>
 
           <div class="w-full sm:w-fit">
             <p class="text-xs mb-2">{{ $t('checkout.apartmentAddress') }}</p>
             <InputText class="sm:w-13rem w-full" type="text" v-model="order.apartment"/>
+            <p v-if="errors.apartment" class="error-message">{{ errors.apartment }}</p>
           </div>
 
           <div class="w-full sm:w-fit">
             <p class="text-xs mb-2">{{ $t('checkout.floor') }}</p>
             <InputText class="sm:w-13rem w-full" type="text" v-model="order.floor"/>
+            <p v-if="errors.floor" class="error-message">{{ errors.floor }}</p>
           </div>
         </div>
 
@@ -70,14 +77,37 @@
           <p class="text-sm">{{ $t('checkout.deliveryTime') }}</p>
 
           <div class="delivery mt-4 flex gap-4 flex-wrap row-gap-5">
-            <button class="p-3 border-round-lg border-none text-white border-1">{{ $t('checkout.time1') }}</button>
-            <Button class="p-3 border-round-lg border-none text-white border-1" label="Info" severity="info" raised />
-            <button class="p-3 border-round-lg border-none text-white border-1">{{ $t('checkout.time2') }}</button>
-            <button class="p-3 border-round-lg border-none text-white border-1">{{ $t('checkout.time3') }}</button>
-            <div>
-              <p class="other-date">{{ $t('checkout.other') }}</p>
-              <button class="other-delivery p-3 border-round-lg border-none text-white border-1">07/07/2024</button>
-            </div>
+            <Button
+                :class="getButtonClass('asap')"
+                @click="setDeliveryDate('asap')"
+                class="p-3 border-round-lg border-none text-white border-1"
+                :label="$t('checkout.time1')"
+                severity="info"
+                raised
+            />
+            <Button
+                :class="getButtonClass('within1day')"
+                @click="setDeliveryDate('within1day')"
+                class="p-3 border-round-lg border-none text-white border-1"
+                :label="$t('checkout.time2')"
+                severity="info"
+                raised
+            />
+            <Button
+                :class="getButtonClass('within2day')"
+                @click="setDeliveryDate('within2day')"
+                class="p-3 border-round-lg border-none text-white border-1"
+                :label="$t('checkout.time3')"
+                severity="info"
+                raised
+            />
+            <input
+                v-model="customDate"
+                @input="setCustomDeliveryDate"
+                type="text"
+                placeholder="Other delivery date"
+                class="other-delivery p-3 border-round-lg border-none text-white border-1"
+            />
           </div>
         </div>
 
@@ -85,14 +115,9 @@
             class="w-full flex flex-column sm:justify-content-end justify-content-center sm:align-items-end align-items-center mt-6">
           <div class="flex flex-column row-gap-2 w-21rem">
 
-            <div class="flex gap-3 flex-wrap justify-content-between">
-              <p>{{ $t('checkout.delivery') }} 100$</p>
-              <p>{{ $t('checkout.orderPrice') }} 100$</p>
-            </div>
+            <p class="m-1 text-center">{{ $t('checkout.totalPrice') }} {{ cartTotal }} AMD</p>
 
-            <p class="total-price mt-0 text-center">{{ $t('checkout.totalPrice') }} 200$</p>
-
-            <p class="total-price py-2 m-0 text-center">{{ $t('checkout.paymentType') }}</p>
+            <p class="payment-type m-0 text-center">{{ $t('checkout.paymentType') }}</p>
 
             <button @click="visible = true" type="submit"
                     class="order border-round-lg py-3 text-base font-medium w-full">
@@ -117,6 +142,7 @@
 
 <script setup>
 import axios from "axios";
+import {useCartStore} from "~/store/cart";
 
 const order = ref({
   phone1: '',
@@ -126,36 +152,124 @@ const order = ref({
   apartment: '',
   floor: '',
   entry: '',
-  deliveryDate: 'asap',
+  deliveryDate: '',
   status: 'pending'
 });
 
 const orders = ref([]);
-
-const submitOrder = async () => {
-  try {
-    const response = await axios.post('http://localhost:3001/api/v1/order', order.value);
-    orders.value.push(response.data);
-
-    order.value = {
-      phone1: '',
-      phone2: '',
-      region: '',
-      address: '',
-      apartment: '',
-      floor: '',
-      entry: '',
-      deliveryDate: '',
-      status: ''
-    };
-
-    localStorage.setItem('orders', JSON.stringify(orders.value));
-  } catch (error) {
-    console.error('Error submitting order:', error);
-  }
-};
+const customDate = ref('');
+const cartStore = useCartStore();
+const cartTotal = computed(() => cartStore.cartTotal);
 
 const visible = ref(false);
+const errors = ref({
+  phone1: '',
+  phone2: '',
+  region: '',
+  address: '',
+  apartment: '',
+  floor: '',
+  entry: ''
+});
+
+const validatePhone = (phone) => {
+  const phoneRegex = /^\d{2}-\d{6}$/;
+  return phoneRegex.test(phone);
+};
+
+const validateOrder = () => {
+  let isValid = true;
+
+  Object.keys(errors.value).forEach(key => {
+    errors.value[key] = '';
+  });
+
+  if (!order.value.phone1 || !validatePhone(order.value.phone1)) {
+    errors.value.phone1 = '*Valid phone number is required';
+    isValid = false;
+  }
+
+  if (order.value.phone2 && !validatePhone(order.value.phone2)) {
+    errors.value.phone2 = '*Phone number must be valid';
+    isValid = false;
+  }
+
+  if (!order.value.region) {
+    errors.value.region = '*Region is required';
+    isValid = false;
+  }
+
+  if (!order.value.address) {
+    errors.value.address = '*Address is required';
+    isValid = false;
+  }
+
+  if (!order.value.apartment) {
+    errors.value.apartment = '*Apartment number is required';
+    isValid = false;
+  }
+
+  if (!order.value.floor) {
+    errors.value.floor = '*Floor is required';
+    isValid = false;
+  }
+
+  if (!order.value.entry) {
+    errors.value.entry = '*Entry is required';
+    isValid = false;
+  }
+
+  return isValid;
+};
+
+const setDeliveryDate = (date) => {
+  order.value.deliveryDate = date;
+  customDate.value = '';
+};
+
+const setCustomDeliveryDate = () => {
+  order.value.deliveryDate = customDate.value;
+};
+
+watch(customDate, (newVal) => {
+  if (newVal) {
+    order.value.deliveryDate = newVal;
+  }
+});
+
+const getButtonClass = (date) => {
+  return order.value.deliveryDate === date ? 'active-button' : '';
+};
+
+const submitOrder = async () => {
+  if (validateOrder()) {
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/order', order.value);
+      orders.value.push(response.data);
+
+      order.value = {
+        phone1: '',
+        phone2: '',
+        region: '',
+        address: '',
+        apartment: '',
+        floor: '',
+        entry: '',
+        deliveryDate: '',
+        status: 'pending'
+      };
+      customDate.value = '';
+      localStorage.setItem('orders', JSON.stringify(orders.value));
+
+      visible.value = true;
+
+    } catch (error) {
+      console.error('Error submitting order:', error);
+    }
+  } else {
+    visible.value = false;
+  }
+};
 </script>
 
 <style scoped>
@@ -167,8 +281,22 @@ const visible = ref(false);
   border-color: var(--dark-orange);
 }
 
-.my-card-heading {
+.error-message {
+  color: white;
+  font-size: 12px;
+}
+
+.my-card-heading, .payment-type {
   color: var(--dark-orange);
+}
+
+.active-button {
+  background-color: var(--dark-orange);
+  border-color: var(--dark-orange);
+}
+
+.other-delivery::placeholder {
+  color: var(--white);
 }
 
 .p-inputgroup-addon:first-child, .p-inputgroup input:last-child {
@@ -194,7 +322,12 @@ select {
   border-color: var(--orange);
 }
 
-.delivery > button:focus, .other-delivery:focus {
+.other-delivery {
+  background: none;
+  border-color: var(--orange);
+}
+
+.delivery > button:focus {
   background-color: var(--orange);
   color: var(--black) !important;
 }

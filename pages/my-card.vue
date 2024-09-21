@@ -48,12 +48,7 @@
           </button>
 
           <div class="flex flex-column row-gap-2 align-items-center">
-            <div class="flex gap-3 flex-row">
-              <p>{{ $t('myCard.delivery') }} {{deliveryFee}} AMD</p>
-              <p>{{ $t('myCard.orderPrice') }} {{ productPrice }} AMD</p>
-            </div>
-
-            <p class="total-price mt-0 text-center">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
+            <p class="mb-0 text-center text-white">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
 
             <NuxtLink to="/checkout">
               <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
@@ -73,9 +68,7 @@ import {useCartStore} from '~/store/cart';
 const cartStore = useCartStore();
 
 const cartItems = computed(() => cartStore.cartItems);
-const productPrice = computed(() => cartStore.productPrice);
 const cartTotal = computed(() => cartStore.cartTotal);
-const deliveryFee = computed(() => cartStore.deliveryFee);
 
 const { updateQuantity, removeFromCart, clearCart } = cartStore;
 
@@ -85,7 +78,7 @@ const currentLanguage = computed(() => {
 })
 </script>
 
-<style>
+<style scoped>
 .my-card {
   padding: 11rem 14% 5%;
 }
@@ -98,7 +91,7 @@ const currentLanguage = computed(() => {
   width: 63%;
 }
 
-.rating-price, .total-price {
+.rating-price {
   color: var(--dark-orange);
 }
 

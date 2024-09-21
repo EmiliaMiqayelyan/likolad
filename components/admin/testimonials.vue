@@ -26,7 +26,7 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="testimonials" editMode="row" dataKey="id"
+      <DataTable :value="getTestimonials" editMode="row" dataKey="id"
                  :pt="{
                 table: { style: 'min-width: 50rem' },
                 column: {
@@ -79,39 +79,78 @@ const testimonial = ref({
 });
 
 const testimonials = ref([]);
-const editTestimonialId = ref(null)
+const editTestimonialId = ref(null);
+
+const getTestimonials = ref([]);
+
+const fetchTestimonial = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/v1/testimonial');
+    testimonials.value = response.data;
+    getTestimonials.value = [...response.data];
+    localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
+  } catch (error) {
+    console.error('Error fetching testimonials:', error);
+  }
+};
 
 const submitTestimonial = async () => {
   try {
-    if(editTestimonialId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/testimonial/${editTestimonialId.value}`, testimonial.value)
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
+    if (editTestimonialId.value) {
+      const response = await axios.put(`http://localhost:3001/api/v1/testimonial/${editTestimonialId.value}`, testimonial.value, config);
       const index = testimonials.value.findIndex(t => t.id === editTestimonialId.value);
+
       if (index !== -1) {
         testimonials.value[index] = response.data;
+        getTestimonials.value[index] = response.data;
       }
-    }else {
-      const response = await axios.post('http://localhost:3001/api/v1/testimonial', testimonial.value);
-      testimonials.value.push(response.data);
+    } else {
+      const response = await axios.post('http://localhost:3001/api/v1/testimonial', testimonial.value, config);
+      testimonials.value = [...testimonials.value, response.data];
+      getTestimonials.value = [...getTestimonials.value, response.data];
     }
 
-    testimonial.value = {content_am: '', content_en: '', author_am: '', author_en: ''};
-    editTestimonialId.value = null
+    testimonial.value = { content_am: '', content_en: '', author_am: '', author_en: '' };
+    editTestimonialId.value = null;
+
     localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
+
   } catch (error) {
     console.error('Error submitting testimonial:', error);
   }
 };
 
 const editTestimonial = (selectedTestimonial) => {
-  testimonial.value = {...selectedTestimonial};
+  testimonial.value = { ...selectedTestimonial };
   editTestimonialId.value = selectedTestimonial.id;
 };
 
 const deleteTestimonial = async (id) => {
   try {
-    await axios.delete(`http://localhost:3001/api/v1/testimonial/${id}`);
-    testimonials.value = testimonials.value.filter((testimonial) => testimonial.id !== id);
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
+    await axios.delete(`http://localhost:3001/api/v1/testimonial/${id}`, config);
+    testimonials.value = testimonials.value.filter(t => t.id !== id);
+    getTestimonials.value = [...testimonials.value];
+
     localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
+
   } catch (error) {
     console.error('Error deleting testimonial:', error);
   }
@@ -121,7 +160,10 @@ onMounted(() => {
   const savedTestimonials = localStorage.getItem('testimonials');
   if (savedTestimonials) {
     testimonials.value = JSON.parse(savedTestimonials);
+    getTestimonials.value = [...JSON.parse(savedTestimonials)];
   }
+
+  fetchTestimonial();
 });
 </script>
 

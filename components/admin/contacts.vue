@@ -29,7 +29,7 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="contact" editMode="row" dataKey="id"
+      <DataTable :value="getContacts" editMode="row" dataKey="id"
                  :pt="{
                 table: { style: 'min-width: 50rem' },
                 column: {
@@ -94,17 +94,42 @@ const contacts = ref({
 const contact = ref([]);
 const editingId = ref(null);
 
+const getContacts = ref([]);
+
+const fetchContacts = async () => {
+  try {
+    const response = await axios.get('http://localhost:3001/api/v1/contact');
+    contact.value = response.data;
+    getContacts.value = [...response.data];
+    localStorage.setItem('contact', JSON.stringify(contact.value));
+  } catch (error) {
+    console.error('Error fetching contact:', error);
+  }
+};
+
 const submitContacts = async () => {
   try {
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
     if (editingId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/contact/${editingId.value}`, contacts.value);
+      const response = await axios.put(`http://localhost:3001/api/v1/contact/${editingId.value}`, contacts.value, config);
       const index = contact.value.findIndex(c => c.id === editingId.value);
       if (index !== -1) {
         contact.value[index] = response.data;
+        getContacts.value[index] = response.data;
       }
     } else {
-      const response = await axios.post('http://localhost:3001/api/v1/contact', contacts.value);
+      const response = await axios.post('http://localhost:3001/api/v1/contact', contacts.value, config);
       contact.value.push(response.data);
+      contact.value = [...contact.value, response.data];
+      getContacts.value = [...getContacts.value, response.data];
     }
 
     contacts.value = {phone: '', gmail: '', instagram: '', facebook: '', linkedin: '', location: ''};
@@ -125,6 +150,8 @@ onMounted(() => {
   if (savedContacts) {
     contact.value = JSON.parse(savedContacts);
   }
+
+  fetchContacts();
 });
 </script>
 

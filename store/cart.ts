@@ -4,8 +4,7 @@ export const useCartStore = defineStore('cart', {
     state: () => {
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
         return {
-            cart,
-            deliveryFee: 1000,
+            cart
         };
     },
 
@@ -53,8 +52,7 @@ export const useCartStore = defineStore('cart', {
         },
 
         cartTotal() {
-            const productsTotal = this.cart.reduce((total: number, product: any) => total + (product.price * product.quantity), 0);
-            return Math.round(productsTotal + this.deliveryFee);
+            return Math.round(this.cart.reduce((total: number, product: any) => total + (product.price * product.quantity), 0));
         }
     }
 });

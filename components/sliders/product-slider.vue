@@ -11,11 +11,6 @@
           </div>
 
           <div class="flex flex-column row-gap-2">
-            <div class="flex gap-1 align-items-baseline">
-              <Rating v-model="rating" :cancel="false"/>
-              <span class="rating-text font-medium ml-1">5.0</span>
-            </div>
-
             <div class="price flex justify-content-between align-items-center">
               <span class="product-name font-medium text-sm">{{ slotProps.data.name }}</span>
               <span class="product-price font-bold text-sm">{{ slotProps.data.price }}</span>
