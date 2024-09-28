@@ -6,26 +6,36 @@
           {{ $t('ourChocolates.ourChocolatesText') }}
         </p>
 
-<!--        <button-->
-<!--            class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">-->
-<!--          {{ $t('ourChocolates.createChocolate') }}-->
-<!--        </button>-->
+        <!--        <button-->
+        <!--            class="space-btn sm:w-19rem w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">-->
+        <!--          {{ $t('ourChocolates.createChocolate') }}-->
+        <!--        </button>-->
       </div>
 
       <div class="card mt-5">
-        <MegaMenu :model="items" />
-
-       <div class="flex gap-3">
-         <IconField iconPosition="left">
-           <InputIcon class="pi pi-search"></InputIcon>
-           <InputText v-model="searchTerm" @input="fetchFilteredProducts" placeholder="Search" />
-         </IconField>
+        <MegaMenu :model="items"/>
 
         <div class="flex gap-3 align-items-center">
-          <i class="pi pi-search cursor-pointer"></i>
-          <img width="25" src="@/assets/icons/filter-icon.svg" alt="Filter" class="mr-4 cursor-pointer" @click="toggleSortOrder" />
+          <InputGroup v-if="isSearchVisible">
+            <InputGroupAddon>
+              <i class="pi pi-search"></i>
+            </InputGroupAddon>
+            <InputText
+                v-model="searchTerm"
+                @input="fetchFilteredProducts"
+                placeholder="Search..."/>
+          </InputGroup>
+
+          <div class="flex gap-3 align-items-center">
+            <i
+                v-if="!isSearchVisible"
+                class="pi pi-search cursor-pointer"
+                @click="toggleSearch"
+            ></i>
+            <img width="25" src="@/assets/icons/filter-icon.svg" alt="Filter" class="mr-4 cursor-pointer"
+                 @click="toggleSortOrder"/>
+          </div>
         </div>
-       </div>
       </div>
 
       <hr class="card-menu-items"/>
@@ -53,7 +63,7 @@
           <span class="w-9rem price-cart font-bold text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
             {{ currentLanguage === 'en' ? product.description_en : product.description_am }}
           </span>
-            <img class="cursor-pointer" @click="addToCart(product)" src="@/assets/icons/cart-icon.svg" alt="Cart Icon"/>
+          <img class="cursor-pointer" @click="addToCart(product)" src="@/assets/icons/cart-icon.svg" alt="Cart Icon"/>
         </div>
       </div>
     </div>
@@ -70,9 +80,15 @@ const router = useRouter();
 const filteredProducts = ref([]);
 
 const searchTerm = ref('');
+const isSearchVisible = ref(false);
+
 const categoryId = ref(null);
 const sortBy = ref('price');
 const sortOrder = ref('ASC');
+
+const toggleSearch = () => {
+  isSearchVisible.value = !isSearchVisible.value;
+};
 
 const fetchCategories = async () => {
   try {
@@ -178,16 +194,41 @@ onMounted(() => {
   transition: 0.5s;
 }
 
-:deep(.p-icon-field-left > .p-inputtext) {
-  background: none;
+:deep(.p-inputgroup input:last-child) {
+  background: none !important;
 }
 
-:deep(.p-icon-field) {
-  display: flex;
-  align-items: center;
+:deep(.p-inputgroup input:last-child::placeholder) {
+  color: white !important;
 }
 
-:deep(.p-icon-field::placeholder) {
+:deep(.p-inputgroup-addon:first-child) {
+  background: none !important;
+}
+
+:deep(.p-inputgroup-addon:first-child) {
+  color: white !important;
+}
+
+:deep(.p-inputgroup) {
+  width: 14rem;
+  height: 2.5rem;
+}
+
+:deep(.p-icon-field-left > .p-inputtext::placeholder) {
+  color: white !important;
+}
+
+:deep(.p-inputtext:enabled:focus) {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+:deep(.p-inputtext:enabled:hover) {
+  border-color: #ced4da;
+}
+
+:deep(.p-icon-field > .pi) {
   color: white !important;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 text-center">
     <h2>Orders</h2>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
@@ -79,6 +79,10 @@
         </Column>
       </DataTable>
     </div>
+
+    <div v-if="errors" class="p-3 mb-4" style="color: red;">
+      {{ errors }}
+    </div>
   </div>
 </template>
 
@@ -87,6 +91,7 @@ import axios from "axios";
 
 const orders = ref([]);
 const editingRows = ref([]);
+const errors = ref('');
 
 const statuses = ref([
   {label: 'Canceled', value: 'canceled'},
@@ -129,6 +134,7 @@ const fetchOrders = async () => {
     orders.value = response.data;
   } catch (error) {
     console.error('Error fetching orders data:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching orders.';
   }
 };
 
@@ -166,6 +172,7 @@ const deleteOrder = async (id) => {
     orders.value = orders.value.filter((order) => order.id !== id);
   } catch (error) {
     console.error('Error deleting order:', error);
+    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 };
 

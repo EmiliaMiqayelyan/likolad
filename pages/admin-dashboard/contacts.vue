@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pt-5">
+    <div class="pt-5 text-center">
       <h2>Contact</h2>
       <div class="flex justify-content-center">
         <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitContacts">
@@ -25,6 +25,10 @@
             </div>
           </div>
         </form>
+      </div>
+
+      <div v-if="errors" class="error-message p-3 mb-4" style="color: red;">
+        {{ errors }}
       </div>
     </div>
 
@@ -93,6 +97,7 @@ const contact = ref({
 });
 
 const contacts = ref([]);
+const errors = ref('');
 
 const fetchContacts = async () => {
   try {
@@ -100,6 +105,7 @@ const fetchContacts = async () => {
     contacts.value = response.data;
   } catch (error) {
     console.error('Error fetching contact:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching contacts.';
   }
 };
 
@@ -131,9 +137,11 @@ const submitContacts = async () => {
     };
 
     await fetchContacts();
+    errors.value = '';
 
   } catch (error) {
     console.error('Error submitting contact:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while submitting the contact information.';
   }
 };
 

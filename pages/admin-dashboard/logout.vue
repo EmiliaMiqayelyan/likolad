@@ -1,6 +1,7 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 text-center">
     <h2>Sign In</h2>
+
     <div class="flex justify-content-center">
       <form class="p-3 flex flex-column row-gap-4 w-4" @submit.prevent="submitSignIn">
         <div class="card flex justify-content-center flex-column row-gap-4">
@@ -13,6 +14,10 @@
         </div>
       </form>
     </div>
+
+    <div v-if="errors" class="error-message p-3 mb-4" style="color: red;">
+      {{ errors }}
+    </div>
   </div>
 </template>
 
@@ -24,7 +29,8 @@ const signIn = ref({
   password: ''
 })
 
-const signInUsers = ref([])
+const signInUsers = ref([]);
+const errors = ref('');
 
 const submitSignIn = async () => {
   try {
@@ -41,8 +47,13 @@ const submitSignIn = async () => {
       password: ''
     };
 
+    errors.value = ''
+
+    navigateTo('dashboard')
+
   } catch (error) {
     console.error('Error fetching signIn:', error);
+    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 }
 </script>

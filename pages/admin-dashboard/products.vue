@@ -1,6 +1,7 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 text-center">
     <h2>Product</h2>
+
     <div class="flex justify-content-center">
       <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitProduct">
         <div class="card flex justify-content-center flex-column row-gap-4">
@@ -43,6 +44,10 @@
           </div>
         </div>
       </form>
+
+      <div v-if="errors" class="p-3 mb-4" style="color: red;">
+        {{ errors }}
+      </div>
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
@@ -105,8 +110,9 @@ const activeProduct = ref({
 });
 
 const categories = ref([]);
-const products = ref([])
-const selectedCategories = ref({})
+const products = ref([]);
+const selectedCategories = ref({});
+const errors = ref('');
 
 const fetchCategories = async () => {
   try {
@@ -131,6 +137,7 @@ const fetchCategories = async () => {
     categories.value = Object.values(categoryMap).filter(category => !category.parentId);
   } catch (error) {
     console.error('Error fetching categories:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching categories.';
   }
 };
 
@@ -140,6 +147,7 @@ const fetchProducts = async () => {
     products.value = response.data;
   } catch (error) {
     console.error('Error fetching product:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching products.';
   }
 };
 
@@ -185,6 +193,7 @@ const submitProduct = async () => {
     await fetchProducts();
   } catch (error) {
     console.error('Error submitting product:', error.response ? error.response.data : error.message);
+    errors.value = error.response?.data?.error || 'An error occurred while submitting the product information.';
   }
 };
 
@@ -229,6 +238,7 @@ const deleteProduct = async (id) => {
     await fetchProducts()
   } catch (error) {
     console.error('Error deleting product:', error);
+    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 };
 

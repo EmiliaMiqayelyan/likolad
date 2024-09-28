@@ -1,6 +1,7 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 text-center">
     <h2>Sign Up</h2>
+
     <div class="flex justify-content-center">
       <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitUsers">
         <div class="card flex justify-content-center flex-column row-gap-4">
@@ -29,6 +30,10 @@
         </div>
       </form>
     </div>
+
+    <div v-if="errors" class="p-3 mb-4" style="color: red;">
+      {{ errors }}
+    </div>
   </div>
 </template>
 
@@ -45,7 +50,8 @@ const user = ref({
   phone: '',
 })
 
-const users = ref([])
+const users = ref([]);
+const errors = ref('');
 
 const submitUsers = async () => {
   try {
@@ -62,9 +68,12 @@ const submitUsers = async () => {
       phone: '',
     };
 
+    errors.value = '';
+
     localStorage.setItem('user', JSON.stringify(users.value));
   } catch (error) {
     console.error('Error fetching user:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching users.';
   }
 }
 </script>

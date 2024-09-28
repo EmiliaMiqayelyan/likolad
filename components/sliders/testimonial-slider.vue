@@ -113,7 +113,7 @@ export default {
 }
 
 .testimonial {
-  width: 25%;
+  width: -webkit-fill-available;
   box-sizing: border-box;
 }
 

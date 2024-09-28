@@ -19,8 +19,8 @@
         <p class="cursor-pointer" @click="showSection('categories')">Categories</p>
         <p class="cursor-pointer" @click="showSection('testimonials')">Testimonials</p>
         <p class="cursor-pointer" @click="showSection('contacts')">Contacts</p>
-        <p class="cursor-pointer" @click="showSection('sign-up')">Sign Up</p>
-        <p class="cursor-pointer" @click="showSection('sign-in')">Sign In</p>
+        <p class="cursor-pointer" @click="showSection('sign-up')">Users</p>
+        <p class="cursor-pointer" @click="showSection('sign-in')">Logout</p>
       </div>
     </Sidebar>
 
@@ -60,6 +60,12 @@ const activeSection = ref('dashboard');
 const showSection = (section) => {
   activeSection.value = section;
   visible.value = false
+};
+
+const router = useRouter();
+
+const goToSection = (section) => {
+  router.push(`/admin-dashboard/${section}`);
 };
 </script>
 

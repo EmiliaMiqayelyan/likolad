@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5">
+  <div class="pt-5 text-center">
     <h2>Admin Dashboard</h2>
     <div class="flex gap-4 px-5 pt-3 flex-wrap justify-content-center">
       <Fieldset legend="Products">

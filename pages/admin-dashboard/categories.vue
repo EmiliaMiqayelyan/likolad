@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pt-5">
+    <div class="pt-5 text-center">
       <h2>Category</h2>
 
       <div class="flex justify-content-center">
@@ -32,6 +32,10 @@
             </div>
           </div>
         </form>
+      </div>
+
+      <div v-if="errors" class="p-3 mb-4" style="color: red;">
+        {{ errors }}
       </div>
     </div>
 
@@ -96,6 +100,7 @@ const category = ref({
 })
 
 const categories = ref([]);
+const errors = ref('');
 
 const fetchCategories = async () => {
   try {
@@ -103,6 +108,7 @@ const fetchCategories = async () => {
     categories.value = response.data;
   } catch (error) {
     console.error('Error fetching category:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching categories.';
   }
 };
 
@@ -137,9 +143,11 @@ const submitCategory = async () => {
     };
 
     await fetchCategories();
+    errors.value = '';
 
   } catch (error) {
     console.error('Error submitting category:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while submitting the category information.';
   }
 };
 
@@ -169,6 +177,7 @@ const deleteTestimonial = async (id) => {
     await fetchCategories()
   } catch (error) {
     console.error('Error deleting category:', error);
+    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 };
 

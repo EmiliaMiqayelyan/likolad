@@ -3,10 +3,14 @@
     <div v-if="loading" class="w-full text-center">
       <ProgressSpinner class="custom-spinner"/>
     </div>
+
     <div v-else>
-      <NuxtLayout>
-        <NuxtPage/>
-      </NuxtLayout>
+      <Header v-if="!isAdminPage"/>
+
+      <admin v-else-if="isAdminPage" />
+      <NuxtPage/>
+
+      <Footer v-if="!isAdminPage"/>
     </div>
   </div>
 </template>
@@ -14,6 +18,7 @@
 <script setup lang="ts">
 import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primevue/resources/themes/saga-blue/theme.css'
+import Admin from "~/pages/admin-dashboard/index.vue";
 
 useSeoMeta({
   title: 'Likolad',
@@ -27,6 +32,20 @@ useSeoMeta({
 const loading = ref(true);
 const route = useRoute();
 
+const updateBodyBackground = (path: string) => {
+  if (path.startsWith('/admin-dashboard')) {
+    document.body.style.backgroundColor = 'white';
+    document.body.style.color = 'black';
+  } else {
+    document.body.style.backgroundColor = '#080403';
+    document.body.style.color = 'white';
+  }
+};
+
+const isAdminPage = computed(() => {
+  return route.path.startsWith('/admin-dashboard');
+});
+
 onMounted(() => {
   nextTick(() => {
     loading.value = false;
@@ -38,14 +57,6 @@ onMounted(() => {
     updateBodyBackground(newPath);
   });
 });
-
-function updateBodyBackground(path: string) {
-  if (path === '/admin-dashboard') {
-    document.body.style.backgroundColor = 'white';
-  } else {
-    document.body.style.backgroundColor = '#080403';
-  }
-}
 </script>
 
 <style>
