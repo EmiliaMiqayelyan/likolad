@@ -2,7 +2,7 @@
   <div class="testimonials py-8 flex justify-content-center flex-column align-items-center">
     <h1 class="text-5xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
 
-    <div class="slider-container">
+    <div v-if="testimonials.length > 0" class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
         <div
             class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4"
@@ -18,16 +18,17 @@
           </p>
         </div>
       </div>
-    </div>
 
-    <div class="dots">
-      <span
-          v-for="(testimonial, index) in testimonials"
-          :key="index"
-          :class="{ active: currentTestimonial === index }"
-          @click="setTestimonial(index)"
-      ></span>
+      <div class="dots">
+        <span
+            v-for="(testimonial, index) in testimonials"
+            :key="index"
+            :class="{ active: currentTestimonial === index }"
+            @click="setTestimonial(index)"
+        ></span>
+      </div>
     </div>
+    <p v-else>No testimonials available at the moment.</p>
   </div>
 </template>
 
@@ -46,7 +47,7 @@ export default {
   computed: {
     sliderStyle() {
       return {
-        transform: `translateX(-${this.currentTestimonial * (100 / 3)}%)`,
+        transform: `translateX(-${this.currentTestimonial * (100 / this.testimonials.length)}%)`,
         width: `${this.testimonials.length * 100}%`
       };
     },
@@ -61,7 +62,9 @@ export default {
     try {
       const response = await axios.get('http://localhost:3001/api/v1/testimonial');
       this.testimonials = response.data;
-      this.startSlider();
+      if (this.testimonials.length > 0) {
+        this.startSlider();
+      }
     } catch (error) {
       console.error('Error fetching testimonials:', error);
     }
@@ -89,7 +92,9 @@ export default {
     setTestimonial(index) {
       this.currentTestimonial = index;
       this.stopSlider();
-      this.startSlider();
+      setTimeout(() => {
+        this.startSlider();
+      }, 2000);
     }
   }
 };
@@ -108,7 +113,7 @@ export default {
 }
 
 .testimonial {
-  flex: 0 0 33.33%;
+  width: 25%;
   box-sizing: border-box;
 }
 

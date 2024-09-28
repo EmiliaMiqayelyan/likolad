@@ -18,7 +18,7 @@
             </div>
 
             <div class="w-full text-right">
-              <Button class="testimonial-send-btn w-9rem" label="Send" type="submit"/>
+              <Button class="w-9rem" label="Send" type="submit" outlined severity="secondary"/>
             </div>
           </div>
         </form>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="getTestimonials" editMode="row" dataKey="id"
+      <DataTable :value="testimonials" editMode="row" dataKey="id"
                  :pt="{
                 table: { style: 'min-width: 50rem' },
                 column: {
@@ -72,6 +72,7 @@
 import axios from 'axios';
 
 const testimonial = ref({
+  id: '',
   content_am: '',
   content_en: '',
   author_am: '',
@@ -79,16 +80,11 @@ const testimonial = ref({
 });
 
 const testimonials = ref([]);
-const editTestimonialId = ref(null);
-
-const getTestimonials = ref([]);
 
 const fetchTestimonial = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/v1/testimonial');
     testimonials.value = response.data;
-    getTestimonials.value = [...response.data];
-    localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
   } catch (error) {
     console.error('Error fetching testimonials:', error);
   }
@@ -101,28 +97,25 @@ const submitTestimonial = async () => {
     const config = {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     };
 
-    if (editTestimonialId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/testimonial/${editTestimonialId.value}`, testimonial.value, config);
-      const index = testimonials.value.findIndex(t => t.id === editTestimonialId.value);
-
-      if (index !== -1) {
-        testimonials.value[index] = response.data;
-        getTestimonials.value[index] = response.data;
-      }
+    if (testimonial.value.id) {
+      await axios.put(`http://localhost:3001/api/v1/testimonial/${testimonial.value.id}`, testimonial.value, config);
     } else {
-      const response = await axios.post('http://localhost:3001/api/v1/testimonial', testimonial.value, config);
-      testimonials.value = [...testimonials.value, response.data];
-      getTestimonials.value = [...getTestimonials.value, response.data];
+      await axios.post('http://localhost:3001/api/v1/testimonial', testimonial.value, config);
     }
 
-    testimonial.value = { content_am: '', content_en: '', author_am: '', author_en: '' };
-    editTestimonialId.value = null;
+    testimonial.value = {
+      id: '',
+      content_am: '',
+      content_en: '',
+      author_am: '',
+      author_en: ''
+    };
 
-    localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
+    await fetchTestimonial();
 
   } catch (error) {
     console.error('Error submitting testimonial:', error);
@@ -130,8 +123,13 @@ const submitTestimonial = async () => {
 };
 
 const editTestimonial = (selectedTestimonial) => {
-  testimonial.value = { ...selectedTestimonial };
-  editTestimonialId.value = selectedTestimonial.id;
+  testimonial.value = {
+    id: selectedTestimonial.id,
+    content_am: selectedTestimonial.content_am,
+    content_en: selectedTestimonial.content_en,
+    author_am: selectedTestimonial.author_am,
+    author_en: selectedTestimonial.author_en
+  };
 };
 
 const deleteTestimonial = async (id) => {
@@ -146,23 +144,13 @@ const deleteTestimonial = async (id) => {
     };
 
     await axios.delete(`http://localhost:3001/api/v1/testimonial/${id}`, config);
-    testimonials.value = testimonials.value.filter(t => t.id !== id);
-    getTestimonials.value = [...testimonials.value];
-
-    localStorage.setItem('testimonials', JSON.stringify(testimonials.value));
-
+    await fetchTestimonial()
   } catch (error) {
     console.error('Error deleting testimonial:', error);
   }
 };
 
 onMounted(() => {
-  const savedTestimonials = localStorage.getItem('testimonials');
-  if (savedTestimonials) {
-    testimonials.value = JSON.parse(savedTestimonials);
-    getTestimonials.value = [...JSON.parse(savedTestimonials)];
-  }
-
   fetchTestimonial();
 });
 </script>
@@ -177,11 +165,6 @@ onMounted(() => {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ced4da;
-}
-
-.testimonial-send-btn {
-  background-color: #73777A !important;
-  border: none;
 }
 
 :deep(.p-datatable) {

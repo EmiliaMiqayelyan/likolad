@@ -1,6 +1,6 @@
 <template>
   <div class="pt-5">
-    <h2>Login</h2>
+    <h2>Sign In</h2>
     <div class="flex justify-content-center">
       <form class="p-3 flex flex-column row-gap-4 w-4" @submit.prevent="submitSignIn">
         <div class="card flex justify-content-center flex-column row-gap-4">
@@ -9,7 +9,7 @@
         </div>
 
         <div class="w-full text-right">
-          <Button class="sign-in-send-btn w-9rem" label="Send" type="submit"/>
+          <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
         </div>
       </form>
     </div>
@@ -50,10 +50,5 @@ const submitSignIn = async () => {
 <style scoped>
 :deep(.p-inputtext) {
   width: 100%;
-}
-
-.sign-in-send-btn {
-  background-color: #73777A !important;
-  border: none;
 }
 </style>

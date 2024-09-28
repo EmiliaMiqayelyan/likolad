@@ -244,7 +244,17 @@ const getButtonClass = (date) => {
 const submitOrder = async () => {
   if (validateOrder()) {
     try {
-      const response = await axios.post('http://localhost:3001/api/v1/order', order.value);
+
+      const token = localStorage.getItem('authToken');
+
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      };
+
+      const response = await axios.post('http://localhost:3001/api/v1/order', order.value, config);
       orders.value.push(response.data);
 
       order.value = {

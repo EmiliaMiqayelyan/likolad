@@ -18,21 +18,28 @@
 
           <div class="flex gap-3">
             <InputText type="number" v-model="activeProduct.productJsonData.price" placeholder="Price"/>
+
             <TreeSelect
-                v-model="activeProduct.productJsonData.categoryIds"
-                :options="categories"
                 placeholder="Select a Category"
+                v-model="selectedCategories"
+                :options="categories"
                 selectionMode="multiple"
                 class="w-full"
             />
           </div>
 
-          <div class="flex gap-3">
-            <input class="w-full" type="file" v-on:change="onChangeFileUpload" multiple/>
-          </div>
+<!--          <div class="flex gap-3">-->
+<!--            <input class="w-full" type="file" v-on:change="onChangeFileUpload" multiple/>-->
+<!--          </div>-->
+
+          <FileUpload name="demo[]"  @upload="onChangeFileUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000">
+            <template #empty>
+              <p>Drag and drop files to here to upload.</p>
+            </template>
+          </FileUpload>
 
           <div class="w-full text-right">
-            <Button class="product-send-btn w-9rem" label="Send" type="submit"/>
+            <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
           </div>
         </div>
       </form>
@@ -59,11 +66,6 @@
             <InputText v-model="data[field]"/>
           </template>
         </Column>
-        <!--        <Column field="title_en" header="Category" style="width: 15%">-->
-        <!--          <template #editor="{ data, field }">-->
-        <!--            <InputText v-model="data[field]"/>-->
-        <!--          </template>-->
-        <!--        </Column>-->
         <Column field="description_en" header="Description (EN)" style="width: 20%">
           <template #editor="{ data, field }">
             <InputText v-model="data[field]"/>
@@ -104,11 +106,12 @@ const activeProduct = ref({
 
 const categories = ref([]);
 const products = ref([])
+const selectedCategories = ref({})
 
 const fetchCategories = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/v1/category');
-    console.log(response.data)
+    categories.value = response.data;
 
     const categoryMap = {};
     response.data.forEach(category => {
@@ -152,18 +155,16 @@ const submitProduct = async () => {
     const config = {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     };
 
-    let response;
+    activeProduct.value.productJsonData.categoryIds = Object.keys(selectedCategories.value).map(Number)
 
     if (activeProduct.value.productJsonData.id) {
-      response = await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formdata, config);
-      console.log('Product updated successfully:', response.data);
+      await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formdata, config);
     } else {
-      response = await axios.post('http://localhost:3001/api/v1/product', formdata, config);
-      console.log('Product submitted successfully:', response.data);
+      await axios.post('http://localhost:3001/api/v1/product', formdata, config);
     }
 
     activeProduct.value = {
@@ -178,6 +179,7 @@ const submitProduct = async () => {
         categoryIds: []
       }
     };
+
     document.querySelector('input[type="file"]').value = "";
 
     await fetchProducts();
@@ -186,11 +188,20 @@ const submitProduct = async () => {
   }
 };
 
-const onChangeFileUpload = (e) => {
-  activeProduct.value.files = e.target.files
+const onChangeFileUpload = ($event) => {
+  activeProduct.value.files = $event.target.files;
 }
 
 const editProduct = (selectedProduct) => {
+  if (selectedProduct.categoryIds) {
+    selectedProduct.categoryIds.forEach(id => {
+      selectedCategories.value = {
+        ...selectedCategories.value,
+        [id]: true
+      }
+    })
+  }
+
   activeProduct.value.productJsonData = {
     id: selectedProduct.id,
     title_am: selectedProduct.title_am,
@@ -232,9 +243,12 @@ onMounted(() => {
   width: 100%;
 }
 
-.product-send-btn {
-  background-color: #73777A !important;
-  border: none;
+input[type="file"] {
+  padding: 10px 20px;
+  border: 1px solid #ced4da;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .products-text {
@@ -242,10 +256,5 @@ onMounted(() => {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ced4da;
-}
-
-.select-category {
-  border: 1px solid #ced4da;
-  border-radius: 5px;
 }
 </style>

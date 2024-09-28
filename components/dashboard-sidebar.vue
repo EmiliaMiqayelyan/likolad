@@ -15,12 +15,12 @@
       <div class="admin-sidebar-items flex flex-column row-gap-3 mt-6 pl-4 text-xl">
         <p class="cursor-pointer" @click="showSection('dashboard')">Dashboard</p>
         <p class="cursor-pointer" @click="showSection('orders')">Orders</p>
-        <p class="cursor-pointer" @click="showSection('users')">Users</p>
         <p class="cursor-pointer" @click="showSection('products')">Products</p>
         <p class="cursor-pointer" @click="showSection('categories')">Categories</p>
         <p class="cursor-pointer" @click="showSection('testimonials')">Testimonials</p>
         <p class="cursor-pointer" @click="showSection('contacts')">Contacts</p>
-        <p class="cursor-pointer" @click="showSection('logout')">Log out</p>
+        <p class="cursor-pointer" @click="showSection('sign-up')">Sign Up</p>
+        <p class="cursor-pointer" @click="showSection('sign-in')">Sign In</p>
       </div>
     </Sidebar>
 
@@ -28,7 +28,7 @@
       <div v-if="activeSection === 'orders'">
         <admin-orders/>
       </div>
-      <div v-if="activeSection === 'users'">
+      <div v-if="activeSection === 'sign-up'">
         <admin-users/>
       </div>
       <div v-if="activeSection === 'products'">
@@ -43,7 +43,7 @@
       <div v-if="activeSection === 'contacts'">
         <admin-contacts/>
       </div>
-      <div v-if="activeSection === 'logout'">
+      <div v-if="activeSection === 'sign-in'">
         <admin-logout/>
       </div>
       <div v-else-if="activeSection === 'dashboard'">

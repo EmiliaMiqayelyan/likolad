@@ -15,7 +15,7 @@
               <select v-model="category.parentId" class="w-full categories-text">
                 <option value="">Select Parent Category</option>
                 <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                  {{ cat.title_en }} - ID ({{ cat.id }})
+                  {{ cat.title_en }}
                 </option>
               </select>
             </div>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="w-full text-right">
-              <Button class="category-send-btn w-9rem" label="Send" type="submit"/>
+              <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
             </div>
           </div>
         </form>
@@ -92,7 +92,7 @@ const category = ref({
   title_en: '',
   description_am: '',
   description_en: '',
-  parentId: ''
+  parentId: null
 })
 
 const categories = ref([]);
@@ -117,6 +117,10 @@ const submitCategory = async () => {
       }
     };
 
+    if (!category.value.parentId) {
+      delete category.value.parentId
+    }
+
     if (category.value.id) {
       await axios.put(`http://localhost:3001/api/v1/category/${category.value.id}`, category.value, config);
     } else {
@@ -129,7 +133,7 @@ const submitCategory = async () => {
       title_en: '',
       description_am: '',
       description_en: '',
-      parentId: ''
+      parentId: null
     };
 
     await fetchCategories();
@@ -146,7 +150,7 @@ const editCategory = (selectedCategory) => {
     title_am: selectedCategory.title_am,
     description_en: selectedCategory.description_en,
     description_am: selectedCategory.description_am,
-    parentId: selectedCategory.parentId
+    parentId: selectedCategory.parentId || null
   }
 };
 
@@ -176,11 +180,6 @@ onMounted(() => {
 <style scoped>
 :deep(.p-inputtext) {
   width: 100%;
-}
-
-.category-send-btn {
-  background-color: #73777A !important;
-  border: none;
 }
 
 .categories-text {

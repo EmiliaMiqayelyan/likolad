@@ -6,22 +6,22 @@
         <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitContacts">
           <div class="card flex justify-content-center flex-column row-gap-4">
             <div class="flex gap-3">
-              <InputText type="number" v-model="contacts.phone" placeholder="Phone"/>
-              <InputText type="email" v-model="contacts.gmail" placeholder="Email"/>
+              <InputText type="number" v-model="contact.phone" placeholder="Phone"/>
+              <InputText type="email" v-model="contact.gmail" placeholder="Email"/>
             </div>
 
             <div class="flex gap-3">
-              <InputText type="text" v-model="contacts.location" placeholder="Location"/>
-              <InputText type="text" v-model="contacts.linkedin" placeholder="Linkedin"/>
+              <InputText type="text" v-model="contact.location" placeholder="Location"/>
+              <InputText type="text" v-model="contact.linkedin" placeholder="Linkedin"/>
             </div>
 
             <div class="flex gap-3">
-              <InputText type="text" v-model="contacts.instagram" placeholder="Instagram"/>
-              <InputText type="text" v-model="contacts.facebook" placeholder="Facebook"/>
+              <InputText type="text" v-model="contact.instagram" placeholder="Instagram"/>
+              <InputText type="text" v-model="contact.facebook" placeholder="Facebook"/>
             </div>
 
             <div class="w-full text-right">
-              <Button class="contacts-send-btn w-9rem" label="Send" type="submit"/>
+              <Button class="w-9rem" label="Send" type="submit" outlined severity="secondary"/>
             </div>
           </div>
         </form>
@@ -29,9 +29,9 @@
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="getContacts" editMode="row" dataKey="id"
+      <DataTable :value="contacts" editMode="row" dataKey="id"
                  :pt="{
-                table: { style: 'min-width: 50rem' },
+                table: { style: 'min-width: 20rem' },
                 column: {
                     bodycell: ({ state }) => ({
                         style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
@@ -82,7 +82,8 @@
 <script setup>
 import axios from "axios";
 
-const contacts = ref({
+const contact = ref({
+  id: '',
   phone: '',
   gmail: '',
   instagram: '',
@@ -91,17 +92,12 @@ const contacts = ref({
   location: '',
 });
 
-const contact = ref([]);
-const editingId = ref(null);
-
-const getContacts = ref([]);
+const contacts = ref([]);
 
 const fetchContacts = async () => {
   try {
     const response = await axios.get('http://localhost:3001/api/v1/contact');
-    contact.value = response.data;
-    getContacts.value = [...response.data];
-    localStorage.setItem('contact', JSON.stringify(contact.value));
+    contacts.value = response.data;
   } catch (error) {
     console.error('Error fetching contact:', error);
   }
@@ -114,43 +110,46 @@ const submitContacts = async () => {
     const config = {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json'
       }
     };
 
-    if (editingId.value) {
-      const response = await axios.put(`http://localhost:3001/api/v1/contact/${editingId.value}`, contacts.value, config);
-      const index = contact.value.findIndex(c => c.id === editingId.value);
-      if (index !== -1) {
-        contact.value[index] = response.data;
-        getContacts.value[index] = response.data;
-      }
+    if (contact.value.id) {
+      await axios.put(`http://localhost:3001/api/v1/contact/${contact.value.id}`, contact.value, config);
     } else {
-      const response = await axios.post('http://localhost:3001/api/v1/contact', contacts.value, config);
-      contact.value.push(response.data);
-      contact.value = [...contact.value, response.data];
-      getContacts.value = [...getContacts.value, response.data];
+      await axios.post('http://localhost:3001/api/v1/contact', contact.value, config);
     }
 
-    contacts.value = {phone: '', gmail: '', instagram: '', facebook: '', linkedin: '', location: ''};
-    editingId.value = null;
-    localStorage.setItem('contact', JSON.stringify(contact.value));
+    contact.value = {
+      id: '',
+      phone: '',
+      gmail: '',
+      instagram: '',
+      facebook: '',
+      linkedin: '',
+      location: ''
+    };
+
+    await fetchContacts();
+
   } catch (error) {
     console.error('Error submitting contact:', error);
   }
 };
 
 const editContact = (selectedContact) => {
-  contacts.value = {...selectedContact};
-  editingId.value = selectedContact.id;
+  contact.value = {
+    id: selectedContact.id,
+    phone: selectedContact.phone,
+    gmail: selectedContact.gmail,
+    instagram: selectedContact.instagram,
+    facebook: selectedContact.facebook,
+    linkedin: selectedContact.linkedin,
+    location: selectedContact.location
+  };
 };
 
 onMounted(() => {
-  const savedContacts = localStorage.getItem('contact');
-  if (savedContacts) {
-    contact.value = JSON.parse(savedContacts);
-  }
-
   fetchContacts();
 });
 </script>
@@ -160,8 +159,7 @@ onMounted(() => {
   width: 100%;
 }
 
-.contacts-send-btn {
-  background-color: #73777A !important;
-  border: none;
+:deep(.p-datatable-wrapper) {
+  width: 80rem !important;
 }
 </style>

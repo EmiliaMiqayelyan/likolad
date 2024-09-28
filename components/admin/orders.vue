@@ -116,7 +116,16 @@ const getStatusLabel = (status) => {
 
 const fetchOrders = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/order');
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const response = await axios.get('http://localhost:3001/api/v1/order', config);
     orders.value = response.data;
   } catch (error) {
     console.error('Error fetching orders data:', error);
@@ -124,21 +133,37 @@ const fetchOrders = async () => {
 };
 
 const editOrder = async (selectedOrder) => {
-  const response = await axios.put(`http://localhost:3001/api/v1/order/${selectedOrder.newData.id}`, selectedOrder.newData);
+  const token = localStorage.getItem('authToken');
+
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const response = await axios.put(`http://localhost:3001/api/v1/order/${selectedOrder.newData.id}`, selectedOrder.newData, config);
 
   orders.value = orders.value.map((order) => {
     if (order.id === selectedOrder.newData.id) return response.data
 
     return order
   });
-  localStorage.setItem('orders', JSON.stringify(orders.value));
 };
 
 const deleteOrder = async (id) => {
   try {
-    await axios.delete(`http://localhost:3001/api/v1/order/${id}`);
+    const token = localStorage.getItem('authToken');
+
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    await axios.delete(`http://localhost:3001/api/v1/order/${id}`, config);
     orders.value = orders.value.filter((order) => order.id !== id);
-    localStorage.setItem('orders', JSON.stringify(orders.value));
   } catch (error) {
     console.error('Error deleting order:', error);
   }

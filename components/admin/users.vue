@@ -1,6 +1,6 @@
 <template>
   <div class="pt-5">
-    <h2>User</h2>
+    <h2>Sign Up</h2>
     <div class="flex justify-content-center">
       <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitUsers">
         <div class="card flex justify-content-center flex-column row-gap-4">
@@ -24,7 +24,7 @@
           </div>
 
           <div class="w-full text-right">
-            <Button class="user-send-btn w-9rem" label="Send" type="submit"/>
+            <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
           </div>
         </div>
       </form>
@@ -76,10 +76,5 @@ const submitUsers = async () => {
 
 :deep(.p-password) {
   width: 100%;
-}
-
-.user-send-btn {
-  background-color: #73777A !important;
-  border: none;
 }
 </style>

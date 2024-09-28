@@ -4,12 +4,15 @@
     <img src="@/assets/footer-logo.svg" alt=""/>
 
     <div class="flex gap-6">
-      <a :href="contact.facebook" target="_blank"><img class="social-icons" src="@/assets/icons/facebook.svg"
-                                                       alt="Facebook"/></a>
-      <a :href="contact.instagram" target="_blank"><img class="social-icons" src="@/assets/icons/instagram.svg"
-                                                        alt="Instagram"/></a>
-      <a :href="contact.linkedin" target="_blank"><img class="social-icons" src="@/assets/icons/linkedin.svg"
-                                                       alt="LinkedIn"/></a>
+      <a :href="contact.facebook" target="_blank">
+        <img class="social-icons" src="@/assets/icons/facebook.svg" alt="Facebook"/>
+      </a>
+      <a :href="contact.instagram" target="_blank">
+        <img class="social-icons" src="@/assets/icons/instagram.svg" alt="Instagram"/>
+      </a>
+      <a :href="contact.linkedin" target="_blank">
+        <img class="social-icons" src="@/assets/icons/linkedin.svg" alt="LinkedIn"/>
+      </a>
     </div>
 
     <div class="flex gap-6 flex-wrap justify-content-center row-gap-1">
