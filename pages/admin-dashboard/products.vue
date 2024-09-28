@@ -29,25 +29,18 @@
             />
           </div>
 
-<!--          <div class="flex gap-3">-->
-<!--            <input class="w-full" type="file" v-on:change="onChangeFileUpload" multiple/>-->
-<!--          </div>-->
-
-          <FileUpload name="demo[]"  @upload="onChangeFileUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000">
+          <FileUpload name="files[]" @select="onChangeFileUpload($event)" :multiple="true" accept="image/*"
+                      :maxFileSize="1000000">
             <template #empty>
               <p>Drag and drop files to here to upload.</p>
             </template>
           </FileUpload>
 
           <div class="w-full text-right">
-            <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
+            <Button class="w-9rem" label="Send" type="submit" outlined severity="secondary"/>
           </div>
         </div>
       </form>
-
-      <div v-if="errors" class="p-3 mb-4" style="color: red;">
-        {{ errors }}
-      </div>
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
@@ -110,9 +103,8 @@ const activeProduct = ref({
 });
 
 const categories = ref([]);
-const products = ref([]);
-const selectedCategories = ref({});
-const errors = ref('');
+const products = ref([])
+const selectedCategories = ref({})
 
 const fetchCategories = async () => {
   try {
@@ -137,7 +129,6 @@ const fetchCategories = async () => {
     categories.value = Object.values(categoryMap).filter(category => !category.parentId);
   } catch (error) {
     console.error('Error fetching categories:', error);
-    errors.value = error.response?.data?.error || 'An error occurred while fetching categories.';
   }
 };
 
@@ -147,32 +138,34 @@ const fetchProducts = async () => {
     products.value = response.data;
   } catch (error) {
     console.error('Error fetching product:', error);
-    errors.value = error.response?.data?.error || 'An error occurred while fetching products.';
   }
 };
 
 const submitProduct = async () => {
   try {
-    const formdata = new FormData();
-    formdata.append("files", activeProduct.value.files[0]);
+    activeProduct.value.productJsonData.categoryIds = Object.keys(selectedCategories.value).map(Number) || []
 
-    formdata.append("productJsonData", JSON.stringify(activeProduct.value.productJsonData));
+    const formData = new FormData();
+
+    for (const file of activeProduct.value.files) {
+      formData.append('files', file);
+    }
+
+    formData.append("productJsonData", JSON.stringify(activeProduct.value.productJsonData));
 
     const token = localStorage.getItem('authToken');
 
     const config = {
       headers: {
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
       }
     };
 
-    activeProduct.value.productJsonData.categoryIds = Object.keys(selectedCategories.value).map(Number)
-
     if (activeProduct.value.productJsonData.id) {
-      await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formdata, config);
+      await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formData, config);
     } else {
-      await axios.post('http://localhost:3001/api/v1/product', formdata, config);
+      await axios.post('http://localhost:3001/api/v1/product', formData, config);
     }
 
     activeProduct.value = {
@@ -188,25 +181,26 @@ const submitProduct = async () => {
       }
     };
 
+    selectedCategories.value = {}
+
     document.querySelector('input[type="file"]').value = "";
 
     await fetchProducts();
   } catch (error) {
     console.error('Error submitting product:', error.response ? error.response.data : error.message);
-    errors.value = error.response?.data?.error || 'An error occurred while submitting the product information.';
   }
 };
 
 const onChangeFileUpload = ($event) => {
-  activeProduct.value.files = $event.target.files;
+  activeProduct.value.files = $event.files
 }
 
 const editProduct = (selectedProduct) => {
-  if (selectedProduct.categoryIds) {
-    selectedProduct.categoryIds.forEach(id => {
+  if (selectedProduct.category) {
+    selectedProduct.category.forEach(category => {
       selectedCategories.value = {
         ...selectedCategories.value,
-        [id]: true
+        [category.id]: true
       }
     })
   }
@@ -238,7 +232,6 @@ const deleteProduct = async (id) => {
     await fetchProducts()
   } catch (error) {
     console.error('Error deleting product:', error);
-    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 };
 

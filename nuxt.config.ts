@@ -21,5 +21,17 @@ export default defineNuxtConfig({
 
     pinia: {
         storesDirs: ['./stores/**', './custom-folder/stores/**'],
-    }
+    },
+
+    app: {
+        head: {
+            title: 'Likolad',
+            meta: [
+                // other meta tags...
+            ],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: 'http://localhost:3000/_nuxt/assets/likolad-logo.svg' },
+            ],
+        },
+    },
 })
