@@ -26,11 +26,9 @@ export default defineNuxtConfig({
     app: {
         head: {
             title: 'Likolad',
-            meta: [
-                // other meta tags...
-            ],
+
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: 'http://localhost:3000/_nuxt/assets/likolad-logo.svg' },
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
             ],
         },
     },
