@@ -29,7 +29,7 @@
             />
           </div>
 
-          <FileUpload name="files[]" @select="onChangeFileUpload($event)" :multiple="true" accept="image/*"
+          <FileUpload name="files[]" @select="onChangeFileUpload($event)" :multiple="true" :key="rerenderFileInput" accept="image/*"
                       :maxFileSize="1000000">
             <template #empty>
               <p>Drag and drop files to here to upload.</p>
@@ -41,6 +41,10 @@
           </div>
         </div>
       </form>
+    </div>
+
+    <div v-if="errors" class="p-3 mb-4" style="color: red;">
+      {{ errors }}
     </div>
 
     <div class="card p-fluid flex justify-content-center mt-5 mb-5">
@@ -105,6 +109,8 @@ const activeProduct = ref({
 const categories = ref([]);
 const products = ref([])
 const selectedCategories = ref({})
+const rerenderFileInput = ref(1)
+const errors = ref('');
 
 const fetchCategories = async () => {
   try {
@@ -129,6 +135,7 @@ const fetchCategories = async () => {
     categories.value = Object.values(categoryMap).filter(category => !category.parentId);
   } catch (error) {
     console.error('Error fetching categories:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching categories.';
   }
 };
 
@@ -138,6 +145,7 @@ const fetchProducts = async () => {
     products.value = response.data;
   } catch (error) {
     console.error('Error fetching product:', error);
+    errors.value = error.response?.data?.error || 'An error occurred while fetching products.';
   }
 };
 
@@ -182,12 +190,13 @@ const submitProduct = async () => {
     };
 
     selectedCategories.value = {}
-
-    document.querySelector('input[type="file"]').value = "";
+    rerenderFileInput.value += 1
+    errors.value = '';
 
     await fetchProducts();
   } catch (error) {
     console.error('Error submitting product:', error.response ? error.response.data : error.message);
+    errors.value = error.response?.data?.error || 'An error occurred while submitting the product information.';
   }
 };
 
@@ -232,6 +241,7 @@ const deleteProduct = async (id) => {
     await fetchProducts()
   } catch (error) {
     console.error('Error deleting product:', error);
+    errors.value = error.response?.data?.error || 'An error occurred.';
   }
 };
 
