@@ -70,10 +70,6 @@ body {
   margin: 0;
 }
 
-@font-face {
-  font-family: 'Montserrat', sans-serif;
-  src: url('@/static/Montserrat-Black.ttf') format('truetype');
-}
 
 .montserrat-regular {
   font-family: 'Montserrat', sans-serif;
