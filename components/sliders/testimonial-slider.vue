@@ -1,6 +1,6 @@
 <template>
-  <div class="testimonials py-8 flex justify-content-center flex-column align-items-center">
-    <h1 class="text-5xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
+  <div class="testimonials py-5 flex justify-content-center flex-column align-items-center">
+    <h1 class="sm:text-5xl text-2xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
 
     <div v-if="testimonials.length > 0" class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
@@ -28,7 +28,7 @@
         ></span>
       </div>
     </div>
-    <p v-else>No testimonials available at the moment.</p>
+    <p v-else class="mt-5">No testimonials available at the moment.</p>
   </div>
 </template>
 
@@ -149,6 +149,42 @@ export default {
 @media only screen and (max-width: 900px) {
   .buyers-text {
     width: 100%;
+  }
+
+  .testimonial {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .buyers-name {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .testimonials h1 {
+    font-size: 2.5rem;
+  }
+
+  .testimonial {
+    padding: 1.5rem;
+  }
+
+  .buyers-text {
+    font-size: 1rem;
+  }
+
+  .buyers-name {
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dots span {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
   }
 }
 </style>

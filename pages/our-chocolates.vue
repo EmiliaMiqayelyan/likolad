@@ -1,7 +1,7 @@
 <template>
-  <div class="pt-8 pb-8">
+  <div class="pt-8 pb-5">
     <div class="chocolates">
-      <div class="pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
+      <div class="pt-6 sm:pt-8 w-full flex justify-content-center align-items-center flex-column row-gap-5">
         <p class="text-center md:w-30rem w-full mt-4 font-normal">
           {{ $t('ourChocolates.ourChocolatesText') }}
         </p>
@@ -329,6 +329,7 @@ a {
 .chocolates-images {
   width: 180px;
   height: 180px;
+  object-fit: cover;
   border-radius: 10px;
 }
 

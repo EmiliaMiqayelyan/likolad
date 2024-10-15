@@ -1,12 +1,12 @@
 <template>
   <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-2">
 
-    <div class="nav-items gap-8 xl:flex hidden align-items-center">
+    <div class="nav-items flex gap-8 align-items-center">
       <a href="/">
         <img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/>
       </a>
 
-      <div class="flex align-items-center gap-5">
+      <div class="xl:flex hidden align-items-center gap-5">
         <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{
             $t('header.ourChocolates')
           }}
@@ -65,11 +65,11 @@
 
       <Sidebar v-model:visible="visibleRight" position="right" :pt="{ content: { style: 'color: white; background-color:  #080403; border-left: 2px solid #DBA957' },
       header: { style: 'color: white; background-color: #080403; border-left: 2px solid #DBA957; display: flex; justify-content: end' }, }">
-        <div class="nav-items gap-3 flex flex-column mt-3 ml-3">
-          <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
-          <NuxtLink to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
-          <NuxtLink to="/favorites" class="no-underline" exact-active-class="active">Favorites</NuxtLink>
-          <NuxtLink to="/account" class="no-underline" exact-active-class="active">Account</NuxtLink>
+        <div class="nav-items flex gap-3 align-items-start flex-column mt-4 ml-3">
+          <NuxtLink @click="closeSidebar" to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
+          <NuxtLink @click="closeSidebar" to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
+          <NuxtLink @click="closeSidebar" to="/my-card" class="no-underline" exact-active-class="active">My Card</NuxtLink>
+          <mobile-language-dropdown />
         </div>
       </Sidebar>
     </div>
@@ -89,6 +89,10 @@ const openPosition = (pos) => {
   position.value = pos;
   visible.value = true;
 }
+
+const closeSidebar = () => {
+  visibleRight.value = false;
+};
 
 const cartItems = computed(() => cartStore.cartItems);
 const productPrice = computed(() => cartStore.productPrice);

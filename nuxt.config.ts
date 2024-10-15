@@ -28,8 +28,13 @@ export default defineNuxtConfig({
             title: 'Likolad',
 
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+                {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
             ],
         },
     },
+
+    devServer: {
+        host: '0.0.0.0',
+        port: 3000,
+    }
 })

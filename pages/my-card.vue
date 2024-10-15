@@ -17,7 +17,7 @@
                 <p>
                   {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
                 </p>
-                <p class="card-product-desc text-sm">
+                <p class="card-product-desc text-sm m-0">
                   {{ currentLanguage === 'en' ? product.description_en : product.description_am }}
                 </p>
                 <span class="rating-price font-bold text-sm my-1">{{ product.price }} AMD</span>
@@ -40,7 +40,7 @@
         </div>
 
         <div
-            class="flex justify-content-between mt-3 md:align-items-end align-items-center md:flex-row flex-column-reverse row-gap-3">
+            class="flex justify-content-between mt-3 gap-2 sm:align-items-end align-items-center sm:flex-row flex-column-reverse row-gap-3">
           <button @click="clearCart"
               class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
             {{ $t('myCard.clearAll') }}
@@ -48,10 +48,10 @@
           </button>
 
           <div class="flex flex-column row-gap-2 align-items-center">
-            <p class="mb-0 text-center text-white">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
+            <p class="mb-2 text-center text-white">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
 
             <NuxtLink to="/checkout">
-              <button class="add-to-my-card border-round-lg py-3 text-base font-medium w-17rem">
+              <button class="add-to-my-card border-round-lg py-2 text-base font-medium w-17rem h-3rem">
                 {{ $t('myCard.checkout') }}
               </button>
             </NuxtLink>

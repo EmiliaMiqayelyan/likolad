@@ -31,10 +31,10 @@
           </div>
         </div>
 
-        <button
-            class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">
-          {{ $t('welcome.createChocolate') }}
-        </button>
+<!--        <button-->
+<!--            class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">-->
+<!--          {{ $t('welcome.createChocolate') }}-->
+<!--        </button>-->
       </div>
 
       <LazySlidersSlider class="chocolate-slider w-full"/>
@@ -91,26 +91,26 @@
         <span class="about-text sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo2') }}</span>
       </div>
       <div class="mt-6 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
-        <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading1') }}</h2>
-          <img width="224" height="280" class="bg-cover" src="@/assets/about3.jpg" alt=""/>
-          <p class="w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about3.jpg" alt=""/>
+          <p class="w-full sm:w-14rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText1') }}
           </p>
         </div>
 
-        <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading2') }}</h2>
-          <img width="224" height="280" class="bg-cover" src="@/assets/about2.jpg" alt=""/>
-          <p class="w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about2.jpg" alt=""/>
+          <p class="w-full sm:w-14rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText2') }}
           </p>
         </div>
 
-        <div class="flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading3') }}</h2>
-          <img width="224" height="280" class="bg-cover" src="@/assets/about1.jpg" alt=""/>
-          <p class="w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about1.jpg" alt=""/>
+          <p class="w-full sm:w-14rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText3') }}
           </p>
         </div>
@@ -119,7 +119,7 @@
 
     <LazySlidersTestimonialSlider/>
 
-    <div class="collections py-8 flex justify-content-center flex-column align-items-center">
+    <div class="collections py-6 flex justify-content-center flex-column align-items-center">
       <p class="about-text sm:text-5xl text-2xl font-medium line-height-1 text-center">
         {{ $t('collections.ourCollectionHeading1') }}
         <span class="sm:text-5xl text-2xl font-medium text-white">{{ $t('collections.ourCollectionHeading2') }} </span>
@@ -167,11 +167,15 @@ const smallImg = [
 
 .content {
   padding-left: 14%;
-  padding-top: 14rem;
+  padding-top: 11rem;
 }
 
 .we-are {
   width: 73%;
+}
+
+.about-img {
+  object-fit: cover;
 }
 
 .space-btn {
@@ -241,17 +245,13 @@ const smallImg = [
   }
 
   .content {
-    padding: 11rem 6%;
+    padding: 11rem 6% 2rem 6%;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .we-are {
     width: 100%;
-  }
-
-  .chocolate-btn {
-    top: 53rem;
   }
 }
 </style>

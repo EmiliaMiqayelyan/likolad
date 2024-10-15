@@ -113,7 +113,7 @@
 
         <div
             class="w-full flex flex-column sm:justify-content-end justify-content-center sm:align-items-end align-items-center mt-6">
-          <div class="flex flex-column row-gap-2 w-21rem">
+          <div class="flex flex-column row-gap-2 w-19rem">
 
             <p class="m-1 text-center">{{ $t('checkout.totalPrice') }} {{ cartTotal }} AMD</p>
 

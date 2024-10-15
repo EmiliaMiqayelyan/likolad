@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="product-slider">
+    <div class="product-slider mt-8">
       <h3>{{ $t('productId.alsoLike') }}</h3>
       <product-slider />
     </div>
@@ -153,10 +153,6 @@ if (cartProduct) {
 
 .productid-desc {
   width: 70%;
-}
-
-.product-slider {
-  margin-top: 7rem;
 }
 
 .chocolate-type > button, .count {

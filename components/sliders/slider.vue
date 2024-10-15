@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-8">
+  <div class="pt-6">
     <div class="container relative">
       <div class="slider-name-content">
         <h1 class="slider-name">
@@ -324,7 +324,7 @@ body {
 .wrapper {
   position: relative;
   width: 28rem;
-  left: 90%;
+  left: 87%;
   top: -25%;
   transform: translateX(-70%);
 }
@@ -376,7 +376,7 @@ svg {
 
 .arrow-top {
   position: absolute;
-  top: 7%;
+  top: 6%;
   right: 2%;
 }
 
