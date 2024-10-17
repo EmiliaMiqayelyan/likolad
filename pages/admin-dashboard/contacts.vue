@@ -2,8 +2,9 @@
   <div>
     <div class="pt-5 text-center">
       <h2>Contact</h2>
+
       <div class="flex justify-content-center">
-        <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitContacts">
+        <form class="p-3 flex flex-column row-gap-4 w-full md:w-5" @submit.prevent="submitContacts">
           <div class="card flex justify-content-center flex-column row-gap-4">
             <div class="flex gap-3">
               <InputText type="number" v-model="contact.phone" placeholder="Phone"/>
@@ -32,16 +33,19 @@
       </div>
     </div>
 
-    <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="contacts" editMode="row" dataKey="id"
-                 :pt="{
-                table: { style: 'min-width: 20rem' },
-                column: {
-                    bodycell: ({ state }) => ({
-                        style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
-                    })
-                }
-            }"
+    <div class="card p-fluid flex justify-content-center mt-5 mb-5 mx-4 md:mx-0 table-responsive">
+      <DataTable
+          :value="contacts"
+          editMode="row"
+          dataKey="id"
+          :pt="{
+          table: { style: 'min-width: 50rem' },
+          column: {
+              bodycell: ({ state }) => ({
+                  style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
+              })
+          }
+      }"
       >
         <Column field="phone" header="Phone" style="width: 15%">
           <template #editor="{ data, field }">
@@ -85,6 +89,7 @@
 
 <script setup>
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const contact = ref({
   id: '',
@@ -101,7 +106,7 @@ const errors = ref('');
 
 const fetchContacts = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/contact');
+    const response = await axios.get(`${API_URL}/contact`);
     contacts.value = response.data;
   } catch (error) {
     console.error('Error fetching contact:', error);
@@ -121,9 +126,9 @@ const submitContacts = async () => {
     };
 
     if (contact.value.id) {
-      await axios.put(`http://localhost:3001/api/v1/contact/${contact.value.id}`, contact.value, config);
+      await axios.put(`${API_URL}/contact/${contact.value.id}`, contact.value, config);
     } else {
-      await axios.post('http://localhost:3001/api/v1/contact', contact.value, config);
+      await axios.post(`${API_URL}/contact`, contact.value, config);
     }
 
     contact.value = {
@@ -169,5 +174,29 @@ onMounted(() => {
 
 :deep(.p-datatable-wrapper) {
   width: 80rem !important;
+}
+
+:deep(.p-datatable) {
+  width: 100% !important;
+}
+
+:deep(.p-datatable-table) {
+  width: 50rem !important;
+  margin: 0 auto !important;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column;
+  }
 }
 </style>

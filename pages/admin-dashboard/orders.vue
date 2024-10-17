@@ -2,7 +2,7 @@
   <div class="pt-5 text-center">
     <h2>Orders</h2>
 
-    <div class="card p-fluid flex justify-content-center mt-5 mb-5">
+    <div class="card p-fluid flex justify-content-center mt-5 mb-5 mx-4 md:mx-0 table-responsive">
       <DataTable
           v-model:editingRows="editingRows"
           :value="orders" editMode="row"
@@ -88,6 +88,7 @@
 
 <script setup>
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const orders = ref([]);
 const editingRows = ref([]);
@@ -130,7 +131,7 @@ const fetchOrders = async () => {
       }
     };
 
-    const response = await axios.get('http://localhost:3001/api/v1/order', config);
+    const response = await axios.get(`${API_URL}/order`, config);
     orders.value = response.data;
   } catch (error) {
     console.error('Error fetching orders data:', error);
@@ -148,7 +149,7 @@ const editOrder = async (selectedOrder) => {
     }
   };
 
-  const response = await axios.put(`http://localhost:3001/api/v1/order/${selectedOrder.newData.id}`, selectedOrder.newData, config);
+  const response = await axios.put(`${API_URL}/order/${selectedOrder.newData.id}`, selectedOrder.newData, config);
 
   orders.value = orders.value.map((order) => {
     if (order.id === selectedOrder.newData.id) return response.data
@@ -168,7 +169,7 @@ const deleteOrder = async (id) => {
       }
     };
 
-    await axios.delete(`http://localhost:3001/api/v1/order/${id}`, config);
+    await axios.delete(`${API_URL}/order/${id}`, config);
     orders.value = orders.value.filter((order) => order.id !== id);
   } catch (error) {
     console.error('Error deleting order:', error);
@@ -182,7 +183,27 @@ onMounted(() => {
 </script>
 
 <style scoped>
+:deep(.p-datatable) {
+  width: 100% !important;
+}
+
 :deep(.p-datatable-table) {
-  width: 85rem !important;
+  width: 80rem !important;
+  margin: 0 auto !important;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column;
+  }
 }
 </style>

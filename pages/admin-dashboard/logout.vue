@@ -3,7 +3,7 @@
     <h2>Sign In</h2>
 
     <div class="flex justify-content-center">
-      <form class="p-3 flex flex-column row-gap-4 w-4" @submit.prevent="submitSignIn">
+      <form class="p-3 flex flex-column row-gap-4 w-full md:w-4" @submit.prevent="submitSignIn">
         <div class="card flex justify-content-center flex-column row-gap-4">
           <InputText type="email" v-model="signIn.email" placeholder="Email"/>
           <Password v-model="signIn.password" :feedback="false" toggleMask placeholder="Password"/>
@@ -23,6 +23,7 @@
 
 <script setup>
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const signIn = ref({
   email: '',
@@ -34,7 +35,7 @@ const errors = ref('');
 
 const submitSignIn = async () => {
   try {
-    const response = await axios.post('http://localhost:3001/api/v1/auth/sign-in', signIn.value);
+    const response = await axios.post(`${API_URL}/auth/sign-in`, signIn.value);
 
     const {token} = response.data;
 

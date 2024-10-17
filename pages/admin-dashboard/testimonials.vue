@@ -4,7 +4,7 @@
       <h2>Testimonial</h2>
 
       <div class="flex justify-content-center">
-        <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitTestimonial">
+        <form class="p-3 flex flex-column row-gap-4 w-full md:w-5" @submit.prevent="submitTestimonial">
           <div class="card flex justify-content-center flex-column row-gap-4">
             <div class="flex gap-3">
               <InputText type="text" v-model="testimonial.author_am" placeholder="Author (AM)"/>
@@ -30,16 +30,19 @@
       </div>
     </div>
 
-    <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="testimonials" editMode="row" dataKey="id"
-                 :pt="{
-                table: { style: 'min-width: 50rem' },
-                column: {
-                    bodycell: ({ state }) => ({
-                        style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
-                    })
-                }
-            }"
+    <div class="card p-fluid flex justify-content-center mt-5 mb-5 mx-4 md:mx-0 table-responsive">
+      <DataTable
+          :value="testimonials"
+          editMode="row"
+          dataKey="id"
+          :pt="{
+          table: { style: 'min-width: 70rem' },
+          column: {
+              bodycell: ({ state }) => ({
+                  style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
+              })
+          }
+      }"
       >
         <Column field="author_am" header="Author (AM)" style="width: 15%">
           <template #editor="{ data, field }">
@@ -75,6 +78,7 @@
 
 <script setup>
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const testimonial = ref({
   id: '',
@@ -89,7 +93,7 @@ const errors = ref('');
 
 const fetchTestimonial = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/testimonial');
+    const response = await axios.get(`${API_URL}/testimonial`);
     testimonials.value = response.data;
   } catch (error) {
     console.error('Error fetching testimonials:', error);
@@ -109,9 +113,9 @@ const submitTestimonial = async () => {
     };
 
     if (testimonial.value.id) {
-      await axios.put(`http://localhost:3001/api/v1/testimonial/${testimonial.value.id}`, testimonial.value, config);
+      await axios.put(`${API_URL}/testimonial/${testimonial.value.id}`, testimonial.value, config);
     } else {
-      await axios.post('http://localhost:3001/api/v1/testimonial', testimonial.value, config);
+      await axios.post(`${API_URL}/testimonial`, testimonial.value, config);
     }
 
     testimonial.value = {
@@ -151,7 +155,7 @@ const deleteTestimonial = async (id) => {
       }
     };
 
-    await axios.delete(`http://localhost:3001/api/v1/testimonial/${id}`, config);
+    await axios.delete(`${API_URL}/testimonial/${id}`, config);
     await fetchTestimonial()
   } catch (error) {
     console.error('Error deleting testimonial:', error);
@@ -178,5 +182,33 @@ onMounted(() => {
 
 :deep(.p-datatable) {
   width: 70%;
+}
+
+:deep(.p-datatable) {
+  width: 100% !important;
+}
+
+:deep(.p-datatable-table) {
+  width: 50rem !important;
+  margin: 0 auto !important;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+  }
+
+  .testimonials-text {
+    width: 100% !important;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column;
+  }
 }
 </style>

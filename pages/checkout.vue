@@ -144,6 +144,8 @@
 import axios from "axios";
 import {useCartStore} from "~/store/cart";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const order = ref({
   phone1: '',
   phone2: '',
@@ -254,7 +256,7 @@ const submitOrder = async () => {
         }
       };
 
-      const response = await axios.post('http://localhost:3001/api/v1/order', order.value, config);
+      const response = await axios.post(`${API_URL}/order`, order.value, config);
       orders.value.push(response.data);
 
       order.value = {

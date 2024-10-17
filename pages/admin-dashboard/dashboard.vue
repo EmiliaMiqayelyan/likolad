@@ -1,26 +1,27 @@
 <template>
   <div class="pt-5 text-center">
     <h2>Admin Dashboard</h2>
+
     <div class="flex gap-4 px-5 pt-3 flex-wrap justify-content-center">
-      <Fieldset legend="Products">
+      <Fieldset legend="Products" class="w-full sm:w-3">
         <p class="m-0">
           {{ staticsValue.products }}
         </p>
       </Fieldset>
 
-      <Fieldset legend="Categories">
+      <Fieldset legend="Categories" class="w-full sm:w-3">
         <p class="m-0">
           {{ staticsValue.categories }}
         </p>
       </Fieldset>
 
-      <Fieldset legend="Testimonials">
+      <Fieldset legend="Testimonials" class="w-full sm:w-3">
         <p class="m-0">
           {{ staticsValue.testimonials }}
         </p>
       </Fieldset>
 
-      <Fieldset legend="Orders">
+      <Fieldset legend="Orders" class="w-full sm:w-3">
         <p class="m-0">
           {{ staticsValue.order }}
         </p>
@@ -31,6 +32,7 @@
 
 <script setup>
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const staticsValue = ref({
   products: 0,
@@ -41,7 +43,7 @@ const staticsValue = ref({
 
 const fetchStatic = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/statics');
+    const response = await axios.get(`${API_URL}/statics`);
     staticsValue.value = response.data;
   } catch (error) {
     console.error('Error fetching statics:', error);

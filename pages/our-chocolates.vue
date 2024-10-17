@@ -42,6 +42,10 @@
     </div>
 
     <div class="chocolates-section flex flex-wrap">
+      <div class="text-center w-full" v-if="filteredProducts.length === 0">
+        No product found
+      </div>
+
       <div class="product border-round-xl"
            v-for="(product, index) in filteredProducts" :key="index">
         <NuxtLink :to="`/product/${product.id}`">
@@ -74,6 +78,8 @@
 import axios from "axios";
 import {useCartStore} from '~/store/cart';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const categories = ref([]);
 const cartStore = useCartStore();
 const router = useRouter();
@@ -92,7 +98,7 @@ const toggleSearch = () => {
 
 const fetchCategories = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/category');
+    const response = await axios.get(`${API_URL}/category`);
     categories.value = response.data;
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -101,7 +107,7 @@ const fetchCategories = async () => {
 
 const fetchFilteredProducts = async () => {
   try {
-    let url = `http://localhost:3001/api/v1/product?`;
+    let url = `${API_URL}/product?`;
 
     if (searchTerm.value) {
       url += `searchTerm=${searchTerm.value}&`;
@@ -130,7 +136,7 @@ const toggleSortOrder = () => {
   fetchFilteredProducts();
 };
 
-const baseUrl = 'http://localhost:3001/';
+const baseUrl = 'https://api.likolad.am';
 const normalizePath = (path) => {
   return `${baseUrl}${path.replace(/\\/g, '/')}`;
 }

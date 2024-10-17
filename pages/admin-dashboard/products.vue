@@ -3,7 +3,7 @@
     <h2>Product</h2>
 
     <div class="flex justify-content-center">
-      <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitProduct">
+      <form class="p-3 flex flex-column row-gap-4 w-full md:w-5" @submit.prevent="submitProduct">
         <div class="card flex justify-content-center flex-column row-gap-4">
           <div class="flex gap-3">
             <InputText type="text" v-model="activeProduct.productJsonData.title_am" placeholder="Title (AM)"/>
@@ -29,7 +29,8 @@
             />
           </div>
 
-          <FileUpload name="files[]" @select="onChangeFileUpload($event)" :multiple="true" :key="rerenderFileInput" accept="image/*"
+          <FileUpload name="files[]" @select="onChangeFileUpload($event)" :multiple="true" :key="rerenderFileInput"
+                      accept="image/*"
                       :maxFileSize="1000000">
             <template #empty>
               <p>Drag and drop files to here to upload.</p>
@@ -47,16 +48,19 @@
       {{ errors }}
     </div>
 
-    <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="products" editMode="row" dataKey="id"
-                 :pt="{
-                table: { style: 'min-width: 60rem' },
-                column: {
-                    bodycell: ({ state }) => ({
-                        style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
-                    })
-                }
-            }"
+    <div class="card p-fluid flex justify-content-center mt-5 mb-5 mx-4 md:mx-0 table-responsive">
+      <DataTable
+          :value="products"
+          editMode="row"
+          dataKey="id"
+          :pt="{
+          table: { style: 'min-width: 50rem' },
+          column: {
+              bodycell: ({ state }) => ({
+                  style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
+              })
+          }
+      }"
       >
         <Column field="title_am" header="Title (AM)" style="width: 15%">
           <template #editor="{ data, field }">
@@ -92,6 +96,7 @@
 
 <script setup>
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const activeProduct = ref({
   files: [],
@@ -114,7 +119,7 @@ const errors = ref('');
 
 const fetchCategories = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/category');
+    const response = await axios.get(`${API_URL}/category`);
     categories.value = response.data;
 
     const categoryMap = {};
@@ -141,7 +146,7 @@ const fetchCategories = async () => {
 
 const fetchProducts = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/product');
+    const response = await axios.get(`${API_URL}/product`);
     products.value = response.data;
   } catch (error) {
     console.error('Error fetching product:', error);
@@ -171,9 +176,9 @@ const submitProduct = async () => {
     };
 
     if (activeProduct.value.productJsonData.id) {
-      await axios.put(`http://localhost:3001/api/v1/product/${activeProduct.value.productJsonData.id}`, formData, config);
+      await axios.put(`${API_URL}/product/${activeProduct.value.productJsonData.id}`, formData, config);
     } else {
-      await axios.post('http://localhost:3001/api/v1/product', formData, config);
+      await axios.post(`${API_URL}/product`, formData, config);
     }
 
     activeProduct.value = {
@@ -236,7 +241,7 @@ const deleteProduct = async (id) => {
       }
     };
 
-    await axios.delete(`http://localhost:3001/api/v1/product/${id}`, config);
+    await axios.delete(`${API_URL}/product/${id}`, config);
 
     await fetchProducts()
   } catch (error) {
@@ -256,6 +261,20 @@ onMounted(() => {
   width: 100%;
 }
 
+:deep(.p-datatable) {
+  width: 100% !important;
+}
+
+:deep(.p-datatable-table) {
+  width: 50rem !important;
+  margin: 0 auto !important;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto
+}
+
 input[type="file"] {
   padding: 10px 20px;
   border: 1px solid #ced4da;
@@ -269,5 +288,19 @@ input[type="file"] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ced4da;
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+  }
+
+  .products-text {
+    width: 100% !important;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column;
+  }
 }
 </style>

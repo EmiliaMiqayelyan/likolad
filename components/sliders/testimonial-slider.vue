@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default {
   data() {
@@ -60,7 +61,7 @@ export default {
 
   async mounted() {
     try {
-      const response = await axios.get('http://localhost:3001/api/v1/testimonial');
+      const response = await axios.get(`${API_URL}/testimonial`);
       this.testimonials = response.data;
       if (this.testimonials.length > 0) {
         this.startSlider();

@@ -4,7 +4,7 @@
       <h2>Category</h2>
 
       <div class="flex justify-content-center">
-        <form class="p-3 flex flex-column row-gap-4 w-5" @submit.prevent="submitCategory">
+        <form class="p-3 flex flex-column row-gap-4 w-full md:w-5" @submit.prevent="submitCategory">
           <div class="card flex justify-content-center flex-column row-gap-4">
             <div class="flex gap-3">
               <InputText type="text" v-model="category.title_am" placeholder="Title (AM)"/>
@@ -21,14 +21,22 @@
             </div>
 
             <div class="flex gap-3">
-            <textarea type="text" class="categories-text" v-model="category.description_am"
-                      placeholder="Description (AM)"/>
-              <textarea type="text" class="categories-text" v-model="category.description_en"
-                        placeholder="Description (EN)"/>
+              <textarea
+                  type="text"
+                  class="categories-text"
+                  v-model="category.description_am"
+                  placeholder="Description (AM)"
+              />
+              <textarea
+                  type="text"
+                  class="categories-text"
+                  v-model="category.description_en"
+                  placeholder="Description (EN)"
+              />
             </div>
 
             <div class="w-full text-right">
-              <Button class="w-9rem" label="Send" type="submit" outlined  severity="secondary"/>
+              <Button class="w-9rem" label="Send" type="submit" outlined severity="secondary"/>
             </div>
           </div>
         </form>
@@ -39,16 +47,19 @@
       </div>
     </div>
 
-    <div class="card p-fluid flex justify-content-center mt-5 mb-5">
-      <DataTable :value="categories" editMode="row" dataKey="id"
-                 :pt="{
-                table: { style: 'min-width: 50rem' },
-                column: {
-                    bodycell: ({ state }) => ({
-                        style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
-                    })
-                }
-            }"
+    <div class="card p-fluid flex justify-content-center mt-5 mb-5 mx-4 md:mx-0 table-responsive">
+      <DataTable
+          :value="categories"
+          editMode="row"
+          dataKey="id"
+          :pt="{
+          table: { style: 'min-width: 50rem' },
+          column: {
+              bodycell: ({ state }) => ({
+                  style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
+              })
+          }
+      }"
       >
         <Column field="title_am" header="Title (AM)" style="width: 15%">
           <template #editor="{ data, field }">
@@ -78,8 +89,11 @@
         <Column style="width: 10%; min-width: 8rem" bodyStyle="text-align:center">
           <template #body="slotProps">
             <Button icon="pi pi-pencil" class="p-button-text" @click="editCategory(slotProps.data)"/>
-            <Button icon="pi pi-trash" class="p-button-text p-button-danger"
-                    @click="deleteTestimonial(slotProps.data.id)"/>
+            <Button
+                icon="pi pi-trash"
+                class="p-button-text p-button-danger"
+                @click="deleteTestimonial(slotProps.data.id)"
+            />
           </template>
         </Column>
       </DataTable>
@@ -89,6 +103,7 @@
 
 <script setup>
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const category = ref({
   id: '',
@@ -104,7 +119,7 @@ const errors = ref('');
 
 const fetchCategories = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/category');
+    const response = await axios.get(`${API_URL}/category`);
     categories.value = response.data;
   } catch (error) {
     console.error('Error fetching category:', error);
@@ -124,13 +139,13 @@ const submitCategory = async () => {
     };
 
     if (!category.value.parentId) {
-      delete category.value.parentId
+      delete category.value.parentId;
     }
 
     if (category.value.id) {
-      await axios.put(`http://localhost:3001/api/v1/category/${category.value.id}`, category.value, config);
+      await axios.put(`${API_URL}/category/${category.value.id}`, category.value, config);
     } else {
-      await axios.post('http://localhost:3001/api/v1/category', category.value, config);
+      await axios.post(`${API_URL}/category`, category.value, config);
     }
 
     category.value = {
@@ -144,7 +159,6 @@ const submitCategory = async () => {
 
     await fetchCategories();
     errors.value = '';
-
   } catch (error) {
     console.error('Error submitting category:', error);
     errors.value = error.response?.data?.error || 'An error occurred while submitting the category information.';
@@ -173,8 +187,8 @@ const deleteTestimonial = async (id) => {
       }
     };
 
-    await axios.delete(`http://localhost:3001/api/v1/category/${id}`, config);
-    await fetchCategories()
+    await axios.delete(`${API_URL}/category/${id}`, config);
+    await fetchCategories();
   } catch (error) {
     console.error('Error deleting category:', error);
     errors.value = error.response?.data?.error || 'An error occurred.';
@@ -191,10 +205,38 @@ onMounted(() => {
   width: 100%;
 }
 
+:deep(.p-datatable) {
+  width: 100% !important;
+}
+
+:deep(.p-datatable-table) {
+  width: 50rem !important;
+  margin: 0 auto !important;
+}
+
 .categories-text {
   width: 49%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ced4da;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto
+}
+
+@media (max-width: 768px) {
+  .table-responsive table {
+    width: 100%;
+  }
+
+  .categories-text {
+    width: 100% !important;
+  }
+
+  .flex.gap-3 {
+    flex-direction: column;
+  }
 }
 </style>

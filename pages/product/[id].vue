@@ -79,6 +79,8 @@ import {useCartStore} from '~/store/cart';
 import axios from 'axios';
 import ProductSlider from "~/components/sliders/product-slider.vue";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const route = useRoute();
 const productId = route.params.id;
 
@@ -93,14 +95,14 @@ const currentLanguage = computed(() => {
   return locale.value;
 })
 
-const baseUrl = 'http://localhost:3001/';
+const baseUrl = 'https://api.likolad.am';
 const normalizePath = (path) => {
   return `${baseUrl}${path.replace(/\\/g, '/')}`;
 }
 
 const fetchProduct = async () => {
   try {
-   const response =  await axios.get(`http://localhost:3001/api/v1/product/${productId}`);
+   const response =  await axios.get(`${API_URL}/product/${productId}`);
 
    return response.data
   } catch (err) {

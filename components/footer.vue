@@ -36,6 +36,7 @@
 
 <script setup>
 import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const contacts = ref({
   phone: '',
@@ -48,7 +49,7 @@ const contacts = ref({
 
 const fetchContacts = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/api/v1/contact');
+    const response = await axios.get(`${API_URL}/contact`);
     if (response.data.length > 0) {
       contacts.value = response.data[0];
     } else {
