@@ -1,10 +1,10 @@
 <template>
   <div class="card flex justify-center flex-column">
-    <div class="admin-header">
+    <div v-if="token" class="admin-header">
       <i @click="visible = true" class="pi pi-align-justify cursor-pointer text-2xl text-color"></i>
     </div>
 
-    <Sidebar v-model:visible="visible"
+    <Sidebar v-if="token" v-model:visible="visible"
              :pt="{ header: { style: 'background-color: #fff; color: #000; border-right: 1px solid #DBA957; border-bottom: 1px solid #DBA957; padding-bottom: 1.5rem' },
                 content: { style: 'background-color: #fff; color: #000; border-right: 1px solid #DBA957' }}">
       <template #header>
@@ -31,6 +31,7 @@ import {useRouter} from 'vue-router';
 
 const visible = ref(false);
 const router = useRouter();
+const token = localStorage.getItem('authToken');
 
 const navigateTo = (section) => {
   router.push(`/admin-dashboard/${section}`);
@@ -38,8 +39,6 @@ const navigateTo = (section) => {
 };
 
 onMounted(() => {
-  const token = localStorage.getItem('authToken');
-
   if (!token) {
     navigateTo("logout")
   } else {

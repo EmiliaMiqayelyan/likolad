@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div v-if="loading" class="w-full text-center">
+    <div v-if="loading && !isAdminPage" class="w-full text-center">
       <ProgressSpinner class="custom-spinner"/>
     </div>
 
-    <div v-else>
+    <div :class="!isAdminPage ? 'flex flex-column justify-content-between h-screen' : ''">
       <Header v-if="!isAdminPage"/>
 
-      <admin v-else-if="isAdminPage" />
+      <admin v-else-if="isAdminPage"/>
       <NuxtPage/>
 
       <Footer v-if="!isAdminPage"/>

@@ -1,6 +1,6 @@
 <template>
   <div
-      class="footer flex justify-content-center flex-column align-items-center row-gap-3 text-center border-top-1">
+      class="footer flex justify-content-center flex-column align-items-center row-gap-3 text-center border-top-1 w-full">
     <img width="100" src="@/assets/footer-logo.svg" alt=""/>
 
     <div class="flex gap-6">
