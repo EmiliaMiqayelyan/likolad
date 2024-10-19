@@ -71,7 +71,10 @@ const submitUsers = async () => {
 
     errors.value = '';
 
-    localStorage.setItem('user', JSON.stringify(users.value));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(users.value));
+    }
+
   } catch (error) {
     console.error('Error fetching user:', error);
     errors.value = error.response?.data?.error || 'An error occurred while fetching users.';

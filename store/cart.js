@@ -2,14 +2,14 @@ import { defineStore } from 'pinia';
 
 export const useCartStore = defineStore('cart', {
     state: () => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(typeof window !== 'undefined' ? localStorage.getItem('cart') : '[]');
         return {
-            cart
+            cart: []
         };
     },
 
     actions: {
-        addToCart(product: any) {
+        addToCart(product) {
             const existingProduct = this.cart.find(item => item.id === product.id);
             if (existingProduct) {
                 existingProduct.quantity += 1;
@@ -19,12 +19,12 @@ export const useCartStore = defineStore('cart', {
             this.saveCart();
         },
 
-        removeFromCart(productId: any) {
+        removeFromCart(productId) {
             this.cart = this.cart.filter(item => item.id !== productId);
             this.saveCart();
         },
 
-        updateQuantity(productId: any, quantity: number) {
+        updateQuantity(productId, quantity) {
             const product = this.cart.find(item => item.id === productId);
             if (product) {
                 product.quantity = quantity;
@@ -38,7 +38,9 @@ export const useCartStore = defineStore('cart', {
         },
 
         saveCart() {
-            localStorage.setItem('cart', JSON.stringify(this.cart));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('cart', JSON.stringify(this.cart));
+            }
         },
     },
 
@@ -48,11 +50,11 @@ export const useCartStore = defineStore('cart', {
         },
 
         productPrice() {
-            return Math.round(this.cart.reduce((total: number, product: any) => total + (product.price * product.quantity), 0));
+            return Math.round(this.cart.reduce((total, product) => total + (product.price * product.quantity), 0));
         },
 
         cartTotal() {
-            return Math.round(this.cart.reduce((total: number, product: any) => total + (product.price * product.quantity), 0));
+            return Math.round(this.cart.reduce((total, product) => total + (product.price * product.quantity), 0));
         }
     }
 });

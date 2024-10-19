@@ -166,7 +166,7 @@ const submitProduct = async () => {
 
     formData.append("productJsonData", JSON.stringify(activeProduct.value.productJsonData));
 
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {
@@ -232,7 +232,7 @@ const editProduct = (selectedProduct) => {
 
 const deleteProduct = async (id) => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {

@@ -103,7 +103,7 @@ const fetchTestimonial = async () => {
 
 const submitTestimonial = async () => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {
@@ -146,7 +146,7 @@ const editTestimonial = (selectedTestimonial) => {
 
 const deleteTestimonial = async (id) => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {

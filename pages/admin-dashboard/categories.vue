@@ -129,7 +129,7 @@ const fetchCategories = async () => {
 
 const submitCategory = async () => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {
@@ -178,7 +178,7 @@ const editCategory = (selectedCategory) => {
 
 const deleteTestimonial = async (id) => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {

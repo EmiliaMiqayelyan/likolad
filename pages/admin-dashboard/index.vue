@@ -31,7 +31,7 @@ import {useRouter} from 'vue-router';
 
 const visible = ref(false);
 const router = useRouter();
-const token = localStorage.getItem('authToken');
+const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
 const navigateTo = (section) => {
   router.push(`/admin-dashboard/${section}`);

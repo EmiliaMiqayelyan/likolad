@@ -116,7 +116,7 @@ const fetchContacts = async () => {
 
 const submitContacts = async () => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {

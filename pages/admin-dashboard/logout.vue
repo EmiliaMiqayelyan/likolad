@@ -39,7 +39,9 @@ const submitSignIn = async () => {
 
     const {token} = response.data;
 
-    localStorage.setItem('authToken', token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('authToken', token);
+    } 
 
     signInUsers.value.push(response.data);
 

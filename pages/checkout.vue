@@ -247,7 +247,7 @@ const submitOrder = async () => {
   if (validateOrder()) {
     try {
 
-      const token = localStorage.getItem('authToken');
+      const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
       const config = {
         headers: {
@@ -271,7 +271,10 @@ const submitOrder = async () => {
         status: 'pending'
       };
       customDate.value = '';
-      localStorage.setItem('orders', JSON.stringify(orders.value));
+      
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('orders', JSON.stringify(orders.value));
+      } 
 
       visible.value = true;
 

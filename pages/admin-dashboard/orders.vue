@@ -122,7 +122,7 @@ const getStatusLabel = (status) => {
 
 const fetchOrders = async () => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {
@@ -140,7 +140,7 @@ const fetchOrders = async () => {
 };
 
 const editOrder = async (selectedOrder) => {
-  const token = localStorage.getItem('authToken');
+  const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
   const config = {
     headers: {
@@ -160,7 +160,7 @@ const editOrder = async (selectedOrder) => {
 
 const deleteOrder = async (id) => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     const config = {
       headers: {
