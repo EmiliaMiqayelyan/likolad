@@ -68,7 +68,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .history {
   padding: 4rem 14%;
 }

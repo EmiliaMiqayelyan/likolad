@@ -99,7 +99,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .favorites {
   padding: 11rem 14% 5%;
 }

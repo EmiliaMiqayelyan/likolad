@@ -37,7 +37,7 @@
 <!--        </button>-->
       </div>
 
-      <LazySlidersSlider class="chocolate-slider w-full"/>
+      <LazySlidersSlider  v-if="isDesktop" class="chocolate-slider w-full"/>
     </div>
 
     <div class="discover">
@@ -154,9 +154,24 @@ const smallImg = [
   {src: smallImg7},
   {src: smallImg8}
 ]
+
+const isDesktop = ref(false)
+
+const handleResize = () => {
+  isDesktop.value = window.innerWidth >= 1024
+}
+
+onMounted(() => {
+  handleResize() // Check initial screen size
+  window.addEventListener('resize', handleResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+})
 </script>
 
-<style>
+<style scoped>
 .landing {
   line-height: 24px;
 }
@@ -230,10 +245,6 @@ const smallImg = [
 }
 
 @media only screen and (max-width: 1400px) {
-  .chocolate-slider {
-    display: none;
-  }
-
   .small-img {
     display: flex !important;
   }

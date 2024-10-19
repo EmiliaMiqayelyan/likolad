@@ -50,7 +50,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .create-account-left, .create-account-right {
   padding: 11rem 14% 10%;
 }

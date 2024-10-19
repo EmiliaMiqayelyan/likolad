@@ -27,7 +27,7 @@
 const value = ref(null);
 </script>
 
-<style>
+<style scoped>
 .confirm-account-left, .confirm-account-right {
   padding: 11rem 14% 10%;
 }

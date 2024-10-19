@@ -65,7 +65,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .footer {
   padding: 2% 14%;
   border-color: #EEC574;

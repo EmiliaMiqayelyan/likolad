@@ -44,7 +44,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .account-left, .account-right {
   padding: 11rem 14% 10%;
 }

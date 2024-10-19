@@ -69,7 +69,7 @@ const goToSection = (section) => {
 };
 </script>
 
-<style>
+<style scoped>
 .admin-header {
   width: 100%;
   padding: 1rem;

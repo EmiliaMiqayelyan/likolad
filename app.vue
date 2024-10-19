@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import 'primevue/resources/themes/aura-light-green/theme.css'
-import 'primevue/resources/themes/saga-blue/theme.css'
 import Admin from "~/pages/admin-dashboard/index.vue";
 
 useSeoMeta({
@@ -58,18 +56,14 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import 'primeflex/primeflex.scss';
-@import "primeicons/primeicons.css";
-@import "global.css";
 
 body {
   color: var(--white);
   font-family: Montserrat, sans-serif;
   margin: 0;
 }
-
 
 .montserrat-regular {
   font-family: 'Montserrat', sans-serif;

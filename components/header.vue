@@ -2,9 +2,9 @@
   <div class="header top-0 py-3 border-bottom-1 flex gap-5 align-items-center justify-content-between fixed w-full z-2">
 
     <div class="nav-items flex gap-8 align-items-center">
-      <a href="/">
+      <NuxtLink to="/">
         <img src="@/assets/likolad-logo.svg" class="w-4rem h-4rem" alt=""/>
-      </a>
+      </NuxtLink>
 
       <div class="xl:flex hidden align-items-center gap-5">
         <NuxtLink to="/our-chocolates" class="no-underline" exact-active-class="active">{{

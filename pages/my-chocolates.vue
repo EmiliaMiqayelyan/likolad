@@ -143,7 +143,7 @@ const items = ref([
 ]);
 </script>
 
-<style>
+<style scoped>
 .my-chocolates {
   padding: 8rem 14% 5%;
 }

@@ -62,7 +62,7 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .rating, .product-name, .product-price, .rating-text, .learn-more {
   color: var(--dark-orange);
 }
