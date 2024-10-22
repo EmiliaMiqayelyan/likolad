@@ -1,9 +1,7 @@
 // nuxt.config.ts
 export default defineNuxtConfig({
-    // Set to 'universal' or 'spa' depending on the app mode
-    ssr: false, // since your project is client-side only
+    ssr: false,
   
-    // Global page headers
     app: {
       head: {
         title: 'Nuxt App',
@@ -13,21 +11,19 @@ export default defineNuxtConfig({
           { hid: 'description', name: 'description', content: 'Nuxt app description' }
         ],
         link: [
-          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+          { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
         ]
       }
     },
   
-    // CSS configuration
     css: [
       'primeflex/primeflex.css',
       'primeicons/primeicons.css',
       'primevue/resources/themes/saga-blue/theme.css',
       'primevue/resources/primevue.min.css',
-      '@/global.css', // Custom global SCSS if needed
+      '@/global.css',
     ],
   
-    // Build modules
     modules: [
       '@nuxtjs/i18n', 
       '@pinia/nuxt', 
@@ -35,28 +31,24 @@ export default defineNuxtConfig({
       '@pinia-plugin-persistedstate/nuxt'
     ],
   
-    // i18n configuration
     i18n: {
         locales: ['en', 'am'],
         defaultLocale: 'en'
     },
   
-    // Build configuration
     build: {
       transpile: ['primevue'],
     },
   
-    // Vite build options (optional)
     vite: {
       css: {
         preprocessorOptions: {
           scss: {
-            additionalData: `@import "@/assets/scss/_variables.scss";` // Your SCSS variables
+            additionalData: `@import "@/assets/scss/_variables.scss";`
           }
         }
       }
     },
   
-    // Build and development settings
     devtools: { enabled: true },
   })

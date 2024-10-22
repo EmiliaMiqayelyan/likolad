@@ -93,24 +93,24 @@
       <div class="mt-6 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
         <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading1') }}</h2>
-          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about3.jpg" alt=""/>
-          <p class="w-full sm:w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about3.jpg" alt=""/>
+          <p class="w-full sm:w-17rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText1') }}
           </p>
         </div>
 
         <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading2') }}</h2>
-          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about2.jpg" alt=""/>
-          <p class="w-full sm:w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about2.jpg" alt=""/>
+          <p class="w-full sm:w-17rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText2') }}
           </p>
         </div>
 
         <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading3') }}</h2>
-          <img height="280" class="about-img w-full sm:w-14rem" src="@/assets/about1.jpg" alt=""/>
-          <p class="w-full sm:w-14rem text-center line-height-3">
+          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about1.jpg" alt=""/>
+          <p class="w-full sm:w-17rem text-center line-height-3">
             {{ $t('whatWeDo.whatWeDoText3') }}
           </p>
         </div>

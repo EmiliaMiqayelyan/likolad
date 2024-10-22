@@ -314,7 +314,7 @@ export default {
 .wrapper {
   position: relative;
   width: 28rem;
-  left: 87%;
+  left: 90%;
   top: -25%;
   transform: translateX(-70%);
 }
@@ -366,13 +366,13 @@ svg {
 
 .arrow-top {
   position: absolute;
-  top: 6%;
-  right: 2%;
+  top: 14rem;
+  right: 3rem;
 }
 
 .arrow-bottom {
   position: absolute;
-  top: 21%;
+  top: 49rem;
   right: 45rem;
 }
 
