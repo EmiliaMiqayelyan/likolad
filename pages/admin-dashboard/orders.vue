@@ -9,7 +9,6 @@
           dataKey="id"
           @row-edit-save="editOrder"
           :pt="{
-                table: { style: 'min-width: 85rem' },
                 column: {
                     bodycell: ({ state }) => ({
                         style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
@@ -188,7 +187,6 @@ onMounted(() => {
 }
 
 :deep(.p-datatable-table) {
-  width: 80rem !important;
   margin: 0 auto !important;
 }
 

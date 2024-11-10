@@ -56,13 +56,13 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
   color: var(--white);
   font-family: Montserrat, sans-serif;
-  margin: 0;
+  margin: 0 !important;
 }
 
 .montserrat-regular {

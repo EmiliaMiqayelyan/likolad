@@ -1,7 +1,7 @@
 <template>
   <div class="card flex justify-center flex-column">
     <div class="admin-header">
-      <i @click="visible = true" class="pi pi-align-justify cursor-pointer text-2xl text-color"></i>
+      <i v-show="visible" @click="visible = true" class="pi pi-align-justify cursor-pointer text-2xl text-color"></i>
     </div>
 
     <Sidebar v-model:visible="visible"
@@ -26,46 +26,58 @@
 
     <div class="content-area text-center">
       <div v-if="activeSection === 'orders'">
-        <admin-orders/>
+        <orders/>
       </div>
       <div v-if="activeSection === 'sign-up'">
-        <admin-users/>
+        <users/>
       </div>
       <div v-if="activeSection === 'products'">
-        <admin-products/>
+        <products/>
       </div>
       <div v-if="activeSection === 'categories'">
-        <admin-categories/>
+        <categories/>
       </div>
       <div v-if="activeSection === 'testimonials'">
-        <admin-testimonials/>
+        <testimonials/>
       </div>
       <div v-if="activeSection === 'contacts'">
-        <admin-contacts/>
+        <contacts/>
       </div>
       <div v-if="activeSection === 'sign-in'">
-        <admin-logout/>
+        <logout/>
       </div>
       <div v-else-if="activeSection === 'dashboard'">
-        <admin-dashboard/>
+        <dashboard/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import Categories from "~/pages/admin-dashboard/categories.vue";
+import Orders from "~/pages/admin-dashboard/orders.vue";
+import Users from "~/pages/admin-dashboard/users.vue";
+import Products from "~/pages/admin-dashboard/products.vue";
+import Testimonials from "~/pages/admin-dashboard/testimonials.vue";
+import Contacts from "~/pages/admin-dashboard/contacts.vue";
+import Logout from "~/pages/admin-dashboard/logout.vue";
+import Dashboard from "~/pages/admin-dashboard/dashboard.vue";
+
 const visible = ref(true);
 const activeSection = ref('dashboard');
+const isLoggedIn = ref(!!localStorage.getItem('authToken'));
+
+watch(() => localStorage.getItem('authToken'), (newToken) => {
+  isLoggedIn.value = !!newToken;
+  if (isLoggedIn.value) {
+    activeSection.value = 'dashboard';
+    visible.value = true;
+  }
+});
 
 const showSection = (section) => {
   activeSection.value = section;
-  visible.value = false
-};
-
-const router = useRouter();
-
-const goToSection = (section) => {
-  router.push(`/admin-dashboard/${section}`);
+  visible.value = false;
 };
 </script>
 

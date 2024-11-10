@@ -22,7 +22,7 @@
           </p>
         </div>
 
-        <div class="small-img w-22rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
+        <div class="small-img w-21rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
           <div v-for="image in smallImg">
             <img
                 :src="image.src"

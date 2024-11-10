@@ -95,7 +95,7 @@ const currentLanguage = computed(() => {
   return locale.value;
 })
 
-const baseUrl = 'https://api.likolad.am';
+const baseUrl = 'https://api.likolad.am/';
 const normalizePath = (path) => {
   return `${baseUrl}${path.replace(/\\/g, '/')}`;
 }

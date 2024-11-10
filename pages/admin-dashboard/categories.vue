@@ -53,7 +53,6 @@
           editMode="row"
           dataKey="id"
           :pt="{
-          table: { style: 'min-width: 50rem' },
           column: {
               bodycell: ({ state }) => ({
                   style: state['d_editing'] && 'padding-top: 0.6rem; padding-bottom: 0.6rem'
@@ -210,7 +209,6 @@ onMounted(() => {
 }
 
 :deep(.p-datatable-table) {
-  width: 50rem !important;
   margin: 0 auto !important;
 }
 
