@@ -178,6 +178,18 @@ if (cartProduct) {
   color: var(--dark-orange);
 }
 
+.productid-img {
+  object-fit: cover;
+}
+
+:deep(.p-carousel .p-carousel-indicators) {
+  display: none !important;
+}
+
+:deep(.p-tag){
+  display: none !important;
+}
+
 @media only screen and (max-width: 1320px) {
   .productId {
     padding: 9rem 7% 3%;

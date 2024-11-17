@@ -177,6 +177,7 @@ const submitProduct = async () => {
     if (activeProduct.value.productJsonData.id) {
       await axios.put(`${API_URL}/product/${activeProduct.value.productJsonData.id}`, formData, config);
     } else {
+      delete activeProduct.value.productJsonData.id
       await axios.post(`${API_URL}/product`, formData, config);
     }
 

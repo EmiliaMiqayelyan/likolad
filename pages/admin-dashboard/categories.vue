@@ -144,11 +144,11 @@ const submitCategory = async () => {
     if (category.value.id) {
       await axios.put(`${API_URL}/category/${category.value.id}`, category.value, config);
     } else {
+      delete category.value.id
       await axios.post(`${API_URL}/category`, category.value, config);
     }
 
     category.value = {
-      id: '',
       title_am: '',
       title_en: '',
       description_am: '',

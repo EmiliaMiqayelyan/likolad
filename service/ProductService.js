@@ -1,47 +1,45 @@
-import productSlider from '@/assets/product-slider.svg';
+import type1 from "@/assets/type1.jpg"
+import type2 from "@/assets/type2.jfif"
+import type3 from "@/assets/type3.jfif"
+import type4 from "@/assets/type4.jfif"
+import type5 from "@/assets/type5.jfif"
+import type6 from "@/assets/type6.jfif"
 
 export const productsData = [
     {
         id: '1000',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Motiolads',
+        image: type1,
         category: '',
     },
     {
         id: '1001',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Peacholads',
+        image: type2,
         category: '',
     },
     {
         id: '1002',
-        code: 'zz21cz3c1',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Flowery',
+        image: type3,
         category: '',
     },
     {
         id: '1003',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Pecan',
+        image: type4,
         category: '',
     },
     {
         id: '1004',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Nuts Flowery',
+        image: type5,
         category: '',
     },
     {
         id: '1005',
-        name: 'Name',
-        image: productSlider,
-        price: "2000 AMD",
+        name: 'Flowery Strawberry',
+        image: type6,
         category: '',
     },
 ];

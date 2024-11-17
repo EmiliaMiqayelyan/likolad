@@ -5,7 +5,7 @@
         <div class="slider-product border-1 border-round-xl m-2 p-4">
           <div class="mb-4">
             <div class="relative mx-auto">
-              <img :src="slotProps.data.image" :alt="slotProps.data.name" class="w-full rounded" />
+              <img :src="slotProps.data.image" :alt="slotProps.data.name" class="data-img w-full h-19rem rounded" />
               <Tag :value="slotProps.data.inventoryStatus" class="absolute" style="left: 5px; top: 5px" />
             </div>
           </div>
@@ -13,12 +13,6 @@
           <div class="flex flex-column row-gap-2">
             <div class="price flex justify-content-between align-items-center">
               <span class="product-name font-medium text-sm">{{ slotProps.data.name }}</span>
-              <span class="product-price font-bold text-sm">{{ slotProps.data.price }}</span>
-            </div>
-
-            <div class="price flex justify-content-between align-items-center mt-2">
-              <span class="learn-more font-bold text-sm">{{ $t('productId.more') }}</span>
-              <img src="@/assets/icons/cart-icon.svg" alt=""/>
             </div>
           </div>
         </div>
@@ -31,7 +25,6 @@
 import { ProductService } from '@/service/ProductService';
 
 const products = ref([]);
-const rating = ref(5);
 const responsiveOptions = ref([
   {
     breakpoint: '1400px',
@@ -63,6 +56,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.data-img {
+  object-fit: cover;
+}
+
 .rating, .product-name, .product-price, .rating-text, .learn-more {
   color: var(--dark-orange);
 }

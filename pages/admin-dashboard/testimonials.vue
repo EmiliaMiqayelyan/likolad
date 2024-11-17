@@ -114,6 +114,7 @@ const submitTestimonial = async () => {
     if (testimonial.value.id) {
       await axios.put(`${API_URL}/testimonial/${testimonial.value.id}`, testimonial.value, config);
     } else {
+      delete testimonial.value.id
       await axios.post(`${API_URL}/testimonial`, testimonial.value, config);
     }
 

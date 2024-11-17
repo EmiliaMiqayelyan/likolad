@@ -127,6 +127,7 @@ const submitContacts = async () => {
     if (contact.value.id) {
       await axios.put(`${API_URL}/contact/${contact.value.id}`, contact.value, config);
     } else {
+      delete contact.value.id
       await axios.post(`${API_URL}/contact`, contact.value, config);
     }
 
