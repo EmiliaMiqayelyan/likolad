@@ -37,11 +37,14 @@
               </p>
               <p style="color: var(--dark-orange)" class="font-medium my-1">{{ product.price }} AMD</p>
               <div class="flex gap-2">
-                <button @click="updateQuantity(product.id, product.quantity - 1)" class="count-btn border-none text-lg">
+                <button @click="updateQuantity(product.id, product.quantity - 1)"
+                        class="count-btn border-none text-lg">
                   -
                 </button>
-                <button class="count w-2rem h-2rem border-round-xl border-1">{{ product.quantity }}</button>
-                <button @click="updateQuantity(product.id, product.quantity + 1)" class="count-btn border-none text-lg">
+                <button class="count w-2rem h-2rem border-round-xl border-1">
+                  {{ product.quantity }}</button>
+                <button @click="updateQuantity(product.id, product.quantity + 1)"
+                        class="count-btn border-none text-lg">
                   +
                 </button>
               </div>

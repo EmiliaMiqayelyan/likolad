@@ -29,9 +29,17 @@
 
                 <div class="flex justify-content-between align-items-center">
                   <div class="flex gap-3 mt-2">
-                    <button @click="updateQuantity(product.id, product.quantity - 1)" class="w-2rem h-2rem border-circle border-none text-lg" :disabled="product.quantity <= 1">-</button>
-                    <button class="count w-2rem h-2rem border-round-lg border-1">{{ product.quantity }}</button>
-                    <button @click="updateQuantity(product.id, product.quantity + 1)" class="w-2rem h-2rem border-circle border-none text-lg">+</button>
+                    <button @click="updateQuantity(product.id, product.quantity - 1)"
+                            class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg" :disabled="product.quantity <= 1">
+                      -
+                    </button>
+                    <button class="count w-2rem h-2rem border-round-lg p-0 border-1">
+                      {{ product.quantity }}
+                    </button>
+                    <button @click="updateQuantity(product.id, product.quantity + 1)"
+                            class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg">
+                      +
+                    </button>
                   </div>
 
                   <div>
@@ -47,7 +55,7 @@
         <div
             class="flex justify-content-between mt-3 gap-2 sm:align-items-end align-items-center sm:flex-row flex-column-reverse row-gap-3">
           <button @click="clearCart"
-              class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
+                  class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
             {{ $t('myCard.clearAll') }}
             <img src="@/assets/icons/delete.svg" alt=""/>
           </button>
@@ -75,7 +83,7 @@ const cartStore = useCartStore();
 const cartItems = computed(() => cartStore.cartItems);
 const cartTotal = computed(() => cartStore.cartTotal);
 
-const { updateQuantity, removeFromCart, clearCart } = cartStore;
+const {updateQuantity, removeFromCart, clearCart} = cartStore;
 
 const currentLanguage = computed(() => {
   const {locale} = useI18n();
@@ -118,6 +126,10 @@ const normalizePath = (path) => {
 .clear-all-btn {
   background: none;
   color: var(--white);
+}
+
+.count-btns {
+  color: var(--black);
 }
 
 .add-to-my-card {

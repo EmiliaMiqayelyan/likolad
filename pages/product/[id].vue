@@ -41,16 +41,16 @@
           <div class="flex gap-3 mt-2">
             <button
                 @click="changeQuantity(-1)"
-                class="w-2rem h-2rem border-circle border-none text-lg"
+                class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg"
                 :disabled="quantity <= 1">
               -
             </button>
 
-            <button class="count w-2rem h-2rem border-round-lg border-1">{{ quantity }}</button>
+            <button class="count w-2rem h-2rem p-0 border-round-lg border-1">{{ quantity }}</button>
 
             <button
                 @click="changeQuantity(1)"
-                class="w-2rem h-2rem border-circle border-none text-lg">
+                class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg">
               +
             </button>
           </div>
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="product-slider mt-8">
+    <div class="product-slider mt-8 hidden flex-column sm:flex">
       <h3>{{ $t('productId.alsoLike') }}</h3>
       <product-slider />
     </div>
@@ -168,9 +168,14 @@ if (cartProduct) {
   color: var(--white);
 }
 
+.count-btns {
+  color: var(--black);
+}
+
 .add-product-card {
   border: 2px solid var(--white);
   transition: 0.5s;
+  color: var(--black);
 }
 
 .add-product-card:hover {
