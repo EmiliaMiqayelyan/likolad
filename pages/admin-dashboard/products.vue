@@ -76,6 +76,11 @@
             <InputText v-model="data[field]"/>
           </template>
         </Column>
+        <Column field="description_am" header="Description (AM)" style="width: 20%">
+          <template #editor="{ data, field }">
+            <InputText v-model="data[field]"/>
+          </template>
+        </Column>
         <Column field="price" header="Price" style="width: 20%">
           <template #editor="{ data, field }">
             <InputText v-model="data[field]"/>
