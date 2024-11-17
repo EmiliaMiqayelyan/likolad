@@ -12,7 +12,7 @@
           <div v-for="product in cartItems" :key="product.id" class="card-product p-3 border-1 border-round-lg">
             <div class="flex sm:flex-row flex-column gap-5">
               <div v-if="product.media.length && product.media[0].path" class="productid-img-container">
-                <img width="276" height="276"
+                <img width="200" height="200"
                      class="productid-img border-round-lg"
                      :src="normalizePath(product.media[0].path)"
                      alt="Product image"
