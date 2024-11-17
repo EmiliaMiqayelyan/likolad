@@ -11,8 +11,13 @@
         <div class="flex flex-column row-gap-4">
           <div v-for="product in cartItems" :key="product.id" class="card-product p-3 border-1 border-round-lg">
             <div class="flex sm:flex-row flex-column gap-5">
-              <img src="@/assets/card-product.svg" alt=""/>
-
+              <div v-if="product.media.length && product.media[0].path" class="productid-img-container">
+                <img width="276" height="276"
+                     class="productid-img border-round-lg"
+                     :src="normalizePath(product.media[0].path)"
+                     alt="Product image"
+                />
+              </div>
               <div class="w-full flex flex-column row-gap-2">
                 <p>
                   {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
@@ -76,9 +81,18 @@ const currentLanguage = computed(() => {
   const {locale} = useI18n();
   return locale.value;
 })
+
+const baseUrl = 'https://api.likolad.am/';
+const normalizePath = (path) => {
+  return `${baseUrl}${path.replace(/\\/g, '/')}`;
+}
 </script>
 
 <style scoped>
+.productid-img {
+  object-fit: cover;
+}
+
 .my-card {
   padding: 11rem 14% 5%;
 }
