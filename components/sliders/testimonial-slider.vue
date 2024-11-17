@@ -5,15 +5,15 @@
     <div v-if="testimonials.length > 0" class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
         <div
-            class="testimonial flex flex-column row-gap-4 align-items-center about-section border-1 border-round-lg md:p-7 p-4"
+            class="testimonial flex flex-column row-gap-3 align-items-center about-section border-1 border-round-lg md:p-5 p-3"
             v-for="(testimonial, index) in testimonials"
             :key="index"
         >
           <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
-          <p class="buyers-text text-center font-medium">
+          <p class="buyers-text text-center font-medium m-0">
             {{ currentLanguage === 'en' ? testimonial.content_en : testimonial.content_am }}
           </p>
-          <p class="buyers-name text-right font-medium">
+          <p class="buyers-name text-right font-medium m-0">
             {{ currentLanguage === 'en' ? testimonial.author_en : testimonial.author_am }}
           </p>
         </div>
