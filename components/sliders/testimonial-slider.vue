@@ -2,32 +2,29 @@
   <div class="testimonials py-5 flex justify-content-center flex-column align-items-center">
     <h1 class="testimonial-heading sm:text-5xl text-2xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
 
-    <div v-if="testimonials.length > 0" class="slider-container">
-      <div class="slider mt-6" :style="sliderStyle">
+    <div v-if="testimonials.length > 0" class="testimonial-wrapper">
+<!--      <button class="nav-button prev" @click="moveSlide(-1)">&#10094;</button>-->
+
+      <div class="testimonial-container px-4 sm:px-6 py-2" ref="slides">
         <div
-            class="testimonial flex flex-column row-gap-3 align-items-center about-section border-1 border-round-lg md:p-5 p-3"
             v-for="(testimonial, index) in testimonials"
             :key="index"
+            class="testimonial-card pb-2"
         >
-          <h2 class="font-bold">{{ $t('testimonials.testimonialsHeading') }}</h2>
-          <p class="buyers-text text-center font-medium m-0">
-            {{ currentLanguage === 'en' ? testimonial.content_en : testimonial.content_am }}
-          </p>
-          <p class="buyers-name text-right font-bold font-italic m-0">
-            {{ currentLanguage === 'en' ? testimonial.author_en : testimonial.author_am }}
-          </p>
+          <div class="testimonial-content">
+            <p class="buyers-text text-center font-medium m-0">
+              "{{ currentLanguage === 'en' ? testimonial.content_en : testimonial.content_am }}"
+            </p>
+            <p class="buyers-name font-bold m-0 font-italic">
+              - {{ currentLanguage === 'en' ? testimonial.author_en : testimonial.author_am }}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="dots">
-        <span
-            v-for="index in testimonials"
-            :key="index"
-            :class="{ active: currentTestimonial === index }"
-            @click="setTestimonial(index)"
-        ></span>
-      </div>
+<!--      <button class="nav-button next" @click="moveSlide(1)">&#10095;</button>-->
     </div>
+
     <p v-else class="mt-5">No testimonials available at the moment.</p>
   </div>
 </template>
@@ -41,156 +38,137 @@ export default {
   data() {
     return {
       testimonials: [],
-      currentTestimonial: 0,
-      interval: null,
+      currentIndex: 0,
     };
   },
 
   computed: {
-    sliderStyle() {
-      return {
-        transform: `translateX(-${this.currentTestimonial * (100 / this.testimonials.length)}%)`,
-        width: `${this.testimonials.length * 100}%`
-      };
-    },
-
     currentLanguage() {
       const {locale} = useI18n();
       return locale.value;
-    }
+    },
   },
 
   async mounted() {
     try {
       const response = await axios.get(`${API_URL}/testimonial`);
       this.testimonials = response.data;
-      if (this.testimonials.length > 0) {
-        this.startSlider();
-      }
     } catch (error) {
       console.error('Error fetching testimonials:', error);
     }
   },
 
-  beforeDestroy() {
-    this.stopSlider();
-  },
-
   methods: {
-    startSlider() {
-      this.interval = setInterval(() => {
-        this.nextTestimonial();
-      }, 5000);
-    },
+    moveSlide(direction) {
+      const slideCount = this.testimonials.length;
+      const visibleSlides = 3;
+      this.currentIndex = (this.currentIndex + direction + slideCount) % slideCount;
 
-    stopSlider() {
-      clearInterval(this.interval);
-    },
+      const offset = -(this.currentIndex * (100 / visibleSlides));
 
-    nextTestimonial() {
-      this.currentTestimonial = (this.currentTestimonial + 1) % this.testimonials.length;
+      this.$refs.slides.style.transform = `translateX(${offset}%)`;
     },
-
-    setTestimonial(index) {
-      this.currentTestimonial = index;
-      this.stopSlider();
-      setTimeout(() => {
-        this.startSlider();
-      }, 2000);
-    }
-  }
+  },
 };
 </script>
 
 <style scoped>
-.slider-container {
-  overflow: hidden;
-  width: 100%;
+.testimonial-container {
   position: relative;
-}
-
-.slider {
   display: flex;
-  transition: transform 1s ease-in-out;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
-.testimonial {
-  width: -webkit-fill-available;
+.testimonial-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.testimonial-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.testimonial-card {
+  flex: 0 0 calc(100% / 3);
   box-sizing: border-box;
+}
+
+.testimonial-card {
+  background: #fff;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+.nav-button.prev {
+  left: 10px;
+}
+
+.nav-button.next {
+  right: 10px;
+}
+
+.testimonial-content {
+  margin-top: 10px;
+}
+
+.buyers-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.buyers-name {
+  font-size: 1rem;
+  color: #333;
+}
+
+.buyers-role {
+  font-size: 0.8rem;
+  color: #777;
 }
 
 .testimonial-heading {
   font-family: "Abril Fatface", cursive;
 }
 
-.dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.dots span {
-  height: 10px;
-  width: 10px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.6s ease;
-}
-
-.dots span.active {
-  background-color: var(--text-color);
-}
-
-.buyers-text, .buyers-name {
-  width: 40rem;
-}
-
-.buyers-name {
-  color: var(--text-color);
-}
-
 @media only screen and (max-width: 900px) {
-  .buyers-text {
+  .testimonial-card {
     width: 100%;
   }
 
-  .testimonial {
-    padding: 2rem;
-    text-align: center;
-  }
-
-  .buyers-name {
-    width: 100%;
-    text-align: center;
+  .testimonial-container {
+    flex-direction: column;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .testimonials h1 {
-    font-size: 2.5rem;
-  }
-
-  .testimonial {
-    padding: 1.5rem;
-  }
-
-  .buyers-text {
-    font-size: 1rem;
-  }
-
-  .buyers-name {
-    font-size: 1rem;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dots span {
-    width: 8px;
-    height: 8px;
-    margin: 0 3px;
+  .testimonial-heading {
+    font-size: 2rem;
   }
 }
 </style>
