@@ -34,8 +34,8 @@ const updateBodyBackground = (path: string) => {
     document.body.style.backgroundColor = 'white';
     document.body.style.color = 'black';
   } else {
-    document.body.style.backgroundColor = '#080403';
-    document.body.style.color = 'white';
+    document.body.style.backgroundColor = '#F8F8F8';
+    document.body.style.color = '#5A4F45';
   }
 };
 
@@ -57,24 +57,13 @@ onMounted(() => {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Heebo:wght@100..900&display=swap');
 
 body {
-  color: var(--white);
-  font-family: Montserrat, sans-serif;
+  color: var(--text-color);
+  font-family: Heebo, sans-serif;
   margin: 0 !important;
-}
-
-.montserrat-regular {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.montserrat-bold {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-style: normal;
 }
 
 button {

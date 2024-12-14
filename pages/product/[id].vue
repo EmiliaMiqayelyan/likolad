@@ -10,7 +10,7 @@
     </NuxtLink>
 
     <div
-        class="product-info w-full py-5 px-4 border-1 mt-5 border-round-xl flex lg:flex-row flex-column lg:gap-7 gap-3">
+        class="product-info w-full py-5 px-4 mt-5 flex lg:flex-row flex-column lg:gap-7 gap-3">
       <div v-if="product.media.length && product.media[0].path" class="productid-img-container">
         <img width="276" height="276"
             class="productid-img border-round-lg"
@@ -137,12 +137,8 @@ if (cartProduct) {
 }
 
 .our-chocolates, .left-arrow {
-  color: var(--dark-orange);
+  color: var(--text-color);
   text-decoration: none !important;
-}
-
-.product-info {
-  border-color: var(--dark-orange);
 }
 
 .my-card-link {
@@ -150,7 +146,7 @@ if (cartProduct) {
 }
 
 .rating-price {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 .productid-desc {
@@ -159,28 +155,28 @@ if (cartProduct) {
 
 .chocolate-type > button, .count {
   background: none;
-  color: var(--dark-orange);
-  border-color: var(--dark-orange);
+  color: var(--text-color);
+  border-color: var(--text-color);
 }
 
 .chocolate-type > button:focus {
-  background-color: var(--dark-orange);
-  color: var(--white);
+  background-color: #7F6B3C;
+  color: var(--text-color);
 }
 
 .count-btns {
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .add-product-card {
-  border: 2px solid var(--white);
+  border: 2px solid var(--text-color);
   transition: 0.5s;
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .add-product-card:hover {
-  background-color: var(--black);
-  color: var(--dark-orange);
+  background-color: var(--main-color);
+  color: #7F6B3C;
 }
 
 .productid-img {

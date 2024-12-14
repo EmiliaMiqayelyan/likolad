@@ -57,9 +57,10 @@
         </NuxtLink>
 
         <div class="price flex justify-content-between align-items-center">
-        <span class="w-5rem font-medium text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
-          {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
-        </span>
+          <span class="w-5rem font-medium text-sm white-space-nowrap overflow-hidden text-overflow-ellipsis">
+            {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
+          </span>
+
           <span class="font-bold text-sm">{{ product.price }} AMD</span>
         </div>
 
@@ -195,7 +196,7 @@ onMounted(() => {
 }
 
 .space-btn:hover {
-  background-color: #080403;
+  background-color: var(--main-color);
   color: var(--dark-orange);
   transition: 0.5s;
 }
@@ -205,7 +206,7 @@ onMounted(() => {
 }
 
 :deep(.p-inputgroup input:last-child::placeholder) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-inputgroup-addon:first-child) {
@@ -213,7 +214,7 @@ onMounted(() => {
 }
 
 :deep(.p-inputgroup-addon:first-child) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-inputgroup) {
@@ -222,7 +223,7 @@ onMounted(() => {
 }
 
 :deep(.p-icon-field-left > .p-inputtext::placeholder) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-inputtext:enabled:focus) {
@@ -235,7 +236,7 @@ onMounted(() => {
 }
 
 :deep(.p-icon-field > .pi) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 .card {
@@ -249,15 +250,15 @@ onMounted(() => {
 }
 
 :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-text) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-menuitem-icon) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem > .p-menuitem-content .p-menuitem-link .p-submenu-icon) {
-  color: white !important;
+  color: var(--text-color) !important;
 }
 
 :deep(.p-megamenu.p-megamenu-horizontal .p-megamenu-root-list > .p-menuitem:not(.p-highlight):not(.p-disabled) > .p-menuitem-content:hover) {
@@ -285,17 +286,8 @@ onMounted(() => {
   width: 100% !important;
 }
 
-:deep(.p-rating) {
-  gap: 5px;
-}
-
-:deep(.p-rating .p-rating-item.p-rating-item-active .p-rating-icon) {
-  color: var(--dark-orange);
-  border-color: var(--dark-orange);
-}
-
 a {
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .chocolates-menu-items > p:active {
@@ -319,32 +311,31 @@ a {
 }
 
 :deep(.pi-fw) {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 .product {
-  background-color: var(--white);
   width: max-content;
   padding: 10px;
 }
 
-.rating-text, .price-cart {
-  color: var(--dark-orange);
+.price-cart {
+  color: var(--text-color);
 }
 
 .chocolates-images {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 10px;
 }
 
 .price {
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .card-menu-items {
-  border-color: var(--dark-orange);
+  border-color: var(--text-color);
 }
 
 :deep(.p-menubar.p-menubar-mobile .p-menubar-root-list) {
@@ -386,7 +377,7 @@ a {
   }
 
   :deep(.p-megamenu.p-megamenu-mobile .p-megamenu-button) {
-    color: white !important;
+    color: var(--text-color) !important;
   }
 }
 

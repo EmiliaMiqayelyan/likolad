@@ -1,6 +1,6 @@
 <template>
   <div class="testimonials py-5 flex justify-content-center flex-column align-items-center">
-    <h1 class="sm:text-5xl text-2xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
+    <h1 class="testimonial-heading sm:text-5xl text-2xl font-medium">{{ $t('testimonials.testimonials') }}</h1>
 
     <div v-if="testimonials.length > 0" class="slider-container">
       <div class="slider mt-6" :style="sliderStyle">
@@ -13,7 +13,7 @@
           <p class="buyers-text text-center font-medium m-0">
             {{ currentLanguage === 'en' ? testimonial.content_en : testimonial.content_am }}
           </p>
-          <p class="buyers-name text-right font-medium m-0">
+          <p class="buyers-name text-right font-bold font-italic m-0">
             {{ currentLanguage === 'en' ? testimonial.author_en : testimonial.author_am }}
           </p>
         </div>
@@ -21,7 +21,7 @@
 
       <div class="dots">
         <span
-            v-for="(testimonial, index) in testimonials"
+            v-for="index in testimonials"
             :key="index"
             :class="{ active: currentTestimonial === index }"
             @click="setTestimonial(index)"
@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default {
@@ -118,6 +119,10 @@ export default {
   box-sizing: border-box;
 }
 
+.testimonial-heading {
+  font-family: "Abril Fatface", cursive;
+}
+
 .dots {
   display: flex;
   justify-content: center;
@@ -136,7 +141,7 @@ export default {
 }
 
 .dots span.active {
-  background-color: var(--dark-orange);
+  background-color: var(--text-color);
 }
 
 .buyers-text, .buyers-name {
@@ -144,7 +149,7 @@ export default {
 }
 
 .buyers-name {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 @media only screen and (max-width: 900px) {

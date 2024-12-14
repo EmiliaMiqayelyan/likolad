@@ -10,8 +10,7 @@ export default defineI18nConfig(() => ({
             },
 
             welcome: {
-                welcome1: 'Welcome to the ',
-                welcome2: "World of Likolad",
+                welcome1: 'Welcome to the World of Likolad',
                 welcomeText: "Experience Likolad: the ultimate chocolate delight brought to you by our passionate Master Chocolatier. Since 2021, our exquisite creations have provided moments of bliss for you to savour.",
                 finalDetails: "The finer details make all the difference in chocolate making. The same is true in life։ small gestures of kindness make a big difference.",
                 mySpace: "My space",
@@ -19,19 +18,15 @@ export default defineI18nConfig(() => ({
             },
 
             weAre: {
-                weAre1: "We ",
-                weAre2: "are",
-                weAreHeading1: "The advantage of ",
-                weAreLikolad: "Likolad",
-                weAreHeading2: "chocolatier product",
-                weAreRoyalads: "Royalads ",
+                weAre1: "We are",
+                weAreHeading1: "The advantage of Likolad",
+                weAreHeading2: "Royalads chocolatier product",
                 weAreText1: "A combination of the highest ingredients, unparalleled care and mastery that is reflected in the making of each chocolate, resulting in a smooth and shiny product. That's what makes us stand out, unique and in the center of attention.",
                 weAreText2: "Likolad's first product, which was obtained as a result of many experiments, evaluating the taste, beauty and aesthetics. It is made from high quality Belgian chocolate raw materials, selected ingredients and most importantly with great care."
             },
 
             whatWeDo: {
-                whatWeDo1: "What ",
-                whatWeDo2: "we do",
+                whatWeDo: "What we do",
                 whatWeDoHeading1: "Gorgalad",
                 whatWeDoHeading2: "Flowery",
                 whatWeDoHeading3: "Chicolad",
@@ -46,8 +41,7 @@ export default defineI18nConfig(() => ({
             },
 
             collections: {
-                ourCollectionHeading1: "Our Chocolate ",
-                ourCollectionHeading2: "collections"
+                ourCollectionHeading: "Our Chocolate collections",
             },
 
             history: {
@@ -129,8 +123,7 @@ export default defineI18nConfig(() => ({
             },
 
             welcome: {
-                welcome1: "Բարի գալուստ ",
-                welcome2: "Լիկոլադի աշխարհ",
+                welcome1: "Բարի գալուստ Լիկոլադի աշխարհ",
                 welcomeText: "Զգացեք Լիկոլադ-ը. մեր կրքոտ շոկոլադագործ վարպետ-ի լավագույն շոկոլադե բերկրանքը բերեց ձեզ: 2021 թվականից ի վեր մեր նրբագեղ ստեղծագործությունները ձեզ համար ուրախության պահեր են ապահովում:",
                 finalDetails: "Նուրբ մանրամասները շոկոլադի պատրաստման ողջ տարբերությունն են դարձնում: Նույնը կյանքում է՝ բարության փոքր ժեստերը մեծ տարբերություն են ստեղծում:",
                 mySpace: "Իմ տարածքը",
@@ -138,19 +131,15 @@ export default defineI18nConfig(() => ({
             },
 
             weAre: {
-                weAre1: "Մենք ",
-                weAre2: "ենք",
-                weAreHeading1: "Լիկոլադի ",
-                weAreLikolad: "առավելությունը",
-                weAreHeading2: "շոկոլադե արտադրանք",
-                weAreRoyalads: "Ռոյալադներ ",
+                weAre1: "Մենք",
+                weAreHeading1: "Լիկոլադի առավելությունը",
+                weAreHeading2: "Ռոյալադներ շոկոլադե արտադրանք",
                 weAreText1: "Ամենաբարձր բաղադրիչների, անզուգական խնամքի և վարպետության համադրություն, որն արտացոլվում է յուրաքանչյուր շոկոլադի պատրաստման մեջ, որի արդյունքում ստացվում է հարթ և փայլուն արտադրանք: Հենց դա է մեզ դարձնում առանձնահատուկ, յուրահատուկ և ուշադրության կենտրոնում:",
                 weAreText2: "Լիկոլադ-ի առաջին արտադրանքը, որը ստացվել է բազմաթիվ փորձերի արդյունքում՝ գնահատելով համը, գեղեցկությունն ու էսթետիկան։ Այն պատրաստված է բարձրորակ բելգիական շոկոլադի հումքից, ընտրված բաղադրիչներից և ամենակարևորը մեծ խնամքով։",
             },
 
             whatWeDo: {
-                whatWeDo1: "Այն, ",
-                whatWeDo2: "ինչ մենք անում ենք",
+                whatWeDo: "Այն, ինչ մենք անում ենք",
                 whatWeDoHeading1: "Գորգալադ",
                 whatWeDoHeading2: "Ծաղկավոր",
                 whatWeDoHeading3: "Շիկոլադ",
@@ -165,8 +154,7 @@ export default defineI18nConfig(() => ({
             },
 
             collections: {
-                ourCollectionHeading1: "Մեր շոկոլադե ",
-                ourCollectionHeading2: "հավաքածուները"
+                ourCollectionHeading: "Մեր շոկոլադե հավաքածուները",
             },
 
             history: {

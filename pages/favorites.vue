@@ -124,18 +124,18 @@
 
 .count:hover {
   background-color: var(--dark-orange);
-  color: var(--black);
+  color: var(--main-color);
   transition: 0.5s;
 }
 
 .clear-all-btn {
   background: none;
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .clear-all-btn:hover {
-  color: var(--black);
-  background-color: var(--white);
+  color: var(--main-color);
+  background-color: var(--text-color);
   transition: 0.5s;
 }
 
@@ -150,14 +150,14 @@
 }
 
 .add-to-card:hover {
-  background-color: var(--black);
+  background-color: var(--main-color);
   color: var(--orange);
   transition: 0.5s;
 }
 
 .count-minus-btn:hover, .count-plus-btn:hover {
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--main-color);
+  color: var(--text-color);
   transition: 0.5s;
 }
 

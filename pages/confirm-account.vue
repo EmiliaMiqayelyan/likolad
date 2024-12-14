@@ -48,7 +48,7 @@ const value = ref(null);
 .p-inputotp .p-inputtext {
   border-color: var(--dark-orange);
   background: none;
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .p-inputtext:enabled:focus {

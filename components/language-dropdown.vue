@@ -2,6 +2,7 @@
   <div class="flex flex-column align-items-center relative">
     <i
         class="pi pi-globe cursor-pointer text-2xl"
+        style="color: var(--text-color)"
         @click="toggle"
         aria-haspopup="true"
         aria-controls="overlay_menu"

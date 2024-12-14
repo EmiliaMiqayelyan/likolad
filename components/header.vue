@@ -16,35 +16,39 @@
     </div>
 
     <div class="xl:flex hidden gap-6 align-items-center">
-      <div class="header-icons gap-4 xl:flex hidden">
+      <div class="gap-4 xl:flex hidden">
         <img @click="openPosition('right')" src="@/assets/icons/cart.svg" width="24" height="24" alt=""
              class="cursor-pointer"/>
         <language-dropdown/>
       </div>
 
       <Dialog v-model:visible="visible" :header="$t('myCard.myCard')"
-              :style="{ width: '18rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }"
+              :style="{ width: '20rem', marginLeft: '2rem', position: 'absolute', right: '16rem', top: '5rem' }"
               :position="position"
               :modal="true" :draggable="false"
               :pt="{ header: { class: 'flex  justify-content-space-between pb-4 font-normal'}}">
         <div>
           <div v-for="product in cartItems" :key="product.id" class="flex gap-3">
-            <img src="@/assets/my-card-modal-img.svg" alt=""/>
+            <img width="80" height="86"
+                 class="productid-img border-round-lg"
+                 :src="normalizePath(product.media[0].path)"
+                 alt="Product image"
+            />
 
             <div class="w-8rem">
               <p class="text-black font-medium my-1">
                 {{ currentLanguage === 'en' ? product.title_en : product.title_am }}
               </p>
-              <p style="color: var(--dark-orange)" class="font-medium my-1">{{ product.price }} AMD</p>
+              <p class="font-medium my-1">{{ product.price }} AMD</p>
               <div class="flex gap-2">
                 <button @click="updateQuantity(product.id, product.quantity - 1)"
-                        class="count-btn border-none text-lg">
+                        class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg" :disabled="product.quantity <= 1">
                   -
                 </button>
-                <button class="count w-2rem h-2rem border-round-xl border-1">
+                <button class="count w-2rem h-2rem border-round-lg p-0 border-1">
                   {{ product.quantity }}</button>
                 <button @click="updateQuantity(product.id, product.quantity + 1)"
-                        class="count-btn border-none text-lg">
+                        class="count-btns w-2rem h-2rem p-0 border-circle border-none text-lg">
                   +
                 </button>
               </div>
@@ -106,23 +110,28 @@ const currentLanguage = computed(() => {
   const {locale} = useI18n();
   return locale.value;
 })
+
+const baseUrl = 'https://api.likolad.am/';
+const normalizePath = (path) => {
+  return `${baseUrl}${path.replace(/\\/g, '/')}`;
+}
 </script>
 
 <style scoped>
 .header {
-  background-color: var(--black);
-  border-color: var(--dark-orange);
+  background-color: var(--main-color);
+  border-color: var(--text-color);
   padding-left: 14%;
   padding-right: 14%;
 }
 
 .nav-items a {
-  color: var(--white);
-  font-size: 15px;
+  color: var(--text-color);
+  font-size: 20px;
 }
 
 .nav-items a:focus, .nav-items a.active, .menu-hamburger, .total_price {
-  color: var(--dark-orange);
+  color: #7F6B3C;
 }
 
 .count-btn {
@@ -130,15 +139,12 @@ const currentLanguage = computed(() => {
 }
 
 .card-hr {
-  border-color: var(--dark-orange);
-}
-
-.header-icons img:hover {
-  filter: brightness(0) saturate(87%) invert(85%) sepia(12%) saturate(2342%) hue-rotate(328deg) brightness(100%) contrast(100%);
+  border-color: var(--text-color);
 }
 
 .add-to-card {
-  background-color: var(--dark-orange);
+  background-color: var(--text-color);
+  color: #fff
 }
 
 @media only screen and (max-width: 1320px) {

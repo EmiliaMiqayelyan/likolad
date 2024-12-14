@@ -3,21 +3,19 @@
     <div class="flex justify-content-between">
       <div class="content relative flex flex-column">
         <div class="flex flex-column row-gap-5">
-          <div class="content-heading">
-            <p class="sm:text-5xl text-3xl font-medium line-height-2 m-0">
-              {{ $t('welcome.welcome1') }}
-              <span class="about-text sm:text-5xl text-3xl font-medium">{{ $t('welcome.welcome2') }}</span>
-            </p>
-          </div>
+          <p class="content-heading sm:text-5xl text-3xl font-medium line-height-2 m-0">
+            {{ $t('welcome.welcome1') }}
+          </p>
+
           <p class="w-full text-base font-normal">
             {{ $t('welcome.welcomeText') }}
           </p>
 
-          <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">
-            {{ $t('welcome.mySpace') }}
-          </button>
+          <!--          <button class="space-btn w-15rem border-round-md h-3rem font-bold text-base cursor-pointer">-->
+          <!--            {{ $t('welcome.mySpace') }}-->
+          <!--          </button>-->
 
-          <p class="mt-3 font-medium">
+          <p class="mt-0 font-medium">
             {{ $t('welcome.finalDetails') }}
           </p>
         </div>
@@ -31,50 +29,39 @@
           </div>
         </div>
 
-<!--        <button-->
-<!--            class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">-->
-<!--          {{ $t('welcome.createChocolate') }}-->
-<!--        </button>-->
+        <!--        <button-->
+        <!--            class="chocolate-btn border-1 border-round-lg w-16rem font-medium mt-5 text-base absolute cursor-pointer">-->
+        <!--          {{ $t('welcome.createChocolate') }}-->
+        <!--        </button>-->
       </div>
 
-      <LazySlidersSlider  v-if="isDesktop" class="chocolate-slider w-full"/>
+      <LazySlidersSlider v-if="isDesktop" class="chocolate-slider w-full"/>
     </div>
 
     <div class="discover">
       <div class="discover-sweets flex justify-content-center align-items-center flex-column">
-        <div>
-          <span class="about-text sm:text-4xl text-2xl font-medium">{{ $t('weAre.weAre1') }} </span>
-          <span class="sm:text-4xl text-2xl font-medium">{{ $t('weAre.weAre2') }}</span>
-        </div>
+        <span class="we-are-heading sm:text-5xl text-2xl font-medium">{{ $t('weAre.weAre1') }} </span>
 
         <div class="w-full mt-6">
           <div class="flex justify-content-between lg:flex-row flex-column-reverse row-gap-3">
             <div>
-              <div>
-                <span class="text-2xl">{{ $t('weAre.weAreHeading1') }} </span>
-                <span class="about-text text-2xl">{{ $t('weAre.weAreLikolad') }}</span>
-              </div>
+              <span class="text-2xl">{{ $t('weAre.weAreHeading1') }} </span>
 
               <p class="we-are text-sm lg:mt-6 mt-3">
                 {{ $t('weAre.weAreText1') }}
               </p>
             </div>
             <div>
-              <img class="w-full" src="@/assets/discover-img1.svg" alt=""/>
+              <img width="300" height="200" src="@/assets/discover-img1.jpg" alt=""/>
             </div>
           </div>
 
-          <hr class="discover-hr my-6"/>
-
-          <div class="flex justify-content-between lg:flex-row flex-column row-gap-3">
+          <div class="flex justify-content-between mt-9 lg:flex-row flex-column row-gap-3">
             <div class="lg:text-left text-right">
-              <img class="w-full" src="@/assets/discover-img2.svg" alt=""/>
+              <img width="300" height="200" src="@/assets/discover-img2.jpg" alt=""/>
             </div>
             <div class="flex flex-column align-items-end">
-              <div>
-                <span class="about-text text-2xl">{{ $t('weAre.weAreRoyalads') }} </span>
-                <span class="text-2xl">{{ $t('weAre.weAreHeading2') }}</span>
-              </div>
+              <span class="text-2xl">{{ $t('weAre.weAreHeading2') }}</span>
 
               <p class="we-are text-sm mt-6 text-right">
                 {{ $t('weAre.weAreText2') }}
@@ -86,31 +73,29 @@
     </div>
 
     <div class="about-us py-8 flex justify-content-center flex-column align-items-center">
-      <div class="flex gap-3">
-        <span class="sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo1') }}</span>
-        <span class="about-text sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo2') }}</span>
-      </div>
-      <div class="mt-6 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
-        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+      <span class="we-do-heading sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo') }}</span>
+
+      <div class="mt-8 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
+        <div class="about-section flex flex-column w-full sm:w-auto align-items-center">
+          <img height="280" class="about-img w-full sm:w-20rem border-round-sm" src="@/assets/about3.jpg" alt=""/>
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading1') }}</h2>
-          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about3.jpg" alt=""/>
-          <p class="w-full sm:w-17rem text-center line-height-3">
+          <p class="w-full sm:w-20rem text-center m-0 line-height-3">
             {{ $t('whatWeDo.whatWeDoText1') }}
           </p>
         </div>
 
-        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+        <div class="about-section flex flex-column w-full sm:w-auto align-items-center">
+          <img height="280" class="about-img w-full sm:w-20rem border-round-sm" src="@/assets/about2.jpg" alt=""/>
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading2') }}</h2>
-          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about2.jpg" alt=""/>
-          <p class="w-full sm:w-17rem text-center line-height-3">
+          <p class="w-full sm:w-20rem text-center m-0 line-height-3">
             {{ $t('whatWeDo.whatWeDoText2') }}
           </p>
         </div>
 
-        <div class="flex flex-column w-full sm:w-auto row-gap-4 align-items-center about-section border-1 border-round-lg p-5">
+        <div class="about-section flex flex-column w-full sm:w-auto align-items-center">
+          <img height="280" class="about-img w-full sm:w-20rem border-round-sm" src="@/assets/about1.jpg" alt=""/>
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading3') }}</h2>
-          <img height="280" class="about-img w-full sm:w-17rem" src="@/assets/about1.jpg" alt=""/>
-          <p class="w-full sm:w-17rem text-center line-height-3">
+          <p class="w-full sm:w-20rem text-center m-0 line-height-3">
             {{ $t('whatWeDo.whatWeDoText3') }}
           </p>
         </div>
@@ -120,10 +105,8 @@
     <LazySlidersTestimonialSlider/>
 
     <div class="collections py-6 flex justify-content-center flex-column align-items-center">
-      <p class="about-text sm:text-5xl text-2xl font-medium line-height-1 text-center">
-        {{ $t('collections.ourCollectionHeading1') }}
-        <span class="sm:text-5xl text-2xl font-medium text-white">{{ $t('collections.ourCollectionHeading2') }} </span>
-      </p>
+      <p class="collections-heading sm:text-5xl text-2xl font-medium line-height-1 text-center">
+        {{ $t('collections.ourCollectionHeading') }}</p>
 
       <div class="flex lg:justify-content-between justify-content-center w-full mt-6 flex-wrap lg:gap-0 gap-4">
         <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections2.jpg" alt=""/>
@@ -162,7 +145,7 @@ const handleResize = () => {
 }
 
 onMounted(() => {
-  handleResize() // Check initial screen size
+  handleResize();
   window.addEventListener('resize', handleResize)
 })
 
@@ -185,6 +168,10 @@ onBeforeUnmount(() => {
   padding-top: 11rem;
 }
 
+.content-heading, .we-are-heading, .we-do-heading, .collections-heading {
+  font-family: "Abril Fatface", cursive;
+}
+
 .we-are {
   width: 73%;
 }
@@ -200,7 +187,7 @@ onBeforeUnmount(() => {
 }
 
 .space-btn:hover {
-  background-color: var(--black);
+  background-color: var(--main-color);
   color: var(--dark-orange);
   transition: 0.5s;
 }
@@ -221,17 +208,13 @@ onBeforeUnmount(() => {
   font-weight: 600 !important;
 }
 
-.about-text {
-  color: var(--dark-orange);
-}
-
-.about-us, .testimonials, .collections {
+.about-us, .collections {
   padding-left: 14%;
   padding-right: 14%;
 }
 
-.about-section, .discover-hr {
-  border-color: #EEC574;
+.about-section {
+  border-color: var(--text-color);
 }
 
 .small-img {
@@ -251,7 +234,7 @@ onBeforeUnmount(() => {
 }
 
 @media only screen and (max-width: 1320px) {
-  .discover, .about-us, .collections, .testimonials, .content {
+  .discover, .about-us, .collections, .content {
     padding: 4% 6%;
   }
 

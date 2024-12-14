@@ -72,7 +72,7 @@
 }
 
 .account-create {
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .pass-eye {

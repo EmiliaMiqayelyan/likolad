@@ -155,7 +155,7 @@ const items = ref([
 .create-chocolates, .choc-type-section, .filling-btn, .add-message-text {
   border-color: var(--dark-orange);
   background: none;
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .create-choc-text, .choc-ingredients {
@@ -164,7 +164,7 @@ const items = ref([
 
 .filling-btn {
   background: none;
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .p-tabmenu .p-tabmenu-nav, .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link, .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
@@ -203,7 +203,7 @@ const items = ref([
 }
 
 .add-card:hover {
-  background-color: var(--black);
+  background-color: var(--main-color);
   color: var(--orange);
   transition: 0.5s;
 }

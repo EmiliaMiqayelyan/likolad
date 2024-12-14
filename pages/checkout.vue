@@ -4,7 +4,7 @@
     <div class="w-max">
       <NuxtLink to="/my-card" class="no-underline">
         <div class="flex gap-2 mb-5">
-          <img src="@/assets/icons/arrow-icons.svg" alt=""/>
+          <img width="15" src="@/assets/icons/arrow-icons.svg" alt=""/>
           <p class="my-card-heading">{{ $t('checkout.myCard') }}</p>
         </div>
       </NuxtLink>
@@ -80,7 +80,7 @@
             <Button
                 :class="getButtonClass('asap')"
                 @click="setDeliveryDate('asap')"
-                class="p-3 border-round-lg border-none text-white border-1"
+                class="p-3 border-round-lg border-none border-1"
                 :label="$t('checkout.time1')"
                 severity="info"
                 raised
@@ -88,7 +88,7 @@
             <Button
                 :class="getButtonClass('within1day')"
                 @click="setDeliveryDate('within1day')"
-                class="p-3 border-round-lg border-none text-white border-1"
+                class="p-3 border-round-lg border-none border-1"
                 :label="$t('checkout.time2')"
                 severity="info"
                 raised
@@ -96,7 +96,7 @@
             <Button
                 :class="getButtonClass('within2day')"
                 @click="setDeliveryDate('within2day')"
-                class="p-3 border-round-lg border-none text-white border-1"
+                class="p-3 border-round-lg border-none border-1"
                 :label="$t('checkout.time3')"
                 severity="info"
                 raised
@@ -119,7 +119,7 @@
 
             <p class="payment-type m-0 text-center">{{ $t('checkout.paymentType') }}</p>
 
-            <button @click="visible = true" type="submit"
+            <button @click="visible" type="submit"
                     class="order border-round-lg py-3 text-base font-medium w-full">
               {{ $t('checkout.orderButton') }}
             </button>
@@ -128,8 +128,9 @@
               <Dialog v-model:visible="visible" modal
                       :pt="{ header: { class: 'flex justify-content-end pb-0' }, content: { class: 'flex flex-column align-items-center justify-content-end' }}">
                 <img width="auto" height="auto" style="width: max-content" src="@/assets/modal-logo.svg" alt=""/>
-                <p class="font-medium">{{ $t('checkout.orderMessage') }} <span
-                    style="color: var(--dark-orange)">{{ $t('checkout.thankYou') }}</span></p>
+                <p class="font-medium">{{ $t('checkout.orderMessage') }}
+                  <span style="color: var(--text-color)">{{ $t('checkout.thankYou') }}</span>
+                </p>
                 <p class="font-normal mt-0">{{ $t('checkout.contactMessage') }}</p>
               </Dialog>
             </div>
@@ -247,7 +248,7 @@ const submitOrder = async () => {
   if (validateOrder()) {
     try {
 
-      const token =  typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
       const config = {
         headers: {
@@ -271,10 +272,10 @@ const submitOrder = async () => {
         status: 'pending'
       };
       customDate.value = '';
-      
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('orders', JSON.stringify(orders.value));
-      } 
+      }
 
       visible.value = true;
 
@@ -293,37 +294,37 @@ const submitOrder = async () => {
 }
 
 .checkout-section {
-  border-color: var(--dark-orange);
+  border-color: var(--text-color);
 }
 
 .error-message {
-  color: white;
+  color: #7F6B3C;
   font-size: 12px;
 }
 
 .my-card-heading, .payment-type {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 .active-button {
-  background-color: var(--dark-orange);
-  border-color: var(--dark-orange);
+  background-color: var(--text-color);
+  border-color: var(--text-color);
 }
 
 .other-delivery::placeholder {
-  color: var(--white);
+  color: var(--text-color);
 }
 
 .p-inputgroup-addon:first-child, .p-inputgroup input:last-child {
   background: none;
-  color: var(--dark-orange);
+  color: var(--text-color);
   padding: 12px;
 }
 
 .p-inputtext {
   background: none;
   padding: 12px;
-  color: var(--white);
+  color: var(--text-color);
 }
 
 select {
@@ -334,23 +335,18 @@ select {
 
 .delivery > button, .delivery > div > button {
   background: none;
-  border-color: var(--orange);
+  border-color: var(--text-color);
+  color: var(--text-color);
 }
 
 .other-delivery {
   background: none;
-  border-color: var(--orange);
+  border-color: var(--text-color);
 }
 
 .delivery > button:focus {
-  background-color: var(--orange);
-  color: var(--black) !important;
-}
-
-.other-date {
-  font-size: 10px;
-  margin-top: -18px;
-  margin-bottom: 5px;
+  background-color: var(--text-color);
+  color: var(--main-color) !important;
 }
 
 .p-button.p-button-info:not(:disabled):focus {
@@ -358,18 +354,19 @@ select {
 }
 
 .order {
-  background-color: var(--dark-orange);
-  border: 2px solid var(--dark-orange);
+  background-color: var(--text-color);
+  border: 2px solid var(--text-color);
+  color: #fff;
 }
 
 .order:hover {
-  background-color: var(--black);
-  color: var(--dark-orange);
+  background-color: var(--main-color);
+  color: var(--text-color);
   transition: 0.5s;
 }
 
 :deep(.p-inputtext:enabled:hover) {
-  border-color: var(--dark-orange);
+  border-color: #7F6B3C;
 }
 
 :deep(.p-inputtext:enabled:focus) {

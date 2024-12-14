@@ -60,16 +60,16 @@ onMounted(() => {
   object-fit: cover;
 }
 
-.rating, .product-name, .product-price, .rating-text, .learn-more {
-  color: var(--dark-orange);
+.product-name {
+  color: var(--text-color);
 }
 
 .slider-product{
-  border-color: var(--dark-orange);
+  border-color: var(--text-color);
 }
 
 .p-carousel .p-carousel-content .p-carousel-prev:enabled:hover, .p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
-  background: var(--dark-orange);
+  background: var(--text-color);
 }
 
 .p-carousel .p-carousel-indicators{
@@ -77,6 +77,6 @@ onMounted(() => {
 }
 
 .p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next{
-  background: var(--dark-orange);
+  background: var(--text-color);
 }
 </style>

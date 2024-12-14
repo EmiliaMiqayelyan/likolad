@@ -68,11 +68,11 @@ onMounted(() => {
 <style scoped>
 .footer {
   padding: 2% 14%;
-  border-color: #EEC574;
+  border-color: var(--text-color);
 }
 
 .info-text {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 @media only screen and (max-width: 1320px) {

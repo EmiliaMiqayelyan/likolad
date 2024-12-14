@@ -2,7 +2,7 @@
   <div class="my-card">
     <p class="mb-3">{{ $t('myCard.myCard') }}</p>
 
-    <div class="p-3 md:p-6 border-1 border-white border-round-lg">
+    <div class="p-2 md:p-3">
       <div v-if="cartItems.length === 0">
         <p class="text-center">{{ $t('myCard.emptyCard') }}</p>
       </div>
@@ -55,13 +55,13 @@
         <div
             class="flex justify-content-between mt-3 gap-2 sm:align-items-end align-items-center sm:flex-row flex-column-reverse row-gap-3">
           <button @click="clearCart"
-                  class="clear-all-btn flex gap-2 border-1 border-white text-xs align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
+                  class="clear-all-btn flex gap-2 border-1 text-sm align-items-center w-17rem h-3rem py-2 border-round-lg justify-content-center font-normal">
             {{ $t('myCard.clearAll') }}
             <img src="@/assets/icons/delete.svg" alt=""/>
           </button>
 
           <div class="flex flex-column row-gap-2 align-items-center">
-            <p class="mb-2 text-center text-white">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
+            <p class="mb-2 text-center">{{ $t('myCard.totalPrice') }} {{ cartTotal }} AMD</p>
 
             <NuxtLink to="/checkout">
               <button class="add-to-my-card border-round-lg py-2 text-base font-medium w-17rem h-3rem">
@@ -106,7 +106,7 @@ const normalizePath = (path) => {
 }
 
 .card-product {
-  border-color: var(--dark-orange);
+  border-color: var(--text-color);
 }
 
 .card-product-desc {
@@ -114,33 +114,34 @@ const normalizePath = (path) => {
 }
 
 .rating-price {
-  color: var(--dark-orange);
+  color: var(--text-color);
 }
 
 .count {
   background: none;
-  color: var(--dark-orange);
-  border-color: var(--dark-orange);
+  color: var(--text-color);
+  border-color: var(--text-color);
 }
 
 .clear-all-btn {
   background: none;
-  color: var(--white);
+  color: var(--text-color);
+  border-color: var(--text-color);
 }
 
 .count-btns {
-  color: var(--black);
+  color: var(--text-color);
 }
 
 .add-to-my-card {
-  background-color: var(--orange);
-  color: var(--brown);
-  border: 2px solid var(--orange);
+  background-color: var(--text-color);
+  color: #fff;
+  border: 2px solid var(--text-color);
 }
 
 .add-to-my-card:hover {
-  background-color: var(--black);
-  color: var(--orange);
+  background-color: var(--main-color);
+  color: var(--text-color);
   transition: 0.5s;
 }
 

@@ -26,7 +26,7 @@
       <img src="@/assets/icons/arrow-bottom.svg" @click="prevSlide" class="arrow-bottom cursor-pointer" alt=""/>
     </div>
 
-    <div class="small-images w-24rem flex flex-wrap justify-content-between row-gap-4 mt-5 absolute cursor-pointer">
+    <div class="small-images w-24rem flex flex-wrap justify-content-between row-gap-3 mt-5 absolute cursor-pointer">
       <div v-for="(image, index) in smallImages" :key="'small-' + index">
         <img
             :src="image.src"
@@ -255,7 +255,7 @@ export default {
 
 .small-images {
   left: 14%;
-  top: 555px;
+  top: 500px;
 }
 
 .container {
@@ -290,7 +290,8 @@ export default {
   bottom: 15%;
   right: 10%;
   z-index: 1;
-  color: var(--dark-orange);
+  color: var(--text-color);
+  font-family: "Abril Fatface", cursive;
 }
 
 @keyframes text {
@@ -354,8 +355,8 @@ svg {
 }
 
 .st0 {
-  fill: #241F1C;
-  stroke: var(--dark-orange);
+  fill: var(--main-color);
+  stroke: var(--text-color);
   stroke-width: 1;
   stroke-miterlimit: 1;
 }
@@ -379,7 +380,7 @@ svg {
 .small-images img.active + hr {
   display: block;
   margin-top: 10px;
-  border-color: var(--dark-orange);
+  border-color: var(--text-color);
 }
 
 @media only screen and (max-width: 1600px) {
