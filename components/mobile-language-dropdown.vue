@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-column align-items-center relative">
+  <div class="flex flex-column align-items-center relative mt-3">
     <div @click="toggle" class="flex gap-1">
       <img
           width="24"
@@ -8,10 +8,10 @@
           :alt="`${currentLanguageName} Flag`"
           class="cursor-pointer"
       />
-      <p class="m-0 text-white">{{ currentLanguageName }}</p>
+      <p class="m-0">{{ currentLanguageName }}</p>
     </div>
 
-    <div v-if="menu" ref="menu" class="flex flex-column row-gap-2 ml-5 mt-5 bg-white p-2 border-round-xs absolute">
+    <div v-if="menu" ref="menu" class="flex flex-column row-gap-2 ml-6 mt-5 p-2 border-round-xs absolute">
       <div @click="selectLocale('en')" class="flex gap-1">
         <img
             width="24"
@@ -20,8 +20,9 @@
             alt="UK Flag"
             class="cursor-pointer"
         />
-        <p class="m-0 text-black-alpha-90">English</p>
+        <p class="language-text m-0">English</p>
       </div>
+
       <div @click="selectLocale('am')" class="flex gap-1">
         <img
             width="24"
@@ -30,7 +31,7 @@
             alt="Armenia Flag"
             class="cursor-pointer"
         />
-        <p class="m-0 text-black-alpha-90">Armenian</p>
+        <p class="m-0">Armenian</p>
       </div>
     </div>
   </div>
@@ -61,4 +62,8 @@ const currentFlag = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.language-text {
+  color: var(--text-color);
+}
+</style>

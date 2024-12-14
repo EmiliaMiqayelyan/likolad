@@ -5,7 +5,7 @@
         <div
             class="flex justify-content-between md:align-items-center align-items-start md:flex-row flex-column-reverse row-gap-3 column-gap-6">
 
-          <p class="history_text text-lg md:mt-6 mt-3">
+          <p class="history_text text-lg">
             {{ $t('history.historyText1') }}
           </p>
 
@@ -15,10 +15,10 @@
         <div
             class="flex justify-content-between md:align-items-center align-items-start md:flex-row flex-column-reverse row-gap-3 column-gap-6 mt-6">
 
-          <img class="history_images" src="@/assets/history-img2.svg" alt=""/>
+          <img class="history_images md:mt-6 mt-3" src="@/assets/history-img2.svg" alt=""/>
 
           <div class="flex flex-column align-items-end">
-            <p class="history_text text-lg md:mt-6 mt-3 text-right">
+            <p class="history_text text-lg text-right">
               {{ $t('history.historyText2') }}
             </p>
           </div>
@@ -31,16 +31,16 @@
             {{ $t('history.historyText3') }}
           </p>
 
-          <img class="history_images" src="@/assets/history-img3.svg" alt=""/>
+          <img class="history_images md:mt-6 mt-3" src="@/assets/history-img3.svg" alt=""/>
         </div>
 
         <div
             class="flex justify-content-between md:align-items-center align-items-start md:flex-row flex-column-reverse row-gap-3 column-gap-6 mt-6">
 
-          <img class="history_images" src="@/assets/history-img4.svg" alt=""/>
+          <img class="history_images md:mt-6 mt-3" src="@/assets/history-img4.svg" alt=""/>
 
           <div class="flex flex-column align-items-end">
-            <p class="history_text text-lg md:mt-6 mt-3 text-right">
+            <p class="history_text text-lg text-right">
               {{ $t('history.historyText4') }}
             </p>
           </div>

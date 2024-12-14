@@ -20,9 +20,9 @@
           </p>
         </div>
 
-        <div class="small-img w-21rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
+        <div class="small-img w-full sm:w-21rem flex-wrap justify-content-between row-gap-4 mt-5 cursor-pointer">
           <div v-for="image in smallImg">
-            <img
+            <img class="w-4rem sm:w-5rem h-4rem sm:h-5rem"
                 :src="image.src"
                 alt=""
             />
@@ -52,13 +52,13 @@
               </p>
             </div>
             <div>
-              <img width="300" height="200" src="@/assets/discover-img1.jpg" alt=""/>
+              <img class="w-full sm:w-20rem h-20rem sm:h-12rem" style="object-fit: cover;" src="@/assets/discover-img1.jpg" alt=""/>
             </div>
           </div>
 
-          <div class="flex justify-content-between mt-9 lg:flex-row flex-column row-gap-3">
+          <div class="flex justify-content-between lg:flex-row flex-column row-gap-3 mt-4 sm:mt-7">
             <div class="lg:text-left text-right">
-              <img width="300" height="200" src="@/assets/discover-img2.jpg" alt=""/>
+              <img class="w-full sm:w-20rem h-20rem sm:h-12rem" style="object-fit: cover;" src="@/assets/discover-img2.jpg" alt=""/>
             </div>
             <div class="flex flex-column align-items-end">
               <span class="text-2xl">{{ $t('weAre.weAreHeading2') }}</span>
@@ -75,7 +75,7 @@
     <div class="about-us py-8 flex justify-content-center flex-column align-items-center">
       <span class="we-do-heading sm:text-5xl text-2xl font-medium">{{ $t('whatWeDo.whatWeDo') }}</span>
 
-      <div class="mt-8 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3">
+      <div class="mt-5 sm:mt-8 flex xl:justify-content-between w-full flex-wrap justify-content-center gap-3 row-gap-5">
         <div class="about-section flex flex-column w-full sm:w-auto align-items-center">
           <img height="280" class="about-img w-full sm:w-20rem border-round-sm" src="@/assets/about3.jpg" alt=""/>
           <h2 class="font-bold">{{ $t('whatWeDo.whatWeDoHeading1') }}</h2>
@@ -108,7 +108,7 @@
       <p class="collections-heading sm:text-5xl text-2xl font-medium line-height-1 text-center">
         {{ $t('collections.ourCollectionHeading') }}</p>
 
-      <div class="flex lg:justify-content-between justify-content-center w-full mt-6 flex-wrap lg:gap-0 gap-4">
+      <div class="flex lg:justify-content-between justify-content-center w-full mt-5 sm:mt-6 flex-wrap lg:gap-0 gap-4">
         <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections2.jpg" alt=""/>
         <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections3.jpg" alt=""/>
         <img class="sm:w-18rem h-17rem border-round-lg w-full" src="@/assets/collections1.jpg" alt=""/>

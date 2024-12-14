@@ -70,9 +70,9 @@
     <div class="block xl:hidden">
       <i class="pi pi-align-right text-xl menu-hamburger" @click="visibleRight = true"></i>
 
-      <Sidebar v-model:visible="visibleRight" position="right" :pt="{ content: { style: 'color: white; background-color:  #080403; border-left: 2px solid #DBA957' },
-      header: { style: 'color: white; background-color: #080403; border-left: 2px solid #DBA957; display: flex; justify-content: end' }, }">
-        <div class="nav-items flex gap-3 align-items-start flex-column mt-4 ml-3">
+      <Sidebar v-model:visible="visibleRight" position="right" :pt="{ content: { style: 'color: var(--text-color); background-color:  var(--main-color); border-left: 2px solid var(--text-color)' },
+      header: { style: 'var(--text-color): white; background-color: var(--main-color); border-left: 2px solid var(--text-color); display: flex; justify-content: end' }, }">
+        <div class="nav-items flex gap-2 align-items-start flex-column mt-4 ml-3">
           <NuxtLink @click="closeSidebar" to="/our-chocolates" class="no-underline" exact-active-class="active">Our Chocolates</NuxtLink>
           <NuxtLink @click="closeSidebar" to="/history" class="no-underline" exact-active-class="active">History</NuxtLink>
           <NuxtLink @click="closeSidebar" to="/my-card" class="no-underline" exact-active-class="active">My Card</NuxtLink>
@@ -126,6 +126,7 @@ const normalizePath = (path) => {
 }
 
 .nav-items a {
+  font-family: Heebo, sans-serif;
   color: var(--text-color);
   font-size: 20px;
 }
